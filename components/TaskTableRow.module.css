@@ -1,0 +1,27 @@
+.row + tr :global(.navds-table__expanded-row-collapse):not([style*='height: 0px;']) {
+    border-bottom-color: transparent;
+}
+
+.row + tr :global(.navds-table__expanded-row-collapse) {
+    transition: border-bottom-color 0.2s ease;
+}
+
+.row + tr :global(.navds-table__expanded-row-content) {
+    padding: 0;
+    background: var(--a-orange-50);
+}
+
+.row td {
+    white-space: nowrap;
+    padding-right: var(--a-spacing-10);
+}
+
+.row td:nth-last-of-type(1) {
+    width: 100%;
+}
+
+.row td:last-of-type {
+    text-align: right;
+    text-align: -webkit-right;
+    padding-right: var(--a-spacing-2);
+}

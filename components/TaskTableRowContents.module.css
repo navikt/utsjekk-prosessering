@@ -1,0 +1,17 @@
+.table {
+    /*--ac-table-row-hover: var(--a-surface-action-subtle-hover);*/
+    table-layout: auto;
+}
+
+.table tr:last-of-type td {
+    border-bottom: none;
+}
+
+.row td {
+    white-space: nowrap;
+    padding-right: var(--a-spacing-10);
+}
+
+.row td:last-of-type {
+    width: 100%;
+}

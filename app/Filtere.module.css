@@ -1,0 +1,84 @@
+.container {
+  position: relative;
+  grid-area: filters;
+  min-height: var(--padding-top);
+  display: grid;
+  gap: var(--a-spacing-3);
+  grid-template-rows: min-content 0fr;
+  /*transition: all 0.2s ease-in-out;*/
+  margin-bottom: var(--a-spacing-6);
+}
+
+.container:has(.filters.visible) {
+  grid-template-rows: min-content 1fr;
+}
+
+@media (max-width: 479px) {
+  .container {
+    padding-left: var(--a-spacing-3);
+    padding-right: var(--a-spacing-3);
+  }
+}
+
+.filters {
+  display: flex;
+  gap: var(--a-spacing-8);
+}
+
+.filters.visible {
+  visibility: visible;
+}
+
+.filters.hidden {
+  visibility: hidden;
+  overflow: hidden;
+}
+
+.filters > * {
+  min-height: 80px;
+}
+
+.filtereButton {
+  position: relative;
+  width: max-content;
+  align-items: center;
+}
+
+.antallFiltere {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  width: var(--a-spacing-6);
+  height: var(--a-spacing-6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--a-surface-action);
+  border-radius: 50%;
+  color: var(--a-text-on-inverted);
+  font-size: var(--a-font-size-medium);
+}
+
+.buttonRow {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (max-width: 479px) {
+  .filtereButton {
+    right: var(--a-spacing-3);
+  }
+}
+
+.filter {
+  flex: unset;
+  width: 100%;
+}
+
+@media screen and (max-width: 767px) {
+  .filters {
+    flex-direction: column;
+    gap: var(--a-spacing-4);
+  }
+}

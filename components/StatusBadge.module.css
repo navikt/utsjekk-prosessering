@@ -1,0 +1,25 @@
+.StatusBadge {
+  --background: var(--a-bg-subtle);
+  --color: var(--a-text-default);
+  --border-color: var(--a-border-default);
+  background: var(--background);
+  width: max-content;
+  padding: var(--a-spacing-1) var(--a-spacing-2);
+  border-radius: var(--a-border-radius-medium);
+  border: 1px solid var(--border-color);
+}
+
+.StatusBadge.FEILET {
+  --background: var(--a-surface-danger-subtle);
+  --border-color: var(--a-border-danger);
+}
+
+.StatusBadge.FERDIG {
+  --background: var(--a-surface-success-subtle);
+  --border-color: var(--a-border-success);
+}
+
+.StatusBadge.MANUELL_OPPFØLGING {
+  --background: var(--a-surface-warning-subtle);
+  --border-color: var(--a-border-warning);
+}
