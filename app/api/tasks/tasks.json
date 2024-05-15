@@ -24,7 +24,7 @@
         "taskStepType": "sjekkStatusPåOppdrag",
         "metadata": {
             "callId": "d8c6d533-34a9-40bd-be48-705b45a723f0",
-            "behandlingId": "\"10\"",
+            "behandlingId": "\"10\""
         },
         "payload": "{\"fagsystem\":\"TILLEGGSSTØNADER\",\"sakId\":\"10\",\"behandlingId\":\"10\",\"iverksettingId\":\"a73f0a65-0a92-4840-b1af-f7d229057efa\"}",
         "antallLogger": 4,
@@ -41,7 +41,7 @@
         "taskStepType": "utførIverksettingAvUtbetaling",
         "metadata": {
             "callId": "d8c6d533-34a9-40bd-be48-705b45a723f0",
-            "behandlingId": "\"10\"",
+            "behandlingId": "\"10\""
         },
         "payload": "{\"fagsystem\":\"TILLEGGSSTØNADER\",\"sakId\":\"10\",\"behandlingId\":\"10\",\"iverksettingId\":\"a73f0a65-0a92-4840-b1af-f7d229057efa\"}",
         "antallLogger": 4,

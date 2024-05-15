@@ -36,6 +36,8 @@ spec:
       value: https://utsjekk-prosessering-test.dev.nav.no
     - name: NEXT_PUBLIC_ENVIRONMENT
       value: dev-gcp
+    - name: UTSJEKK_SCOPE
+      value: api://dev-gcp.helved.utsjekk/.default
   liveness:
     path: /internal/is-alive
     initialDelay: 10

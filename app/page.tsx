@@ -9,6 +9,7 @@ import { TaskTableRow } from '@/components/TaskTableRow'
 import { ClientPagination } from '@/components/ClientPagination'
 import { UrlSearchParamInput } from '@/components/UrlSearchParamInput'
 import { Filtere } from '@/app/Filtere'
+import { checkToken } from '@/lib/auth/token'
 
 import styles from './page.module.css'
 
@@ -62,6 +63,7 @@ type Props = {
 }
 
 export default async function Home({ searchParams }: Props) {
+    await checkToken()
     const { tasks, pages, currentPage, totaltAntallTasks } =
         await hentTasks(searchParams)
 
