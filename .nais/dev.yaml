@@ -1,51 +1,49 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-    name: utsjekk-prosessering-test
-    namespace: helved
-    labels:
-        team: helved
+  name: utsjekk-prosessering-test
+  namespace: helved
+  labels:
+    team: helved
 spec:
-    image: {{ image }}
-    port: 3000
-    resources:
-        limits:
-            cpu: 100m
-        requests:
-            cpu: 100m
-    ingresses:
-        - 'https://utsjekk-prosessering-test.intern.dev.nav.no'
-    azure:
-        application:
-            enabled: true
-            tenant: nav.no
-            allowAllUsers: false
-            claims:
-                groups:
-                    - id: 'a2950e8a-9279-4fc7-94a8-730074d5b731' # helved-utsjekk-prosessering
-        sidecar:
-            enabled: true
-    accessPolicy:
-        outbound:
-            rules:
-                - application: utsjekk
-    envFrom:
-        - secret: utsjekk-prosessering-test
-    env:
-        - name: NEXT_PUBLIC_HOSTNAME
-          value: https://utsjekk-prosessering-test.dev.nav.no
-        - name: NEXT_PUBLIC_ENVIRONMENT
-          value: dev-gcp
-        - name: UTSJEKK_SCOPE
-          value: api://dev-gcp.helved.utsjekk/.default
-    liveness:
-        path: /internal/is-alive
-        initialDelay: 10
-        timeout: 5
-        periodSeconds: 5
-        failureThreshold: 30
-    readiness:
-        path: /internal/is-ready
-        initialDelay: 10
-        periodSeconds: 5
-        timeout: 5
+  image: {{ image }}
+  port: 3000
+  resources:
+    limits:
+      cpu: 100m
+    requests:
+      cpu: 100m
+  ingresses:
+    - 'https://utsjekk-prosessering-test.intern.dev.nav.no'
+  azure:
+    application:
+      enabled: true
+      tenant: nav.no
+      allowAllUsers: false
+      claims:
+        groups:
+          - id: 'a2950e8a-9279-4fc7-94a8-730074d5b731' # helved-utsjekk-prosessering
+    sidecar:
+      enabled: true
+  accessPolicy:
+    outbound:
+      rules:
+        - application: utsjekk
+  env:
+    - name: NEXT_PUBLIC_HOSTNAME
+      value: https://utsjekk-prosessering-test.dev.nav.no
+    - name: NEXT_PUBLIC_ENVIRONMENT
+      value: dev-gcp
+    - name: UTSJEKK_SCOPE
+      value: api://dev-gcp.helved.utsjekk/.default
+  liveness:
+    path: /internal/is-alive
+    initialDelay: 10
+    timeout: 5
+    periodSeconds: 5
+    failureThreshold: 30
+  readiness:
+    path: /internal/is-ready
+    initialDelay: 10
+    periodSeconds: 5
+    timeout: 5
