@@ -21,8 +21,6 @@ spec:
   azure:
     application:
       enabled: true
-      tenant: nav.no
-      allowAllUsers: false
       claims:
         groups:
           - id: 'a2950e8a-9279-4fc7-94a8-730074d5b731' # helved-utsjekk-prosessering
