@@ -13,19 +13,19 @@ export async function getLocalToken(): Promise<string | null> {
         return cachedToken
     }
 
+    const requestBody = new URLSearchParams({
+        grant_type: 'client_credentials',
+        client_id: clientId,
+        client_secret: clientSecret,
+        scope: scope,
+    })
+
     const response = await fetch(`${tokenEndpoint}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: Object.entries({
-            grant_type: 'client_credentials',
-            client_id: clientId,
-            client_secret: clientSecret,
-            scope: scope,
-        })
-            .map(([key, value]) => `${key}=${value}`)
-            .join('&'),
+        body: requestBody,
     })
 
     const body = await response.json()
