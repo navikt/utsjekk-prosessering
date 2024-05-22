@@ -9,7 +9,7 @@ import { TaskTableRow } from '@/components/TaskTableRow'
 import { ClientPagination } from '@/components/ClientPagination'
 import { UrlSearchParamInput } from '@/components/UrlSearchParamInput'
 import { Filtere } from '@/app/Filtere'
-import { checkToken } from '@/lib/auth/token'
+import { checkToken, getApiToken } from '@/lib/auth/token'
 
 import styles from './page.module.css'
 
@@ -41,7 +41,9 @@ async function hentTasks(searchParams: SearchParams): Promise<TasksResponse> {
     const response = await fetch(
         `${process.env.NEXT_PUBLIC_HOSTNAME}/api/tasks${queryString}`,
         {
-            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${await getApiToken()}`,
+            },
         }
     )
 

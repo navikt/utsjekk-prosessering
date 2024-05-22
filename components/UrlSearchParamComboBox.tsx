@@ -21,7 +21,7 @@ function formatForSearchParam(value: string): string {
         return value
     }
 
-    return value.toLowerCase().replaceAll(' ', '_')
+    return value.toUpperCase().replaceAll(' ', '_')
 }
 
 type Props<T extends string> = Omit<ComboboxProps, 'options'> & {

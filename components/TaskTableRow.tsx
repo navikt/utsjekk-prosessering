@@ -9,27 +9,7 @@ import { UrlSearchParamLink } from '@/components/UrlSearchParamLink'
 import { TaskTableRowContents } from '@/components/TaskTableRowContents'
 
 import styles from './TaskTableRow.module.css'
-
-async function getLogs(taskId: number) {
-    const response = await fetch(
-        `${process.env.NEXT_PUBLIC_HOSTNAME}/api/tasks/${taskId}/logs`,
-        {
-            method: 'GET',
-        }
-    )
-
-    if (response.ok) {
-        return response.json()
-    } else {
-        console.error(
-            'Klarte ikke hente logger:',
-            response.status,
-            response.statusText,
-            await response.json()
-        )
-        return []
-    }
-}
+import { getLogs } from '@/lib/api/logs'
 
 async function rekjør(taskId: number) {
     return fetch(`/api/tasks/${taskId}`, {
@@ -54,7 +34,7 @@ export function TaskTableRow({ task }: Props) {
     useEffect(() => {
         if (open && !didOpen.current) {
             didOpen.current = true
-            getLogs(task.id).then((logs) => setLogs(logs))
+            getLogs(task.id).then(({ logs }) => setLogs(logs))
         }
     }, [open, task, didOpen])
 
@@ -86,17 +66,17 @@ export function TaskTableRow({ task }: Props) {
             <TableDataCell>
                 <UrlSearchParamLink
                     searchParamName="type"
-                    searchParamValue={task.taskStepType}
+                    searchParamValue={task.type}
                 >
-                    {task.taskStepType}
+                    {task.type}
                 </UrlSearchParamLink>
             </TableDataCell>
             <TableDataCell>
                 <UrlSearchParamLink
                     searchParamName="callId"
-                    searchParamValue={task.callId}
+                    searchParamValue={task.metadata.callId}
                 >
-                    {task.callId}
+                    {task.metadata.callId}
                 </UrlSearchParamLink>
             </TableDataCell>
             <TableDataCell>

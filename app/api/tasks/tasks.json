@@ -12,8 +12,7 @@
         "payload": "{\"fraDato\":\"2024-05-08\",\"fagsystem\":\"TILLEGGSSTØNADER\"}",
         "antallLogger": 1,
         "sistKjørt": "2024-05-08T08:00:12.103",
-        "kommentar": null,
-        "callId": "558bd74592c24ef6a8bd84f830f42ced"
+        "kommentar": null
     },
     {
         "id": 10,
@@ -23,14 +22,12 @@
         "triggerTid": "2024-05-07T09:54:56.496",
         "taskStepType": "sjekkStatusPåOppdrag",
         "metadata": {
-            "callId": "d8c6d533-34a9-40bd-be48-705b45a723f0",
-            "behandlingId": "\"10\""
+            "callId": "d8c6d533-34a9-40bd-be48-705b45a723f0"
         },
         "payload": "{\"fagsystem\":\"TILLEGGSSTØNADER\",\"sakId\":\"10\",\"behandlingId\":\"10\",\"iverksettingId\":\"a73f0a65-0a92-4840-b1af-f7d229057efa\"}",
         "antallLogger": 4,
         "sistKjørt": "2024-05-07T09:54:56.755",
-        "kommentar": null,
-        "callId": "d8c6d533-34a9-40bd-be48-705b45a723f0"
+        "kommentar": null
     },
     {
         "id": 9,
@@ -40,14 +37,12 @@
         "triggerTid": "2024-05-07T09:54:32.739",
         "taskStepType": "utførIverksettingAvUtbetaling",
         "metadata": {
-            "callId": "d8c6d533-34a9-40bd-be48-705b45a723f0",
-            "behandlingId": "\"10\""
+            "callId": "d8c6d533-34a9-40bd-be48-705b45a723f0"
         },
         "payload": "{\"fagsystem\":\"TILLEGGSSTØNADER\",\"sakId\":\"10\",\"behandlingId\":\"10\",\"iverksettingId\":\"a73f0a65-0a92-4840-b1af-f7d229057efa\"}",
         "antallLogger": 4,
         "sistKjørt": "2024-05-07T09:54:36.504",
-        "kommentar": null,
-        "callId": "d8c6d533-34a9-40bd-be48-705b45a723f0"
+        "kommentar": null
     },
     {
         "id": 8,
@@ -62,8 +57,7 @@
         "payload": "{\"fraDato\":\"2024-05-07\",\"fagsystem\":\"TILLEGGSSTØNADER\"}",
         "antallLogger": 1,
         "sistKjørt": "2024-05-07T08:00:10.297",
-        "kommentar": null,
-        "callId": "558bd74592c24ef6a8bd84f830f42ced"
+        "kommentar": null
     },
     {
         "id": 7,
@@ -78,8 +72,7 @@
         "payload": "{\"fraDato\":\"2024-05-06\",\"fagsystem\":\"TILLEGGSSTØNADER\"}",
         "antallLogger": 4,
         "sistKjørt": "2024-05-07T08:00:10.301",
-        "kommentar": null,
-        "callId": "558bd74592c24ef6a8bd84f830f42ced"
+        "kommentar": null
     },
     {
         "id": 6,
@@ -94,8 +87,7 @@
         "payload": "{\"fraDato\":\"2024-05-03\",\"fagsystem\":\"TILLEGGSSTØNADER\"}",
         "antallLogger": 4,
         "sistKjørt": "2024-05-06T08:00:09.252",
-        "kommentar": null,
-        "callId": "558bd74592c24ef6a8bd84f830f42ced"
+        "kommentar": null
     },
     {
         "id": 5,
@@ -110,8 +102,7 @@
         "payload": "{\"fraDato\":\"2024-05-02\",\"fagsystem\":\"TILLEGGSSTØNADER\"}",
         "antallLogger": 4,
         "sistKjørt": "2024-05-03T08:00:07.102",
-        "kommentar": null,
-        "callId": "558bd74592c24ef6a8bd84f830f42ced"
+        "kommentar": null
     },
     {
         "id": 4,
@@ -126,8 +117,7 @@
         "payload": "{\"fraDato\":\"2024-04-30\",\"fagsystem\":\"TILLEGGSSTØNADER\"}",
         "antallLogger": 4,
         "sistKjørt": "2024-05-02T08:00:09.428",
-        "kommentar": null,
-        "callId": "558bd74592c24ef6a8bd84f830f42ced"
+        "kommentar": null
     },
     {
         "id": 3,
@@ -142,8 +132,7 @@
         "payload": "{\"fraDato\":\"2024-04-29\",\"fagsystem\":\"TILLEGGSSTØNADER\"}",
         "antallLogger": 4,
         "sistKjørt": "2024-04-30T08:00:03.119",
-        "kommentar": null,
-        "callId": "558bd74592c24ef6a8bd84f830f42ced"
+        "kommentar": null
     },
     {
         "id": 2,
@@ -158,8 +147,7 @@
         "payload": "{\"fraDato\":\"2024-04-26\",\"fagsystem\":\"TILLEGGSSTØNADER\"}",
         "antallLogger": 4,
         "sistKjørt": "2024-04-29T08:00:11.403",
-        "kommentar": null,
-        "callId": "558bd74592c24ef6a8bd84f830f42ced"
+        "kommentar": null
     },
     {
         "id": 1,
@@ -174,7 +162,6 @@
         "payload": "{\"fraDato\":\"2024-04-21\",\"fagsystem\":\"TILLEGGSSTØNADER\"}",
         "antallLogger": 4,
         "sistKjørt": "2024-04-26T14:03:46.309",
-        "kommentar": null,
-        "callId": "558bd74592c24ef6a8bd84f830f42ced"
+        "kommentar": null
     }
 ]

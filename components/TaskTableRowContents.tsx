@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import { Table } from '@navikt/ds-react'
-import { StatusBadge } from '@/components/StatusBadge'
 import { TableBody, TableDataCell, TableRow } from '@navikt/ds-react/Table'
+import { StatusBadge } from '@/components/StatusBadge'
+import { TaskMelding } from '@/components/TaskMelding'
 
 import styles from './TaskTableRowContents.module.css'
 
@@ -35,7 +36,7 @@ export function TaskTableRowContents({ logs }: Props) {
                             </Link>
                         </TableDataCell>
                         <TableDataCell>
-                            {log.melding ?? 'Ingen melding'}
+                            <TaskMelding melding={log.melding} />
                         </TableDataCell>
                     </TableRow>
                 ))}

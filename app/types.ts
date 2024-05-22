@@ -12,14 +12,16 @@ declare type TaskStatus =
 
 declare type Task = {
     id: number
+    type: string
     status: TaskStatus
     opprettetTidspunkt: datetime
     triggerTid: datetime
-    taskStepType: string
     payload: string
     antallLogger: number
     sistKjørt: datetime
-    callId: string
+    metadata: {
+        callId: string
+    }
 }
 
 declare type TaskLog = {

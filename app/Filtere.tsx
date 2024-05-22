@@ -6,7 +6,7 @@ import { ReadonlyURLSearchParams, useSearchParams } from 'next/navigation'
 import { UrlSearchParamComboBox } from '@/components/UrlSearchParamComboBox'
 import { UrlSearchParamSearch } from '@/components/UrlSearchParamSearch'
 import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons'
-import { Button, Show } from '@navikt/ds-react'
+import { Button } from '@navikt/ds-react'
 
 import styles from './Filtere.module.css'
 
@@ -27,8 +27,6 @@ export function Filtere() {
     const searchParams = useSearchParams()
 
     const antallAktiveFiltere = getAntallAktiveFiltere(searchParams)
-
-    console.log(antallAktiveFiltere)
 
     return (
         <div className={styles.container}>
@@ -60,14 +58,14 @@ export function Filtere() {
                     label="Status"
                     searchParamName="status"
                     initialOptions={[
-                        'ubehandlet',
-                        'avvikshåndtert',
-                        'behandler',
-                        'feilet',
-                        'ferdig',
-                        'klar_til_plukk',
-                        'manuell_oppfølging',
-                        'plukket',
+                        'BEHANDLET',
+                        'AVVIKSHÅNDTERT',
+                        'BEHANDLER',
+                        'FEILET',
+                        'FERDIG',
+                        'KLAR_TIL_PLUKK',
+                        'MANUELL_OPPFØLGING',
+                        'PLUKKET',
                     ]}
                 />
                 <UrlSearchParamSearch
