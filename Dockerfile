@@ -2,8 +2,6 @@ FROM node:lts-alpine
 WORKDIR /app
 ENV PORT=3000 \
     NODE_ENV=production \
-    NEXT_PUBLIC_HOSTNAME=http://localhost:3000 \
-    NEXT_PUBLIC_ENVIRONMENT=prod-gcp
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
