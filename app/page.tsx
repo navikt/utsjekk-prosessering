@@ -49,7 +49,6 @@ async function hentTasks(searchParams: SearchParams): Promise<TasksResponse> {
 
     if (response.ok) {
         const body = await response.json()
-        console.log('RESPONSE', body)
         return { tasks: body, pages: 1, currentPage: 1, totaltAntallTasks: 0 }
     } else {
         console.error(
