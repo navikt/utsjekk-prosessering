@@ -11,6 +11,7 @@ type Props = {
 export function TaskHistoryView({ history }: Props) {
     return (
         <Table className={styles.table}>
+            <caption className={styles.tableTitle}>Historikk:</caption>
             <TableBody>
                 {history.map((log) => (
                     <TableRow className={styles.row} key={log.id}>
