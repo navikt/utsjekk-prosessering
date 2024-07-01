@@ -5,7 +5,7 @@ export async function GET(
     _: NextRequest,
     { params }: { params: { id: keyof typeof logs } }
 ) {
-    return new Response(JSON.stringify(logs[params.id] as TaskLog[]), {
+    return new Response(JSON.stringify(logs[params.id] as TaskHistory[]), {
         status: 200,
     })
 }

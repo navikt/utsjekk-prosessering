@@ -2,11 +2,11 @@
 
 import { getApiToken } from '@/lib/auth/token'
 
-export async function getLogs(taskId: number) {
+export async function getHistory(taskId: string): Promise<Array<TaskHistory>> {
     const apiToken = await getApiToken()
 
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_HOSTNAME}/api/tasks/${taskId}/logs`,
+        `${process.env.NEXT_PUBLIC_HOSTNAME}/api/tasks/${taskId}/history`,
         {
             headers: {
                 Authorization: `Bearer ${apiToken}`,

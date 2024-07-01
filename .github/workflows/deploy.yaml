@@ -5,7 +5,6 @@ on:
 
 jobs:
   build:
-    name: Build and push Docker container
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -13,15 +12,17 @@ jobs:
     outputs:
       image: ${{ steps.docker-build-push.outputs.image }}
     steps:
-      - uses: actions/checkout@v4
-        name: Checkout
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20.x
           registry-url: https://npm.pkg.github.com
           cache: 'npm'
 
-      - name: Cache dependencies
+      - name: Cache deps
         uses: actions/cache@v4
         env:
           cache-name: cache-node-modules
@@ -33,15 +34,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
 
-      - name: Install dependencies
+      - name: Install deps
         run: npm ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
-      - name: Build application
+      - name: Build app
         run: npm run build
 
-      - name: Push docker image to GAR
+      - name: Push image
         uses: nais/docker-build-push@v0
         id: docker-build-push
         with:
@@ -49,15 +50,17 @@ jobs:
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} # Provided as Organization Secret
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # Provided as Organization Variable
 
-  deploy:
-    name: Deploy to NAIS
+  deploy-dev:
     needs: build
     runs-on: ubuntu-latest
     permissions:
       id-token: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: nais/deploy/actions/deploy@v2
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy
+        uses: nais/deploy/actions/deploy@v2
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp

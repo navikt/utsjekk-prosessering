@@ -1,36 +1,31 @@
 type datetime = string
 
 declare type TaskStatus =
-    | 'UBEHANDLET'
-    | 'AVVIKSHÅNDTERT'
-    | 'BEHANDLER'
-    | 'FEILET'
-    | 'FERDIG'
-    | 'KLAR_TIL_PLUKK'
-    | 'MANUELL_OPPFØLGING'
-    | 'PLUKKET'
+    | 'UNPROCESSED'
+    | 'COMPLETE'
+    | 'FAIL'
+    | 'PROCESSING'
+    | 'MANUAL'
 
 declare type Task = {
-    id: number
-    type: string
-    status: TaskStatus
-    opprettetTidspunkt: datetime
-    triggerTid: datetime
+    id: string
     payload: string
-    antallLogger: number
-    sistKjørt: datetime
-    metadata: {
-        callId: string
-    }
+    status: TaskStatus
+    attempt: number
+    createdAt: datetime
+    updatedAt: datetime
+    scheduledFor: datetime
+    message: string
+    kind: string
 }
 
-declare type TaskLog = {
-    id: number
-    endretAv: string
-    type: TaskStatus
-    node: string
-    melding?: null | string
-    opprettetTidspunkt: datetime
+declare type TaskHistory = {
+    id: string
+    taskId: string
+    createdAt: datetime
+    triggeredAt: datetime
+    triggeredBy: string
+    status: TaskStatus
 }
 
 declare type SearchParams = { [key: string]: string | undefined }

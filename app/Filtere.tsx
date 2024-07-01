@@ -58,19 +58,16 @@ export function Filtere() {
                     label="Status"
                     searchParamName="status"
                     initialOptions={[
-                        'BEHANDLET',
-                        'AVVIKSHÅNDTERT',
-                        'BEHANDLER',
-                        'FEILET',
-                        'FERDIG',
-                        'KLAR_TIL_PLUKK',
-                        'MANUELL_OPPFØLGING',
-                        'PLUKKET',
+                        'UNPROCESSED',
+                        'COMPLETE',
+                        'FAIL',
+                        'PROCESSING',
+                        'MANUAL',
                     ]}
                 />
                 <UrlSearchParamSearch
                     className={styles.filter}
-                    searchParamName="type"
+                    searchParamName="kind"
                     label="Type"
                     variant="secondary"
                     hideLabel={false}

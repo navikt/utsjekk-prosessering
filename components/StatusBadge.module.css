@@ -9,17 +9,17 @@
   border: 1px solid var(--border-color);
 }
 
-.StatusBadge.FEILET {
+.StatusBadge.FAIL {
   --background: var(--a-surface-danger-subtle);
   --border-color: var(--a-border-danger);
 }
 
-.StatusBadge.FERDIG {
+.StatusBadge.COMPLETE {
   --background: var(--a-surface-success-subtle);
   --border-color: var(--a-border-success);
 }
 
-.StatusBadge.MANUELL_OPPFØLGING {
+.StatusBadge.MANUAL {
   --background: var(--a-surface-warning-subtle);
   --border-color: var(--a-border-warning);
 }

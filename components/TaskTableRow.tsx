@@ -5,13 +5,13 @@ import { useRouter } from 'next/navigation'
 import { Button } from '@navikt/ds-react'
 import { TableDataCell, TableExpandableRow } from '@navikt/ds-react/Table'
 import { StatusBadge } from '@/components/StatusBadge'
-import { UrlSearchParamLink } from '@/components/UrlSearchParamLink'
-import { TaskTableRowContents } from '@/components/TaskTableRowContents'
+import { TaskHistoryView } from '@/components/TaskHistoryView'
 
 import styles from './TaskTableRow.module.css'
-import { getLogs } from '@/lib/api/logs'
+import { UrlSearchParamLink } from '@/components/UrlSearchParamLink'
+import { getHistory } from '@/lib/api/history'
 
-async function rekjør(taskId: number) {
+async function rekjør(taskId: string) {
     return fetch(`/api/tasks/${taskId}`, {
         method: 'PUT',
     })
@@ -25,7 +25,7 @@ export function TaskTableRow({ task }: Props) {
     const router = useRouter()
     const didOpen = useRef(false)
     const [open, setOpen] = useState(false)
-    const [logs, setLogs] = useState([])
+    const [history, setHistory] = useState<Array<TaskHistory>>([])
 
     const onOpenChange = (open: boolean) => {
         setOpen(open)
@@ -34,11 +34,13 @@ export function TaskTableRow({ task }: Props) {
     useEffect(() => {
         if (open && !didOpen.current) {
             didOpen.current = true
-            getLogs(task.id).then(({ logs }) => setLogs(logs))
+            getHistory(task.id).then((history) => {
+                setHistory(history)
+            })
         }
     }, [open, task, didOpen])
 
-    const onRekjørTask = async (taskId: number) => {
+    const onRekjørTask = async (taskId: string) => {
         const response = await rekjør(taskId)
 
         if (response.ok) {
@@ -50,11 +52,11 @@ export function TaskTableRow({ task }: Props) {
         <TableExpandableRow
             className={styles.row}
             expandOnRowClick
-            open={open && logs.length > 0}
+            open={open && history.length > 0}
             onOpenChange={onOpenChange}
             content={
                 <>
-                    <TaskTableRowContents logs={logs} />
+                    <TaskHistoryView history={history} />
                 </>
             }
             togglePlacement="right"
@@ -65,24 +67,16 @@ export function TaskTableRow({ task }: Props) {
             <TableDataCell>{task.id}</TableDataCell>
             <TableDataCell>
                 <UrlSearchParamLink
-                    searchParamName="type"
-                    searchParamValue={task.type}
+                    searchParamName="kind"
+                    searchParamValue={task.kind}
                 >
-                    {task.type}
+                    {task.kind}
                 </UrlSearchParamLink>
             </TableDataCell>
             <TableDataCell>
-                <UrlSearchParamLink
-                    searchParamName="callId"
-                    searchParamValue={task.metadata.callId}
-                >
-                    {task.metadata.callId}
-                </UrlSearchParamLink>
+                {new Date(task.updatedAt).toLocaleString('no-NB')}
             </TableDataCell>
-            <TableDataCell>
-                {new Date(task.sistKjørt).toLocaleString('no-NB')}
-            </TableDataCell>
-            <TableDataCell>{task.antallLogger}</TableDataCell>
+            <TableDataCell>{task.attempt}</TableDataCell>
             <TableDataCell>
                 <Button
                     variant="secondary"

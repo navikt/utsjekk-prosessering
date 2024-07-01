@@ -48,7 +48,9 @@ async function hentTasks(searchParams: SearchParams): Promise<TasksResponse> {
     )
 
     if (response.ok) {
-        return response.json()
+        const body = await response.json()
+        console.log('RESPONSE', body)
+        return { tasks: body, pages: 1, currentPage: 1, totaltAntallTasks: 0 }
     } else {
         console.error(
             'Klarte ikke hente tasks:',
@@ -80,17 +82,23 @@ export default async function Home({ searchParams }: Props) {
                                 <TableHeaderCell>Status</TableHeaderCell>
                                 <TableHeaderCell>ID</TableHeaderCell>
                                 <TableHeaderCell>Type</TableHeaderCell>
-                                <TableHeaderCell>Call-ID</TableHeaderCell>
                                 <TableHeaderCell>Sist kjørt</TableHeaderCell>
-                                <TableHeaderCell>Hendelser</TableHeaderCell>
+                                <TableHeaderCell>Forsøk</TableHeaderCell>
                                 <TableHeaderCell />
                                 <TableHeaderCell />
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {tasks.map((task) => (
-                                <TaskTableRow key={task.id} task={task} />
-                            ))}
+                            {tasks
+                                .slice(0)
+                                .sort(
+                                    (a, b) =>
+                                        new Date(b.updatedAt).getTime() -
+                                        new Date(a.updatedAt).getTime()
+                                )
+                                .map((task) => (
+                                    <TaskTableRow key={task.id} task={task} />
+                                ))}
                         </TableBody>
                     </Table>
                 </div>

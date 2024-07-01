@@ -5,22 +5,16 @@ import React from 'react'
 
 function renderStatus(status: TaskStatus): string {
     switch (status) {
-        case 'UBEHANDLET':
+        case 'UNPROCESSED':
             return 'Ubehandlet'
-        case 'AVVIKSHÅNDTERT':
-            return 'Avvikshåndtert'
-        case 'BEHANDLER':
-            return 'Behandler'
-        case 'FEILET':
-            return 'Feilet'
-        case 'FERDIG':
+        case 'COMPLETE':
             return 'Ferdig'
-        case 'KLAR_TIL_PLUKK':
-            return 'Klar til plukk'
-        case 'MANUELL_OPPFØLGING':
-            return 'Manuell oppfølging'
-        case 'PLUKKET':
+        case 'FAIL':
+            return 'Feilet'
+        case 'PROCESSING':
             return 'Plukket'
+        case 'MANUAL':
+            return 'Manuell oppfølging'
     }
 }
 
