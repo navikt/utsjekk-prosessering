@@ -7,6 +7,8 @@ declare type TaskStatus =
     | 'PROCESSING'
     | 'MANUAL'
 
+declare type TaskKind = 'Avstemming' | 'Iverksetting' | 'IverksettingStatus'
+
 declare type Task = {
     id: string
     payload: string
@@ -15,8 +17,8 @@ declare type Task = {
     createdAt: datetime
     updatedAt: datetime
     scheduledFor: datetime
-    message: string
-    kind: string
+    message?: string
+    kind: TaskKind
 }
 
 declare type TaskHistory = {

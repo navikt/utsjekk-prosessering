@@ -1,167 +1,112 @@
 [
     {
-        "id": 11,
-        "status": "UBEHANDLET",
-        "avvikstype": null,
-        "opprettetTidspunkt": "2024-05-08T08:00:12.097",
-        "triggerTid": "2024-05-10T08:00:00",
-        "taskStepType": "utførGrensesnittavstemming",
-        "metadata": {
-            "callId": "558bd74592c24ef6a8bd84f830f42ced"
-        },
+        "id": "11",
         "payload": "{\"fraDato\":\"2024-05-08\",\"fagsystem\":\"TILLEGGSSTØNADER\"}",
-        "antallLogger": 1,
-        "sistKjørt": "2024-05-08T08:00:12.103",
-        "kommentar": null
+        "status": "UNPROCESSED",
+        "attempt": 1,
+        "createdAt": "2024-05-08T08:00:12.097",
+        "updatedAt": "2024-05-08T08:00:12.097",
+        "scheduledFor": "2024-05-10T08:00:00",
+        "kind": "Avstemming"
     },
     {
-        "id": 10,
-        "status": "FERDIG",
-        "avvikstype": null,
-        "opprettetTidspunkt": "2024-05-07T09:54:36.496",
-        "triggerTid": "2024-05-07T09:54:56.496",
-        "taskStepType": "sjekkStatusPåOppdrag",
-        "metadata": {
-            "callId": "d8c6d533-34a9-40bd-be48-705b45a723f0"
-        },
+        "id": "10",
         "payload": "{\"fagsystem\":\"TILLEGGSSTØNADER\",\"sakId\":\"10\",\"behandlingId\":\"10\",\"iverksettingId\":\"a73f0a65-0a92-4840-b1af-f7d229057efa\"}",
-        "antallLogger": 4,
-        "sistKjørt": "2024-05-07T09:54:56.755",
-        "kommentar": null
+        "status": "COMPLETE",
+        "attempt":  1,
+        "createdAt": "2024-05-07T09:54:36.496",
+        "updatedAt": "2024-05-07T09:54:36.496",
+        "scheduledFor": "2024-05-07T09:54:56.496",
+        "kind":  "IverksettingStatus"
     },
     {
-        "id": 9,
-        "status": "FERDIG",
-        "avvikstype": null,
-        "opprettetTidspunkt": "2024-05-07T09:54:32.739",
-        "triggerTid": "2024-05-07T09:54:32.739",
-        "taskStepType": "utførIverksettingAvUtbetaling",
-        "metadata": {
-            "callId": "d8c6d533-34a9-40bd-be48-705b45a723f0"
-        },
+        "id": "9",
         "payload": "{\"fagsystem\":\"TILLEGGSSTØNADER\",\"sakId\":\"10\",\"behandlingId\":\"10\",\"iverksettingId\":\"a73f0a65-0a92-4840-b1af-f7d229057efa\"}",
-        "antallLogger": 4,
-        "sistKjørt": "2024-05-07T09:54:36.504",
-        "kommentar": null
+        "status": "COMPLETE",
+        "attempt":  1,
+        "createdAt": "2024-05-07T09:54:32.739",
+        "updatedAt": "2024-05-07T09:54:32.739",
+        "scheduledFor": "2024-05-07T09:54:32.739",
+        "kind":  "Iverksetting"
     },
     {
-        "id": 8,
-        "status": "UBEHANDLET",
-        "avvikstype": null,
-        "opprettetTidspunkt": "2024-05-07T08:00:10.293",
-        "triggerTid": "2024-05-08T08:00:00",
-        "taskStepType": "utførGrensesnittavstemming",
-        "metadata": {
-            "callId": "558bd74592c24ef6a8bd84f830f42ced"
-        },
+        "id": "8",
         "payload": "{\"fraDato\":\"2024-05-07\",\"fagsystem\":\"TILLEGGSSTØNADER\"}",
-        "antallLogger": 1,
-        "sistKjørt": "2024-05-07T08:00:10.297",
-        "kommentar": null
+        "status": "UNPROCESSED",
+        "attempt":  1,
+        "createdAt": "2024-05-07T08:00:10.293",
+        "updatedAt": "2024-05-07T08:00:10.293",
+        "scheduledFor": "2024-05-08T08:00:00",
+        "kind":  "Avstemming"
     },
     {
-        "id": 7,
-        "status": "FERDIG",
-        "avvikstype": null,
-        "opprettetTidspunkt": "2024-05-06T08:00:09.241",
-        "triggerTid": "2024-05-07T08:00:00",
-        "taskStepType": "utførGrensesnittavstemming",
-        "metadata": {
-            "callId": "558bd74592c24ef6a8bd84f830f42ced"
-        },
+        "id": "7",
         "payload": "{\"fraDato\":\"2024-05-06\",\"fagsystem\":\"TILLEGGSSTØNADER\"}",
-        "antallLogger": 4,
-        "sistKjørt": "2024-05-07T08:00:10.301",
-        "kommentar": null
+        "status": "COMPLETE",
+        "attempt":  1,
+        "createdAt": "2024-05-06T08:00:09.241",
+        "updatedAt": "2024-05-06T08:00:09.241",
+        "scheduledFor": "2024-05-07T08:00:00",
+        "kind":  "Avstemming"
     },
     {
-        "id": 6,
-        "status": "FERDIG",
-        "avvikstype": null,
-        "opprettetTidspunkt": "2024-05-03T08:00:07.093",
-        "triggerTid": "2024-05-06T08:00:00",
-        "taskStepType": "utførGrensesnittavstemming",
-        "metadata": {
-            "callId": "558bd74592c24ef6a8bd84f830f42ced"
-        },
+        "id": "6",
         "payload": "{\"fraDato\":\"2024-05-03\",\"fagsystem\":\"TILLEGGSSTØNADER\"}",
-        "antallLogger": 4,
-        "sistKjørt": "2024-05-06T08:00:09.252",
-        "kommentar": null
+        "status": "COMPLETE",
+        "attempt":  1,
+        "createdAt": "2024-05-03T08:00:07.093",
+        "updatedAt": "2024-05-03T08:00:07.093",
+        "scheduledFor": "2024-05-06T08:00:00",
+        "kind":  "Avstemming"
     },
     {
-        "id": 5,
-        "status": "FERDIG",
-        "avvikstype": null,
-        "opprettetTidspunkt": "2024-05-02T08:00:09.419",
-        "triggerTid": "2024-05-03T08:00:00",
-        "taskStepType": "utførGrensesnittavstemming",
-        "metadata": {
-            "callId": "558bd74592c24ef6a8bd84f830f42ced"
-        },
+        "id": "5",
         "payload": "{\"fraDato\":\"2024-05-02\",\"fagsystem\":\"TILLEGGSSTØNADER\"}",
-        "antallLogger": 4,
-        "sistKjørt": "2024-05-03T08:00:07.102",
-        "kommentar": null
+        "status": "COMPLETE",
+        "attempt":  1,
+        "createdAt": "2024-05-02T08:00:09.419",
+        "updatedAt": "2024-05-02T08:00:09.419",
+        "scheduledFor": "2024-05-03T08:00:00",
+        "kind":  "Avstemming"
     },
     {
-        "id": 4,
-        "status": "FERDIG",
-        "avvikstype": null,
-        "opprettetTidspunkt": "2024-04-30T08:00:03.109",
-        "triggerTid": "2024-05-02T08:00:00",
-        "taskStepType": "utførGrensesnittavstemming",
-        "metadata": {
-            "callId": "558bd74592c24ef6a8bd84f830f42ced"
-        },
+        "id": "4",
         "payload": "{\"fraDato\":\"2024-04-30\",\"fagsystem\":\"TILLEGGSSTØNADER\"}",
-        "antallLogger": 4,
-        "sistKjørt": "2024-05-02T08:00:09.428",
-        "kommentar": null
+        "status": "COMPLETE",
+        "attempt":  1,
+        "createdAt": "2024-04-30T08:00:03.109",
+        "updatedAt": "2024-04-30T08:00:03.109",
+        "scheduledFor": "2024-05-02T08:00:00",
+        "kind":  "Avstemming"
     },
     {
-        "id": 3,
-        "status": "FERDIG",
-        "avvikstype": null,
-        "opprettetTidspunkt": "2024-04-29T08:00:11.391",
-        "triggerTid": "2024-04-30T08:00:00",
-        "taskStepType": "utførGrensesnittavstemming",
-        "metadata": {
-            "callId": "558bd74592c24ef6a8bd84f830f42ced"
-        },
+        "id": "3",
         "payload": "{\"fraDato\":\"2024-04-29\",\"fagsystem\":\"TILLEGGSSTØNADER\"}",
-        "antallLogger": 4,
-        "sistKjørt": "2024-04-30T08:00:03.119",
-        "kommentar": null
+        "status": "COMPLETE",
+        "attempt":  1,
+        "createdAt": "2024-04-29T08:00:11.391",
+        "updatedAt": "2024-04-29T08:00:11.391",
+        "scheduledFor": "2024-04-30T08:00:00",
+        "kind":  "Avstemming"
     },
     {
-        "id": 2,
-        "status": "FERDIG",
-        "avvikstype": null,
-        "opprettetTidspunkt": "2024-04-26T14:03:46.3",
-        "triggerTid": "2024-04-29T08:00:00",
-        "taskStepType": "utførGrensesnittavstemming",
-        "metadata": {
-            "callId": "558bd74592c24ef6a8bd84f830f42ced"
-        },
+        "id": "2",
         "payload": "{\"fraDato\":\"2024-04-26\",\"fagsystem\":\"TILLEGGSSTØNADER\"}",
-        "antallLogger": 4,
-        "sistKjørt": "2024-04-29T08:00:11.403",
-        "kommentar": null
+        "status": "COMPLETE",
+        "attempt":  1,
+        "createdAt": "2024-04-26T14:03:46.3",
+        "updatedAt": "2024-04-26T14:03:46.3",
+        "scheduledFor": "2024-04-29T08:00:00",
+        "kind":  "Avstemming"
     },
     {
-        "id": 1,
-        "status": "FERDIG",
-        "avvikstype": null,
-        "opprettetTidspunkt": "2024-04-26T14:03:38.742",
-        "triggerTid": "2024-04-26T14:03:38.368",
-        "taskStepType": "utførGrensesnittavstemming",
-        "metadata": {
-            "callId": "558bd74592c24ef6a8bd84f830f42ced"
-        },
+        "id": "1",
         "payload": "{\"fraDato\":\"2024-04-21\",\"fagsystem\":\"TILLEGGSSTØNADER\"}",
-        "antallLogger": 4,
-        "sistKjørt": "2024-04-26T14:03:46.309",
-        "kommentar": null
+        "status": "COMPLETE",
+        "attempt":  1,
+        "createdAt": "2024-04-26T14:03:38.742",
+        "updatedAt": "2024-04-26T14:03:38.742",
+        "scheduledFor": "2024-04-26T14:03:38.368",
+        "kind":  "Avstemming"
     }
 ]
