@@ -6,8 +6,6 @@ import {
     TableRow,
 } from '@navikt/ds-react/Table'
 import { TaskTableRow } from '@/components/TaskTableRow'
-import { ClientPagination } from '@/components/ClientPagination'
-import { UrlSearchParamInput } from '@/components/UrlSearchParamInput'
 import { Filtere } from '@/app/Filtere'
 import { checkToken, getApiToken } from '@/lib/auth/token'
 
@@ -20,20 +18,11 @@ function getSearchParam(name: string, searchParams: SearchParams): string {
         : ''
 }
 
-type TasksResponse = {
-    tasks: Task[]
-    pages: number
-    currentPage: number
-    totaltAntallTasks: number
-}
-
-async function hentTasks(searchParams: SearchParams): Promise<TasksResponse> {
+async function hentTasks(searchParams: SearchParams): Promise<Task[]> {
     const query = [
         getSearchParam('status', searchParams),
-        getSearchParam('callId', searchParams),
-        getSearchParam('page', searchParams),
-        getSearchParam('type', searchParams),
-        getSearchParam('tasksPerPage', searchParams),
+        getSearchParam('kind', searchParams),
+        getSearchParam('after', searchParams),
     ]
 
     const queryString = query.length > 0 ? `?${query.join('&')}` : ''
@@ -48,8 +37,7 @@ async function hentTasks(searchParams: SearchParams): Promise<TasksResponse> {
     )
 
     if (response.ok) {
-        const body = await response.json()
-        return { tasks: body, pages: 1, currentPage: 1, totaltAntallTasks: 0 }
+        return await response.json()
     } else {
         console.error(
             'Klarte ikke hente tasks:',
@@ -57,7 +45,7 @@ async function hentTasks(searchParams: SearchParams): Promise<TasksResponse> {
             response.statusText,
             await response.json()
         )
-        return { tasks: [], pages: 1, currentPage: 1, totaltAntallTasks: 0 }
+        return []
     }
 }
 
@@ -67,8 +55,7 @@ type Props = {
 
 export default async function Home({ searchParams }: Props) {
     await checkToken()
-    const { tasks, pages, currentPage, totaltAntallTasks } =
-        await hentTasks(searchParams)
+    const tasks = await hentTasks(searchParams)
 
     return (
         <section className={styles.page}>
@@ -107,26 +94,6 @@ export default async function Home({ searchParams }: Props) {
                     Fant ingen tasks med gjeldende filtere
                 </Alert>
             )}
-            <div className={styles.footer}>
-                <ClientPagination
-                    className={styles.pagination}
-                    pages={pages}
-                    currentPage={currentPage}
-                />
-                <div className={styles.antallTasksContainer}>
-                    Viser{' '}
-                    <UrlSearchParamInput
-                        label=""
-                        defaultValue={tasks.length}
-                        searchParamName="tasksPerPage"
-                        size="small"
-                        inputMode="numeric"
-                        maxLength={3}
-                        className={styles.antallTasksInput}
-                    />
-                    av {totaltAntallTasks} tasks
-                </div>
-            </div>
         </section>
     )
 }
