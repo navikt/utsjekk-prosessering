@@ -16,10 +16,6 @@
     padding-right: var(--a-spacing-10);
 }
 
-.row td:nth-last-of-type(1) {
-    width: 100%;
-}
-
 .row td:last-of-type {
     text-align: right;
     text-align: -webkit-right;
