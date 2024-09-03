@@ -5,6 +5,7 @@
     display: grid;
     grid-template-areas: 'filters' 'table' 'footer';
     grid-template-rows: max-content auto max-content;
+    padding: 1rem;
 }
 
 .tableContainer {

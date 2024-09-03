@@ -64,7 +64,6 @@ export function TaskTableRow({ task }: Props) {
             <TableDataCell>
                 <StatusBadge status={task.status} />
             </TableDataCell>
-            <TableDataCell>{task.id}</TableDataCell>
             <TableDataCell>
                 <UrlSearchParamLink
                     searchParamName="kind"

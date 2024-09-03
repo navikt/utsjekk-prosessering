@@ -66,7 +66,6 @@ export default async function Home({ searchParams }: Props) {
                         <TableHeader>
                             <TableRow>
                                 <TableHeaderCell>Status</TableHeaderCell>
-                                <TableHeaderCell>ID</TableHeaderCell>
                                 <TableHeaderCell>Type</TableHeaderCell>
                                 <TableHeaderCell>Sist kjørt</TableHeaderCell>
                                 <TableHeaderCell>Forsøk</TableHeaderCell>
