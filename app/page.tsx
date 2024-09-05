@@ -1,6 +1,9 @@
 import { checkToken, getApiToken } from '@/lib/auth/token'
 import { Window } from '@/components/Window'
 import { Table } from '@/components/Table'
+import { TableHeaderCell } from '@/components/TableHeaderCell'
+import { TableDataCell } from '@/components/TableDataCell'
+import { TableBody } from '@/components/TableBody'
 
 function getSearchParam(name: string, searchParams: SearchParams): string {
     const statusFilter = searchParams[name]
@@ -54,18 +57,33 @@ export default async function Home({ searchParams }: Props) {
                 <Table>
                     <thead>
                         <tr>
-                            <th>A</th>
-                            <th>B</th>
-                            <th>C</th>
+                            <TableHeaderCell>Status</TableHeaderCell>
+                            <TableHeaderCell>Type</TableHeaderCell>
+                            <TableHeaderCell>Kjøretid</TableHeaderCell>
+                            <TableHeaderCell>Forsøk</TableHeaderCell>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                        </tr>
-                    </tbody>
+                    <TableBody>
+                        {tasks
+                            .slice(0)
+                            .sort(
+                                (a, b) =>
+                                    new Date(b.updatedAt).getTime() -
+                                    new Date(a.updatedAt).getTime()
+                            )
+                            .map((task) => (
+                                <tr key={task.id}>
+                                    <TableDataCell>{task.status}</TableDataCell>
+                                    <TableDataCell>{task.kind}</TableDataCell>
+                                    <TableDataCell>
+                                        {task.scheduledFor}
+                                    </TableDataCell>
+                                    <TableDataCell>
+                                        {task.attempt}
+                                    </TableDataCell>
+                                </tr>
+                            ))}
+                    </TableBody>
                 </Table>
             </Window>
             {/*<Filtere />*/}
@@ -83,24 +101,9 @@ export default async function Home({ searchParams }: Props) {
             {/*                </TableRow>*/}
             {/*            </TableHeader>*/}
             {/*            <TableBody>*/}
-            {/*                {tasks*/}
-            {/*                    .slice(0)*/}
-            {/*                    .sort(*/}
-            {/*                        (a, b) =>*/}
-            {/*                            new Date(b.updatedAt).getTime() -*/}
-            {/*                            new Date(a.updatedAt).getTime()*/}
-            {/*                    )*/}
-            {/*                    .map((task) => (*/}
-            {/*                        <TaskTableRow key={task.id} task={task} />*/}
-            {/*                    ))}*/}
             {/*            </TableBody>*/}
             {/*        </Table>*/}
             {/*    </div>*/}
-            {/*)}*/}
-            {/*{tasks.length === 0 && (*/}
-            {/*    <Alert className={styles.alert} variant="info">*/}
-            {/*        Fant ingen tasks med gjeldende filtere*/}
-            {/*    </Alert>*/}
             {/*)}*/}
         </>
     )
