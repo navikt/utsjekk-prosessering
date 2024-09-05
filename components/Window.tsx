@@ -6,6 +6,7 @@ import { Button } from '@/components/Button'
 import { CloseIcon } from '@/components/CloseIcon'
 
 import styles from './Window.module.css'
+import { useToggleProgram } from '@/lib/hooks/useToggleProgram'
 
 type Position = {
     x: number
@@ -90,18 +91,25 @@ const useDraggableWindow = (
 
 type Props = React.HTMLAttributes<HTMLElement> & {
     title: string
+    name: string
 }
 
 export const Window: React.FC<Props> = ({
     title,
     className,
     children,
+    name,
     ...rest
 }) => {
     const windowRef = useRef<HTMLElement>(null)
     const headerRef = useRef<HTMLDivElement>(null)
+    const toggleOpen = useToggleProgram(name)
 
     useDraggableWindow(windowRef, headerRef)
+
+    const closeWindow = () => {
+        toggleOpen(false)
+    }
 
     return (
         <article
@@ -111,7 +119,7 @@ export const Window: React.FC<Props> = ({
         >
             <div ref={headerRef} className={styles.header}>
                 <h2 className={styles.title}>{title}</h2>
-                <Button className={styles.closeButton}>
+                <Button className={styles.closeButton} onClick={closeWindow}>
                     <CloseIcon />
                 </Button>
             </div>

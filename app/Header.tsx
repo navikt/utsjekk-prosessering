@@ -1,7 +1,7 @@
 import React from 'react'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { StartMenuButton } from '@/components/StartMenuButton'
+import { StartMenuButton } from '@/app/StartMenuButton'
 
 import styles from './Header.module.css'
 
