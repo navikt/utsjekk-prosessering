@@ -1,15 +1,29 @@
 import React from 'react'
-import type { Metadata } from 'next'
-import { Source_Sans_3 } from 'next/font/google'
-import { Header } from '@/app/Header'
 import clsx from 'clsx'
+import type { Metadata } from 'next'
+import localFont from 'next/font/local'
+import { Header } from '@/app/Header'
+import { Desktop } from '@/components/Desktop'
 
 import styles from './layout.module.css'
 
 import './globals.css'
 import '@navikt/ds-css'
 
-const sourceSans = Source_Sans_3({ subsets: ['latin'] })
+const msFont = localFont({
+    src: [
+        {
+            path: '../public/fonts/ms_sans_serif.woff2',
+            weight: '400',
+            style: 'normal',
+        },
+        {
+            path: '../public/fonts/ms_sans_serif_bold.woff2',
+            weight: '700',
+            style: 'normal',
+        },
+    ],
+})
 
 export const metadata: Metadata = {
     title: 'Utsjekk-prosessering',
@@ -24,9 +38,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={clsx(sourceSans.className, styles.body)}>
+            <body className={clsx(msFont.className, styles.body)}>
                 <Header />
-                <main className={styles.main}>{children}</main>
+                <Desktop>{children}</Desktop>
             </body>
         </html>
     )

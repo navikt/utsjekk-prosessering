@@ -1,15 +1,6 @@
-import { Alert, Table } from '@navikt/ds-react'
-import {
-    TableBody,
-    TableHeader,
-    TableHeaderCell,
-    TableRow,
-} from '@navikt/ds-react/Table'
-import { TaskTableRow } from '@/components/TaskTableRow'
-import { Filtere } from '@/app/Filtere'
 import { checkToken, getApiToken } from '@/lib/auth/token'
-
-import styles from './page.module.css'
+import { Window } from '@/components/Window'
+import { Table } from '@/components/Table'
 
 function getSearchParam(name: string, searchParams: SearchParams): string {
     const statusFilter = searchParams[name]
@@ -58,41 +49,59 @@ export default async function Home({ searchParams }: Props) {
     const tasks = await hentTasks(searchParams)
 
     return (
-        <section className={styles.page}>
-            <Filtere />
-            {tasks.length > 0 && (
-                <div className={styles.tableContainer}>
-                    <Table className={styles.table}>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHeaderCell>Status</TableHeaderCell>
-                                <TableHeaderCell>Type</TableHeaderCell>
-                                <TableHeaderCell>Sist kjørt</TableHeaderCell>
-                                <TableHeaderCell>Forsøk</TableHeaderCell>
-                                <TableHeaderCell />
-                                <TableHeaderCell />
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {tasks
-                                .slice(0)
-                                .sort(
-                                    (a, b) =>
-                                        new Date(b.updatedAt).getTime() -
-                                        new Date(a.updatedAt).getTime()
-                                )
-                                .map((task) => (
-                                    <TaskTableRow key={task.id} task={task} />
-                                ))}
-                        </TableBody>
-                    </Table>
-                </div>
-            )}
-            {tasks.length === 0 && (
-                <Alert className={styles.alert} variant="info">
-                    Fant ingen tasks med gjeldende filtere
-                </Alert>
-            )}
-        </section>
+        <>
+            <Window title="Tasks">
+                <Table>
+                    <thead>
+                        <tr>
+                            <th>A</th>
+                            <th>B</th>
+                            <th>C</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                        </tr>
+                    </tbody>
+                </Table>
+            </Window>
+            {/*<Filtere />*/}
+            {/*{tasks.length > 0 && (*/}
+            {/*    <div className={styles.tableContainer}>*/}
+            {/*        <Table className={styles.table}>*/}
+            {/*            <TableHeader>*/}
+            {/*                <TableRow>*/}
+            {/*                    <TableHeaderCell>Status</TableHeaderCell>*/}
+            {/*                    <TableHeaderCell>Type</TableHeaderCell>*/}
+            {/*                    <TableHeaderCell>Sist kjørt</TableHeaderCell>*/}
+            {/*                    <TableHeaderCell>Forsøk</TableHeaderCell>*/}
+            {/*                    <TableHeaderCell />*/}
+            {/*                    <TableHeaderCell />*/}
+            {/*                </TableRow>*/}
+            {/*            </TableHeader>*/}
+            {/*            <TableBody>*/}
+            {/*                {tasks*/}
+            {/*                    .slice(0)*/}
+            {/*                    .sort(*/}
+            {/*                        (a, b) =>*/}
+            {/*                            new Date(b.updatedAt).getTime() -*/}
+            {/*                            new Date(a.updatedAt).getTime()*/}
+            {/*                    )*/}
+            {/*                    .map((task) => (*/}
+            {/*                        <TaskTableRow key={task.id} task={task} />*/}
+            {/*                    ))}*/}
+            {/*            </TableBody>*/}
+            {/*        </Table>*/}
+            {/*    </div>*/}
+            {/*)}*/}
+            {/*{tasks.length === 0 && (*/}
+            {/*    <Alert className={styles.alert} variant="info">*/}
+            {/*        Fant ingen tasks med gjeldende filtere*/}
+            {/*    </Alert>*/}
+            {/*)}*/}
+        </>
     )
 }
