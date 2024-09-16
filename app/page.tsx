@@ -20,28 +20,9 @@ export default async function Home({ searchParams }: Props) {
             {showProgram(searchParams, ProgramNames.Tasks) && (
                 <TasksProgram searchParams={searchParams} />
             )}
-            {/*{showProgram(searchParams, ProgramNames.Minesweeper) && (*/}
-            <MinesweeperProgram />
-            {/*)}*/}
-            {/*<Filtere />*/}
-            {/*{tasks.length > 0 && (*/}
-            {/*    <div className={styles.tableContainer}>*/}
-            {/*        <Table className={styles.table}>*/}
-            {/*            <TableHeader>*/}
-            {/*                <TableRow>*/}
-            {/*                    <TableHeaderCell>Status</TableHeaderCell>*/}
-            {/*                    <TableHeaderCell>Type</TableHeaderCell>*/}
-            {/*                    <TableHeaderCell>Sist kjørt</TableHeaderCell>*/}
-            {/*                    <TableHeaderCell>Forsøk</TableHeaderCell>*/}
-            {/*                    <TableHeaderCell />*/}
-            {/*                    <TableHeaderCell />*/}
-            {/*                </TableRow>*/}
-            {/*            </TableHeader>*/}
-            {/*            <TableBody>*/}
-            {/*            </TableBody>*/}
-            {/*        </Table>*/}
-            {/*    </div>*/}
-            {/*)}*/}
+            {showProgram(searchParams, ProgramNames.Minesweeper) && (
+                <MinesweeperProgram />
+            )}
         </>
     )
 }
