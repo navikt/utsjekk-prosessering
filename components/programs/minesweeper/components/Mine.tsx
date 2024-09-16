@@ -2,16 +2,21 @@ import Image from 'next/image'
 
 import mine from './mine.svg'
 
-type Props = Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'width' | 'height'>
+type Props = React.ImgHTMLAttributes<HTMLImageElement>
 
-export const Mine: React.FC<Props> = ({ className, ...props }) => {
+export const Mine: React.FC<Props> = ({
+    className,
+    width,
+    height,
+    ...props
+}) => {
     return (
         <Image
             className={className}
             src={mine.src}
             alt=""
-            width={30}
-            height={30}
+            width={+(width ?? 30)}
+            height={+(height ?? 30)}
             {...props}
         />
     )

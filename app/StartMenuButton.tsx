@@ -5,6 +5,7 @@ import { useCallback, useRef, useState } from 'react'
 import { Button } from '@/components/Button'
 import { MenuList } from '@/components/MenuList'
 import { ProgramNames } from '@/components/programs/names'
+import { MinesweeperIcon } from '@/components/programs/minesweeper'
 import { useOnClickOutside } from '@/lib/hooks/useOnClickOutside'
 import { useOnFocusOutside } from '@/lib/hooks/useOnFocusOutside'
 import { useToggleProgram } from '@/lib/hooks/useToggleProgram'
@@ -39,10 +40,11 @@ export const StartMenuButton = () => {
             onClick={onClick}
             ref={buttonRef}
         >
-            Start
+            🪵 Start
             {isOpen && (
                 <MenuList className={styles.menu}>
                     <li
+                        className={styles.menuItem}
                         onClick={closeAfterClick(() =>
                             toggleTasksProgram(true)
                         )}
@@ -50,10 +52,12 @@ export const StartMenuButton = () => {
                         Tasks
                     </li>
                     <li
+                        className={styles.menuItem}
                         onClick={closeAfterClick(() =>
                             toggleMinesweeperProgram(true)
                         )}
                     >
+                        <MinesweeperIcon />
                         Minesweeper
                     </li>
                 </MenuList>

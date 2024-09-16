@@ -1,7 +1,7 @@
 import { checkToken } from '@/lib/auth/token'
 import { TasksProgram } from '@/components/programs/tasks/TasksProgram'
 import { ProgramNames } from '@/components/programs/names'
-import { MinesweeperProgram } from '@/components/programs/minesweeper/MinesweeperProgram'
+import { MinesweeperProgram } from '@/components/programs/minesweeper'
 
 const showProgram = (searchParams: SearchParams, programName: string) => {
     const value = searchParams[programName]
