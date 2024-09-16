@@ -22,6 +22,7 @@ export const useToggleProgram = (name: string) => {
                     pathname + '?' + decodeURIComponent(params.toString())
                 )
             }
+            router.refresh()
         },
         [name, pathname, router, searchParams]
     )

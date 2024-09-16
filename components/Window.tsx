@@ -4,14 +4,16 @@ import clsx from 'clsx'
 import { useLayoutEffect, useRef } from 'react'
 import { Button } from '@/components/Button'
 import { CloseIcon } from '@/components/CloseIcon'
+import { useToggleProgram } from '@/lib/hooks/useToggleProgram'
 
 import styles from './Window.module.css'
-import { useToggleProgram } from '@/lib/hooks/useToggleProgram'
 
 type Position = {
     x: number
     y: number
 }
+
+let currentZIndex = 100
 
 const clamp = (val: number, min: number, max: number) => {
     return val < min ? min : val > max ? max : val
@@ -52,6 +54,8 @@ const useDraggableWindow = (
                     headerElement.contains(clicked)
                 if (didClickHeader) {
                     isPressed = true
+                    currentZIndex += 1
+                    windowElement.style.zIndex = `${currentZIndex}`
                 }
             }
 

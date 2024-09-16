@@ -17,6 +17,7 @@ export const StartMenuButton = () => {
     const closeMenu = useCallback(() => setIsOpen(false), [])
 
     const toggleTasksProgram = useToggleProgram(ProgramNames.Tasks)
+    const toggleMinesweeperProgram = useToggleProgram(ProgramNames.Minesweeper)
 
     useOnClickOutside(closeMenu, buttonRef, isOpen)
     useOnFocusOutside(closeMenu, buttonRef, isOpen)
@@ -47,6 +48,13 @@ export const StartMenuButton = () => {
                         )}
                     >
                         Tasks
+                    </li>
+                    <li
+                        onClick={closeAfterClick(() =>
+                            toggleMinesweeperProgram(true)
+                        )}
+                    >
+                        Minesweeper
                     </li>
                 </MenuList>
             )}

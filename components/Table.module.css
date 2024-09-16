@@ -1,6 +1,5 @@
 .container {
     position: relative;
-    box-sizing: border-box;
     padding: 2px;
     font-size: 1rem;
     border-style: solid;
