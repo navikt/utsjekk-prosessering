@@ -12,6 +12,7 @@
         "@navikt/ds-css": "^6.7.0",
         "@navikt/ds-react": "^6.7.0",
         "@navikt/ds-tokens": "^6.7.0",
+        "@navikt/aksel-icons": "^6.7.0",
         "@navikt/oasis": "^3.3.0",
         "clsx": "^2.1.1",
         "date-fns": "^3.6.0",

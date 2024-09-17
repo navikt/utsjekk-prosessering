@@ -3,10 +3,8 @@ import { TasksProgram } from '@/components/programs/tasks/TasksProgram'
 import { ProgramNames } from '@/components/programs/names'
 import { MinesweeperProgram } from '@/components/programs/minesweeper'
 
-const showProgram = (searchParams: SearchParams, programName: string) => {
-    const value = searchParams[programName]
-    return typeof value === 'string' && value === 'true'
-}
+const activePrograms = (searchParams: SearchParams): string[] =>
+    searchParams['programs']?.split(',') ?? []
 
 type Props = {
     searchParams: SearchParams
@@ -15,12 +13,14 @@ type Props = {
 export default async function Home({ searchParams }: Props) {
     await checkToken()
 
+    const programs = activePrograms(searchParams)
+
     return (
         <>
-            {showProgram(searchParams, ProgramNames.Tasks) && (
+            {programs.includes(ProgramNames.Tasks) && (
                 <TasksProgram searchParams={searchParams} />
             )}
-            {showProgram(searchParams, ProgramNames.Minesweeper) && (
+            {programs.includes(ProgramNames.Minesweeper) && (
                 <MinesweeperProgram />
             )}
         </>

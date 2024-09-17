@@ -1,10 +1,15 @@
+import { XMarkOctagonFillIcon } from '@navikt/aksel-icons'
+import { HStack, VStack } from '@navikt/ds-react'
 import { Table } from '@/components/Table'
 import { TableHeaderCell } from '@/components/TableHeaderCell'
 import { TableBody } from '@/components/TableBody'
 import { TableDataCell } from '@/components/TableDataCell'
-import { Window } from '@/components/Window'
+import { Window } from '@/components/window/Window'
 import { getApiToken } from '@/lib/auth/token'
 import { ProgramNames } from '@/components/programs/names'
+
+import styles from './TasksProgram.module.css'
+import { InsetWindowContent } from '@/components/window/InsetWindowContent'
 
 function getSearchParam(name: string, searchParams: SearchParams): string {
     const statusFilter = searchParams[name]
@@ -37,10 +42,9 @@ async function hentTasks(searchParams: SearchParams): Promise<Task[]> {
         console.error(
             'Klarte ikke hente tasks:',
             response.status,
-            response.statusText,
-            await response.json()
+            response.statusText
         )
-        return []
+        throw Error(`${response.status} ${response.statusText}`)
     }
 }
 
@@ -49,7 +53,26 @@ type Props = {
 }
 
 export const TasksProgram = async ({ searchParams }: Props) => {
-    const tasks = await hentTasks(searchParams)
+    const tasks = await hentTasks(searchParams).catch((error) => {
+        console.error(error)
+        return error
+    })
+
+    if (!Array.isArray(tasks)) {
+        return (
+            <Window title="Tasks" name={ProgramNames.Tasks}>
+                <VStack className={styles.error} gap="2">
+                    <HStack align="center" gap="2">
+                        <XMarkOctagonFillIcon />
+                        Følgende feil oppstod under henting av tasks:
+                    </HStack>
+                    <InsetWindowContent>
+                        <pre className={styles.errorContent}>{`${tasks}`}</pre>
+                    </InsetWindowContent>
+                </VStack>
+            </Window>
+        )
+    }
 
     return (
         <Window title="Tasks" name={ProgramNames.Tasks}>

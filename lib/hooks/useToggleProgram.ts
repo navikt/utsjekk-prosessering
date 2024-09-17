@@ -9,10 +9,17 @@ export const useToggleProgram = (name: string) => {
     return useCallback(
         (on: boolean) => {
             const params = new URLSearchParams(searchParams.toString())
+            let programs = params.get('programs')?.split(',') ?? []
             if (!on) {
-                params.delete(name)
+                programs = programs.filter((it) => it !== name)
+            } else if (!programs.includes(name)) {
+                programs = programs.concat(name)
+            }
+
+            if (programs.length === 0) {
+                params.delete('programs')
             } else {
-                params.set(name, 'true')
+                params.set('programs', programs.join(','))
             }
 
             if (params.size === 0) {

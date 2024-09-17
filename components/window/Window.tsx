@@ -1,9 +1,16 @@
 'use client'
 
 import clsx from 'clsx'
-import { useLayoutEffect, useRef } from 'react'
+import { RefObject, useEffect, useLayoutEffect, useRef } from 'react'
 import { Button } from '@/components/Button'
 import { CloseIcon } from '@/components/CloseIcon'
+import {
+    clamp,
+    maxTranslateX,
+    maxTranslateY,
+    minTranslateX,
+    minTranslateY,
+} from '@/components/window/util'
 import { useToggleProgram } from '@/lib/hooks/useToggleProgram'
 
 import styles from './Window.module.css'
@@ -14,24 +21,6 @@ type Position = {
 }
 
 let currentZIndex = 100
-
-const clamp = (val: number, min: number, max: number) => {
-    return val < min ? min : val > max ? max : val
-}
-
-const minTranslateX = (element: HTMLElement) => -element.offsetLeft
-
-const minTranslateY = (element: HTMLElement) => -element.offsetTop
-
-const maxTranslateX = (element: HTMLElement) =>
-    element.parentElement!.offsetWidth -
-    element.offsetWidth -
-    element.offsetLeft
-
-const maxTranslateY = (element: HTMLElement) =>
-    element.parentElement!.offsetHeight -
-    element.offsetHeight -
-    element.offsetTop
 
 const useDraggableWindow = (
     windowRef: React.RefObject<HTMLElement>,
@@ -76,7 +65,7 @@ const useDraggableWindow = (
                     windowElement.style.transform = `translate3D(${position.current.x}px, ${position.current.y}px, 0)`
                 }
             }
-            const mouseUpHandler = (event: MouseEvent) => {
+            const mouseUpHandler = () => {
                 isPressed = false
             }
 
@@ -91,6 +80,15 @@ const useDraggableWindow = (
             }
         }
     }, [windowRef, headerRef])
+}
+
+const usePutInFrontOnMount = (ref: RefObject<HTMLElement>) => {
+    useEffect(() => {
+        const windowElement = ref.current
+        if (windowElement) {
+            windowElement.style.zIndex = `${++currentZIndex}`
+        }
+    }, [ref])
 }
 
 type Props = React.HTMLAttributes<HTMLElement> & {
@@ -110,6 +108,8 @@ export const Window: React.FC<Props> = ({
     const toggleOpen = useToggleProgram(name)
 
     useDraggableWindow(windowRef, headerRef)
+
+    usePutInFrontOnMount(windowRef)
 
     const closeWindow = () => {
         toggleOpen(false)

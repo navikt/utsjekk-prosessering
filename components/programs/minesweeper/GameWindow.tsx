@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useEffect, useReducer } from 'react'
-import { Window } from '@/components/Window'
+import React, { useReducer } from 'react'
+import { Window } from '@/components/window/Window'
 import { GridView } from './components/GridView'
 import { Counter } from '@/components/programs/minesweeper/components/Counter'
 import { SmileyButton } from '@/components/programs/minesweeper/components/smileyButton/SmileyButton'
