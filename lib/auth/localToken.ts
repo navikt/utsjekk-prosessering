@@ -1,32 +1,13 @@
-import { validateToken } from '@navikt/oasis'
-import { requireEnv } from '@/lib/env'
-
 let cachedToken: string | null = null
 
 export async function getLocalToken(): Promise<string | null> {
-    const scope = requireEnv('UTSJEKK_SCOPE')
-    const clientId = requireEnv('AZURE_APP_CLIENT_ID')
-    const clientSecret = requireEnv('AZURE_APP_CLIENT_SECRET')
-    const tokenEndpoint = requireEnv('AZURE_OPENID_CONFIG_TOKEN_ENDPOINT')
-
-    if (cachedToken && (await validateToken(cachedToken))) {
+    if (cachedToken) {
         return cachedToken
     }
 
-    const requestBody = new URLSearchParams({
-        grant_type: 'client_credentials',
-        client_id: clientId,
-        client_secret: clientSecret,
-        scope: scope,
-    })
-
-    const response = await fetch(`${tokenEndpoint}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: requestBody,
-    })
+    const response = await fetch(
+        process.env.TOKEN_ENDPOINT ?? 'http://localhost:8080/token'
+    )
 
     const body = await response.json()
 
