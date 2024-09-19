@@ -1,0 +1,9 @@
+.row {
+    cursor: pointer;
+}
+
+.row:hover,
+.row.selected {
+    color: white;
+    background: var(--semantic-color-interaction-primary);
+}

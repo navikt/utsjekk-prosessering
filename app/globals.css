@@ -36,4 +36,7 @@ p, h1, h2, h3, h4, h5, h6 {
   --color-grey-800: rgb(73, 73, 73);
   --color-grey-900: rgb(32, 32, 32);
   --background-color: var(--color-grey-200);
+
+  --semantic-color-interaction-primary: rgb(6, 0, 132);
+  --semantic-color-interaction-disabled: rgb(127, 120, 127);
 }

@@ -1,15 +1,12 @@
 import { XMarkOctagonFillIcon } from '@navikt/aksel-icons'
 import { HStack, VStack } from '@navikt/ds-react'
-import { Table } from '@/components/Table'
-import { TableHeaderCell } from '@/components/TableHeaderCell'
-import { TableBody } from '@/components/TableBody'
-import { TableDataCell } from '@/components/TableDataCell'
-import { Window } from '@/components/window/Window'
 import { getApiToken } from '@/lib/auth/token'
+import { Window } from '@/components/window/Window'
+import { TaskTable } from '@/components/programs/tasks/TaskTable'
 import { ProgramNames } from '@/components/programs/names'
+import { InsetWindowContent } from '@/components/window/InsetWindowContent'
 
 import styles from './TasksProgram.module.css'
-import { InsetWindowContent } from '@/components/window/InsetWindowContent'
 
 function getSearchParam(name: string, searchParams: SearchParams): string {
     const statusFilter = searchParams[name]
@@ -28,12 +25,7 @@ async function hentTasks(searchParams: SearchParams): Promise<Task[]> {
     const queryString = query.length > 0 ? `?${query.join('&')}` : ''
 
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_HOSTNAME}/api/tasks${queryString}`,
-        {
-            headers: {
-                Authorization: `Bearer ${await getApiToken()}`,
-            },
-        }
+        `${process.env.NEXT_PUBLIC_HOSTNAME}/api/tasks${queryString}`
     )
 
     if (response.ok) {
@@ -75,36 +67,8 @@ export const TasksProgram = async ({ searchParams }: Props) => {
     }
 
     return (
-        <Window title="Tasks" name={ProgramNames.Tasks}>
-            <Table>
-                <thead>
-                    <tr>
-                        <TableHeaderCell>Status</TableHeaderCell>
-                        <TableHeaderCell>Type</TableHeaderCell>
-                        <TableHeaderCell>Kjøretid</TableHeaderCell>
-                        <TableHeaderCell>Forsøk</TableHeaderCell>
-                    </tr>
-                </thead>
-                <TableBody>
-                    {tasks
-                        .slice(0)
-                        .sort(
-                            (a, b) =>
-                                new Date(b.updatedAt).getTime() -
-                                new Date(a.updatedAt).getTime()
-                        )
-                        .map((task) => (
-                            <tr key={task.id}>
-                                <TableDataCell>{task.status}</TableDataCell>
-                                <TableDataCell>{task.kind}</TableDataCell>
-                                <TableDataCell>
-                                    {task.scheduledFor}
-                                </TableDataCell>
-                                <TableDataCell>{task.attempt}</TableDataCell>
-                            </tr>
-                        ))}
-                </TableBody>
-            </Table>
+        <Window id={ProgramNames.Tasks} title="Tasks" name={ProgramNames.Tasks}>
+            <TaskTable tasks={tasks} />
         </Window>
     )
 }

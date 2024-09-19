@@ -5,6 +5,7 @@ import { Window } from '@/components/window/Window'
 import { GridView } from './components/GridView'
 import { Counter } from '@/components/programs/minesweeper/components/Counter'
 import { SmileyButton } from '@/components/programs/minesweeper/components/smileyButton/SmileyButton'
+import { ProgramNames } from '@/components/programs/names'
 import { gameReducer, newGame } from './lib/gameReducer'
 
 import styles from './GameWindow.module.css'
@@ -27,7 +28,12 @@ export const GameWindow: React.FC<Props> = (props) => {
     const remainingMines = state.mines - numberOfFlags
 
     return (
-        <Window title="Minesweeper" name="minesweeper" {...props}>
+        <Window
+            id={ProgramNames.Minesweeper}
+            title="Minesweeper"
+            name="minesweeper"
+            {...props}
+        >
             <div className={styles.header}>
                 <Counter value={remainingMines} numOfDigits={3} />
                 <SmileyButton status={state.status} onClick={resetGame} />
