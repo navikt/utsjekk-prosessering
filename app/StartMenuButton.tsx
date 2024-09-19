@@ -8,7 +8,7 @@ import { ProgramNames } from '@/components/programs/names'
 import { MinesweeperIcon } from '@/components/programs/minesweeper'
 import { useOnClickOutside } from '@/lib/hooks/useOnClickOutside'
 import { useOnFocusOutside } from '@/lib/hooks/useOnFocusOutside'
-import { useToggleProgram } from '@/lib/hooks/useToggleProgram'
+import { useToggleProgram } from '@/lib/desktop/useToggleProgram'
 
 import styles from './StartMenuButton.module.css'
 

@@ -1,6 +1,5 @@
 import { XMarkOctagonFillIcon } from '@navikt/aksel-icons'
 import { HStack, VStack } from '@navikt/ds-react'
-import { getApiToken } from '@/lib/auth/token'
 import { Window } from '@/components/window/Window'
 import { TaskTable } from '@/components/programs/tasks/TaskTable'
 import { ProgramNames } from '@/components/programs/names'

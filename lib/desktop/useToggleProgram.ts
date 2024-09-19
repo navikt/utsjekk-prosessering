@@ -9,25 +9,20 @@ export const useToggleProgram = (name: string) => {
     return useCallback(
         (on: boolean) => {
             const params = new URLSearchParams(searchParams.toString())
-            let programs = params.get('programs')?.split(',') ?? []
-            if (!on) {
-                programs = programs.filter((it) => it !== name)
-            } else if (!programs.includes(name)) {
-                programs = programs.concat(name)
-            }
 
-            if (programs.length === 0) {
-                params.delete('programs')
+            if (!on) {
+                params.delete(name)
             } else {
-                params.set('programs', programs.join(','))
+                params.set(
+                    name,
+                    encodeURIComponent(JSON.stringify({ name, x: 0, y: 0 }))
+                )
             }
 
             if (params.size === 0) {
                 router.push(pathname)
             } else {
-                router.push(
-                    pathname + '?' + decodeURIComponent(params.toString())
-                )
+                router.push(pathname + '?' + params.toString())
             }
             router.refresh()
         },

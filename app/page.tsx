@@ -3,9 +3,6 @@ import { TasksProgram } from '@/components/programs/tasks/TasksProgram'
 import { ProgramNames } from '@/components/programs/names'
 import { MinesweeperProgram } from '@/components/programs/minesweeper'
 
-const activePrograms = (searchParams: SearchParams): string[] =>
-    searchParams['programs']?.split(',') ?? []
-
 type Props = {
     searchParams: SearchParams
 }
@@ -13,14 +10,15 @@ type Props = {
 export default async function Home({ searchParams }: Props) {
     await checkToken()
 
-    const programs = activePrograms(searchParams)
+    const programIsActive = (name: ValueOf<typeof ProgramNames>): boolean =>
+        !!searchParams[name]
 
     return (
         <>
-            {programs.includes(ProgramNames.Tasks) && (
+            {programIsActive(ProgramNames.Tasks) && (
                 <TasksProgram searchParams={searchParams} />
             )}
-            {programs.includes(ProgramNames.Minesweeper) && (
+            {programIsActive(ProgramNames.Minesweeper) && (
                 <MinesweeperProgram />
             )}
         </>

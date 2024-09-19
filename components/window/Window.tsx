@@ -11,9 +11,11 @@ import {
     minTranslateX,
     minTranslateY,
 } from '@/components/window/util'
-import { useToggleProgram } from '@/lib/hooks/useToggleProgram'
+import { useToggleProgram } from '@/lib/desktop/useToggleProgram'
+import { useUpdateWindowPosition } from '@/lib/desktop/useUpdateWindowPosition'
 
 import styles from './Window.module.css'
+import { useWindowPosition } from '@/lib/desktop/useWindowPosition'
 
 type Position = {
     x: number
@@ -22,11 +24,22 @@ type Position = {
 
 let currentZIndex = 100
 
+const updatePosition = (element: HTMLElement, newPos: Position) => {
+    const position = {
+        x: clamp(newPos.x, minTranslateX(element), maxTranslateX(element)),
+        y: clamp(newPos.y, minTranslateY(element), maxTranslateY(element)),
+    }
+    element.style.transform = `translate3D(${position.x}px, ${position.y}px, 0)`
+}
+
 const useDraggableWindow = (
+    name: string,
     windowRef: React.RefObject<HTMLElement>,
-    headerRef: React.RefObject<HTMLDivElement>
+    headerRef: React.RefObject<HTMLDivElement>,
+    defaultWindowPosition: Position = { x: 0, y: 0 }
 ) => {
-    const position = useRef<Position>({ x: 0, y: 0 })
+    const updateWindowPosition = useUpdateWindowPosition(name)
+    const position = useRef<Position>(defaultWindowPosition)
 
     useLayoutEffect(() => {
         const windowElement = windowRef.current
@@ -67,6 +80,7 @@ const useDraggableWindow = (
             }
             const mouseUpHandler = () => {
                 isPressed = false
+                updateWindowPosition(position.current)
             }
 
             window.addEventListener('mousedown', mouseDownHandler)
@@ -79,7 +93,7 @@ const useDraggableWindow = (
                 window.removeEventListener('mouseup', mouseUpHandler)
             }
         }
-    }, [windowRef, headerRef])
+    }, [updateWindowPosition, windowRef, headerRef])
 }
 
 const usePutInFrontOnMount = (ref: RefObject<HTMLElement>) => {
@@ -106,8 +120,9 @@ export const Window: React.FC<Props> = ({
     const windowRef = useRef<HTMLElement>(null)
     const headerRef = useRef<HTMLDivElement>(null)
     const toggleOpen = useToggleProgram(name)
+    const defaultWindowPosition = useWindowPosition(name)
 
-    useDraggableWindow(windowRef, headerRef)
+    useDraggableWindow(name, windowRef, headerRef, defaultWindowPosition)
 
     usePutInFrontOnMount(windowRef)
 
@@ -120,6 +135,9 @@ export const Window: React.FC<Props> = ({
             ref={windowRef}
             className={clsx(className, styles.window)}
             {...rest}
+            style={{
+                transform: `translate(${defaultWindowPosition.x}px, ${defaultWindowPosition.y}px)`,
+            }}
         >
             <div ref={headerRef} className={styles.header}>
                 <h2 className={styles.title}>{title}</h2>
