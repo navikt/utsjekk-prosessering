@@ -1,5 +1,5 @@
-import tasks from './tasks.json' assert { type: 'json' }
 import { NextRequest } from 'next/server'
+import { requireAuthHeader } from '@/lib/headers'
 
 function isTaskStatus(value: string | null): value is TaskStatus {
     switch (value) {
@@ -46,10 +46,18 @@ function getAfterFilter(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
-    const filtrerteTasks = (tasks as Task[])
-        .filter(getTaskStatusFilter(request))
-        .filter(getKindFilter(request))
-        .filter(getAfterFilter(request))
+    const authHeader = requireAuthHeader()
 
-    return new Response(JSON.stringify(filtrerteTasks), { status: 200 })
+    return fetch(`${process.env.TASK_API_BASE_URL}/api/tasks`, {
+        headers: {
+            ...authHeader,
+        },
+    })
+
+    // const filtrerteTasks = (tasks as Task[])
+    //     .filter(getTaskStatusFilter(request))
+    //     .filter(getKindFilter(request))
+    //     .filter(getAfterFilter(request))
+
+    // return new Response(JSON.stringify(filtrerteTasks), { status: 200 })
 }
