@@ -12,7 +12,7 @@ export const useToggleProgram = (name: string) => {
 
             if (!on) {
                 params.delete(name)
-            } else {
+            } else if (!params.get(name)) {
                 params.set(
                     name,
                     encodeURIComponent(JSON.stringify({ name, x: 0, y: 0 }))
