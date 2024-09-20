@@ -49,6 +49,7 @@ export const StartMenuButton = () => {
                             toggleTasksProgram(true)
                         )}
                     >
+                        <span>📋</span>
                         Tasks
                     </li>
                     <li

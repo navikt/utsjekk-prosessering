@@ -29,7 +29,10 @@
 
 .menuItem {
     display: flex;
-    justify-content: center;
     align-items: center;
     gap: 8px;
+}
+
+.menuItem > * {
+    width: max-content;
 }

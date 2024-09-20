@@ -121,6 +121,9 @@ export const gameReducer = (
             if (state.status !== 'playing') {
                 return state
             }
+            if (hasFlag(action.position, state.cells)) {
+                return state
+            }
             if (action.isOpen) {
                 if (
                     numberOfAdjacentFlags(action.position, state.cells) ===
@@ -171,6 +174,9 @@ export const gameReducer = (
         }
         case 'pressCell': {
             if (state.status !== 'playing') {
+                return state
+            }
+            if (hasFlag(action.position, state.cells)) {
                 return state
             }
             return {

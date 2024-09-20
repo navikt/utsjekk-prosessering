@@ -103,7 +103,7 @@ export const CellView: React.FC<Props> = ({
             onMouseOut={onMouseOut}
         >
             {flag && <Flag className={styles.icon} />}
-            <span className={styles.content}>
+            <span className={styles.content} suppressHydrationWarning>
                 {renderContent(mine, adjacent)}
             </span>
         </button>

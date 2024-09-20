@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { StartMenuButton } from '@/app/StartMenuButton'
@@ -42,7 +42,9 @@ export function Header() {
 
     return (
         <header className={styles.header}>
-            <StartMenuButton />
+            <Suspense>
+                <StartMenuButton />
+            </Suspense>
             <span>
                 {user.firstName} {user.lastName} {user.email}
             </span>

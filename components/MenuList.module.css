@@ -20,7 +20,6 @@
 .list li {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     height: 44px;
     width: auto;
     padding: 0 8px;

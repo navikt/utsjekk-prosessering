@@ -18,6 +18,7 @@ export const Mine: React.FC<Props> = ({
             width={+(width ?? 30)}
             height={+(height ?? 30)}
             {...props}
+            suppressHydrationWarning
         />
     )
 }

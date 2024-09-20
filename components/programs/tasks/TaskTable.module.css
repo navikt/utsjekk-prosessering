@@ -1,0 +1,6 @@
+.buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 8px 0;
+}

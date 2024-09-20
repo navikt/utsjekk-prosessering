@@ -12,10 +12,10 @@ import {
     minTranslateY,
 } from '@/components/window/util'
 import { useToggleProgram } from '@/lib/desktop/useToggleProgram'
+import { useWindowPosition } from '@/lib/desktop/useWindowPosition'
 import { useUpdateWindowPosition } from '@/lib/desktop/useUpdateWindowPosition'
 
 import styles from './Window.module.css'
-import { useWindowPosition } from '@/lib/desktop/useWindowPosition'
 
 type Position = {
     x: number
