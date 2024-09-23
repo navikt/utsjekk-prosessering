@@ -1,8 +1,8 @@
 import clsx from 'clsx'
 import { ClientPagination } from '@/components/ClientPagination'
+import { BodyShort } from '@navikt/ds-react'
 
 import styles from './Footer.module.css'
-import { BodyShort } from '@navikt/ds-react'
 
 type Props = Omit<React.HTMLAttributes<HTMLElement>, 'children'> & {
     page: number

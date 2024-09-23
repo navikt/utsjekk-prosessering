@@ -1,9 +1,26 @@
-type FetchTasksResponse = {
+type FetchTasksResponseData = {
     tasks: Task[]
     page: number
     pageSize: number
     totalTasks: number
 }
+
+type FetchTasksResponseError = {
+    message: string
+    statusCode: number
+}
+
+type FetchTasksResponseSuccess = {
+    data: FetchTasksResponseData
+    error: null
+}
+
+type FetchTasksResponseFailure = {
+    data: null
+    error: FetchTasksResponseError
+}
+
+type FetchTasksResponse = FetchTasksResponseSuccess | FetchTasksResponseFailure
 
 export async function fetchTasks(
     searchParams: URLSearchParams
@@ -15,13 +32,23 @@ export async function fetchTasks(
     const response = await fetch(url)
 
     if (response.ok) {
-        return await response.json()
+        const body = await response.json()
+        return {
+            data: body,
+            error: null,
+        }
     } else {
         console.error(
             'Klarte ikke hente tasks:',
             response.status,
             response.statusText
         )
-        throw Error(`${response.status} ${response.statusText}`)
+        return {
+            data: null,
+            error: {
+                message: response.statusText,
+                statusCode: response.status,
+            },
+        }
     }
 }
