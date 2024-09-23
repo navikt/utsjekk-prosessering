@@ -1,28 +1,17 @@
 import React from 'react'
 import clsx from 'clsx'
 import type { Metadata } from 'next'
-import localFont from 'next/font/local'
+import { Source_Sans_3 } from 'next/font/google'
 import { Header } from '@/app/Header'
-import { Desktop } from '@/components/Desktop'
 
 import styles from './layout.module.css'
 
 import './globals.css'
 import '@navikt/ds-css'
 
-const msFont = localFont({
-    src: [
-        {
-            path: '../public/fonts/ms_sans_serif.woff2',
-            weight: '400',
-            style: 'normal',
-        },
-        {
-            path: '../public/fonts/ms_sans_serif_bold.woff2',
-            weight: '700',
-            style: 'normal',
-        },
-    ],
+const sourceSans = Source_Sans_3({
+    subsets: ['latin'],
+    display: 'swap',
 })
 
 export const metadata: Metadata = {
@@ -38,9 +27,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={clsx(msFont.className, styles.body)}>
+            <body className={clsx(sourceSans.className, styles.body)}>
                 <Header />
-                <Desktop>{children}</Desktop>
+                <main className={styles.main}>{children}</main>
             </body>
         </html>
     )

@@ -31,7 +31,6 @@ export function ClientPagination({ currentPage, pages, ...props }: Props) {
     return (
         <Pagination
             {...props}
-            size="small"
             page={currentPage}
             onPageChange={onPageChange}
             count={pages}

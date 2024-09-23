@@ -1,0 +1,31 @@
+import clsx from 'clsx'
+import { ClientPagination } from '@/components/ClientPagination'
+
+import styles from './Footer.module.css'
+import { BodyShort } from '@navikt/ds-react'
+
+type Props = Omit<React.HTMLAttributes<HTMLElement>, 'children'> & {
+    page: number
+    pageSize: number
+    totalTasks: number
+}
+
+export const Footer: React.FC<Props> = ({
+    page,
+    pageSize,
+    totalTasks,
+    className,
+    ...rest
+}) => {
+    return (
+        <footer className={clsx(className, styles.footer)} {...rest}>
+            <ClientPagination
+                currentPage={page}
+                pages={Math.ceil(totalTasks / pageSize)}
+            />
+            <BodyShort>
+                Viser {pageSize} av {totalTasks} tasks
+            </BodyShort>
+        </footer>
+    )
+}

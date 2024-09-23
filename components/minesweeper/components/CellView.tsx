@@ -1,13 +1,13 @@
 import React, { Dispatch, ReactNode, useRef } from 'react'
 import clsx from 'clsx'
 import localFont from 'next/font/local'
-import { Flag } from '@/components/programs/minesweeper/components/Flag'
+import { Flag } from './Flag'
+import { Mine } from './Mine'
 
 import styles from './CellView.module.css'
-import { Mine } from '@/components/programs/minesweeper/components/Mine'
 
 const minesweeperFont = localFont({
-    src: '../../../../public/fonts/mine_sweeper.otf',
+    src: '../../../public/fonts/mine_sweeper.otf',
     display: 'swap',
 })
 

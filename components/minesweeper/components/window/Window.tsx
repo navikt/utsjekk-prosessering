@@ -3,17 +3,17 @@
 import clsx from 'clsx'
 import { RefObject, useEffect, useLayoutEffect, useRef } from 'react'
 import { Button } from '@/components/Button'
-import { CloseIcon } from '@/components/CloseIcon'
+import { CloseIcon } from '@/components/minesweeper/components/window/CloseIcon'
 import {
     clamp,
     maxTranslateX,
     maxTranslateY,
     minTranslateX,
     minTranslateY,
-} from '@/components/window/util'
-import { useToggleProgram } from '@/lib/desktop/useToggleProgram'
-import { useWindowPosition } from '@/lib/desktop/useWindowPosition'
-import { useUpdateWindowPosition } from '@/lib/desktop/useUpdateWindowPosition'
+} from '@/components/minesweeper/components/window/util'
+import { useToggleProgram } from '@/components/minesweeper/desktop/useToggleProgram'
+import { useWindowPosition } from '@/components/minesweeper/desktop/useWindowPosition'
+import { useUpdateWindowPosition } from '@/components/minesweeper/desktop/useUpdateWindowPosition'
 
 import styles from './Window.module.css'
 
@@ -23,14 +23,6 @@ type Position = {
 }
 
 let currentZIndex = 100
-
-const updatePosition = (element: HTMLElement, newPos: Position) => {
-    const position = {
-        x: clamp(newPos.x, minTranslateX(element), maxTranslateX(element)),
-        y: clamp(newPos.y, minTranslateY(element), maxTranslateY(element)),
-    }
-    element.style.transform = `translate3D(${position.x}px, ${position.y}px, 0)`
-}
 
 const useDraggableWindow = (
     name: string,

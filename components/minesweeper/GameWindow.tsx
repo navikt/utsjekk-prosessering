@@ -1,10 +1,10 @@
 'use client'
 
 import React, { useReducer } from 'react'
-import { Window } from '@/components/window/Window'
+import { Window } from '@/components/minesweeper/components/window/Window'
 import { GridView } from './components/GridView'
-import { Counter } from '@/components/programs/minesweeper/components/Counter'
-import { SmileyButton } from '@/components/programs/minesweeper/components/smileyButton/SmileyButton'
+import { Counter } from './components/Counter'
+import { SmileyButton } from './components/smileyButton/SmileyButton'
 import { ProgramNames } from '@/components/programs/names'
 import { gameReducer, newGame } from './lib/gameReducer'
 

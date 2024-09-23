@@ -1,5 +1,5 @@
-import { GameWindow } from '@/components/programs/minesweeper/GameWindow'
-import { Mine } from '@/components/programs/minesweeper/components/Mine'
+import { GameWindow } from './GameWindow'
+import { Mine } from './components/Mine'
 
 export const MinesweeperProgram = () => {
     return <GameWindow />

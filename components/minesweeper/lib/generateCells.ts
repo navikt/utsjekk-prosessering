@@ -1,4 +1,4 @@
-import { DELTAS } from '@/components/programs/minesweeper/lib/util'
+import { DELTAS } from './util'
 
 const cell = ({
     open,

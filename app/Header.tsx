@@ -1,9 +1,11 @@
-import React, { Suspense } from 'react'
+import React from 'react'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { StartMenuButton } from '@/app/StartMenuButton'
-
-import styles from './Header.module.css'
+import { InternalHeader, Spacer } from '@navikt/ds-react'
+import {
+    InternalHeaderTitle,
+    InternalHeaderUser,
+} from '@navikt/ds-react/InternalHeader'
 
 function getUser(): {
     firstName: string
@@ -41,13 +43,12 @@ export function Header() {
     const user = getUser()
 
     return (
-        <header className={styles.header}>
-            <Suspense>
-                <StartMenuButton />
-            </Suspense>
-            <span>
-                {user.firstName} {user.lastName} {user.email}
-            </span>
-        </header>
+        <InternalHeader>
+            <InternalHeaderTitle as="h1">
+                Utsjekk-prosessering
+            </InternalHeaderTitle>
+            <Spacer />
+            <InternalHeaderUser name={`${user.firstName} ${user.lastName}`} />
+        </InternalHeader>
     )
 }

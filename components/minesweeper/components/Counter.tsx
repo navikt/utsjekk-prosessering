@@ -1,7 +1,7 @@
 import React from 'react'
 import clsx from 'clsx'
 
-import { Digit } from '@/components/programs/minesweeper/components/digit/Digit'
+import { Digit } from './digit/Digit'
 
 import styles from './Counter.module.css'
 

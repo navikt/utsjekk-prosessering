@@ -6,8 +6,8 @@ import {
     isAdjacentToMine,
     isOutOfBounds,
     numberOfAdjacentMines,
-} from '@/components/programs/minesweeper/lib/util'
-import { generateCells } from '@/components/programs/minesweeper/lib/generateCells'
+} from './util'
+import { generateCells } from './generateCells'
 
 const numberOfAdjacentFlags = (pos: Position, cells: Cell[][]): number =>
     getAdjacentCells(pos, cells).reduce(

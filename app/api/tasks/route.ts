@@ -1,25 +1,16 @@
 import { NextRequest } from 'next/server'
 import { requireAuthHeader } from '@/lib/headers'
 
-type Params = {
-    kind: string // Task['kind']
-    after: datetime
-    status: string // Task['status']
-}
-
-export async function GET(_: NextRequest, { params }: { params: Params }) {
+export async function GET(request: NextRequest) {
+    const searchParams = request.nextUrl.searchParams
     const authHeader = requireAuthHeader()
-    const url = new URL(`${process.env.TASK_API_BASE_URL}/api/tasks`)
 
-    if (params) {
-        Object.entries(params).forEach(([key, value]) => {
-            url.searchParams.append(key, value)
-        })
-    }
-
-    return fetch(url, {
-        headers: {
-            ...authHeader,
-        },
-    })
+    return fetch(
+        `${process.env.TASK_API_BASE_URL}/api/tasks?${searchParams.toString()}`,
+        {
+            headers: {
+                ...authHeader,
+            },
+        }
+    )
 }

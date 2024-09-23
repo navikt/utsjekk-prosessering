@@ -1,5 +1,5 @@
 import { Dispatch } from 'react'
-import { CellView } from '@/components/programs/minesweeper/components/CellView'
+import { CellView } from './CellView'
 
 import styles from './GridView.module.css'
 

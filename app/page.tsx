@@ -1,26 +1,41 @@
+import { Alert } from '@navikt/ds-react'
 import { checkToken } from '@/lib/auth/token'
-import { TasksProgram } from '@/components/programs/tasks/TasksProgram'
-import { ProgramNames } from '@/components/programs/names'
-import { MinesweeperProgram } from '@/components/programs/minesweeper'
+import { fetchTasks } from '@/lib/api/tasks'
+import { TaskTable } from '@/app/TaskTable'
+import { Filtere } from '@/app/Filtere'
+import { Footer } from '@/app/Footer'
+
+import styles from './page.module.css'
+
+const toURLSearchParams = (params: SearchParams): URLSearchParams => {
+    const urlSearchParams = new URLSearchParams()
+    for (const [key, value] of Object.entries(params)) {
+        urlSearchParams.set(key, value as string)
+    }
+    return urlSearchParams
+}
 
 type Props = {
     searchParams: SearchParams
 }
 
-export default async function Home({ searchParams }: Props) {
+export default async function TaskOverview({ searchParams }: Props) {
     await checkToken()
 
-    const programIsActive = (name: ValueOf<typeof ProgramNames>): boolean =>
-        !!searchParams[name]
+    const { tasks, page, pageSize, totalTasks } = await fetchTasks(
+        toURLSearchParams(searchParams)
+    )
 
     return (
-        <>
-            {programIsActive(ProgramNames.Tasks) && (
-                <TasksProgram searchParams={searchParams} />
+        <section className={styles.page}>
+            <Filtere />
+            {tasks.length > 0 && <TaskTable tasks={tasks} />}
+            {tasks.length === 0 && (
+                <Alert className={styles.alert} variant="info">
+                    Fant ingen tasks med gjeldende filtere
+                </Alert>
             )}
-            {programIsActive(ProgramNames.Minesweeper) && (
-                <MinesweeperProgram />
-            )}
-        </>
+            <Footer page={page} pageSize={pageSize} totalTasks={totalTasks} />
+        </section>
     )
 }
