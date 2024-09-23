@@ -6,6 +6,13 @@ import { UrlSearchParamSearch } from '@/components/UrlSearchParamSearch'
 
 import styles from './Filtere.module.css'
 
+const initialFilters: TaskStatus[] = [
+    'COMPLETE',
+    'IN_PROGRESS',
+    'FAIL',
+    'MANUAL',
+] as const
+
 export function Filtere() {
     return (
         <div className={styles.container}>
@@ -14,13 +21,7 @@ export function Filtere() {
                     className={styles.filter}
                     label="Status"
                     searchParamName="status"
-                    initialOptions={[
-                        'UNPROCESSED',
-                        'COMPLETE',
-                        'FAIL',
-                        'PROCESSING',
-                        'MANUAL',
-                    ]}
+                    initialOptions={initialFilters}
                 />
                 <UrlSearchParamSearch
                     className={styles.filter}

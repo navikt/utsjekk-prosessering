@@ -1,0 +1,16 @@
+.tableContainer {
+  grid-area: table;
+  max-height: 100%;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+
+.table {
+  overflow: scroll;
+}
+
+.table thead tr {
+  background: var(--a-bg-default);
+  position: sticky;
+  top: 0;
+}

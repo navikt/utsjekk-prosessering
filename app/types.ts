@@ -1,11 +1,6 @@
 type datetime = string
 
-declare type TaskStatus =
-    | 'UNPROCESSED'
-    | 'COMPLETE'
-    | 'FAIL'
-    | 'PROCESSING'
-    | 'MANUAL'
+declare type TaskStatus = 'IN_PROGRESS' | 'COMPLETE' | 'FAIL' | 'MANUAL'
 
 declare type TaskKind = 'Avstemming' | 'Iverksetting' | 'IverksettingStatus'
 

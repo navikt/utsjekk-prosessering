@@ -1,11 +1,11 @@
 import React from 'react'
+import { headers } from 'next/headers'
+import { redirect } from 'next/navigation'
 import { InternalHeader, Spacer } from '@navikt/ds-react'
 import {
     InternalHeaderTitle,
     InternalHeaderUser,
 } from '@navikt/ds-react/InternalHeader'
-import { headers } from 'next/headers'
-import { redirect } from 'next/navigation'
 
 function getUser(): {
     firstName: string
@@ -44,7 +44,7 @@ export function Header() {
 
     return (
         <InternalHeader>
-            <InternalHeaderTitle href="/">
+            <InternalHeaderTitle as="h1">
                 Utsjekk-prosessering
             </InternalHeaderTitle>
             <Spacer />

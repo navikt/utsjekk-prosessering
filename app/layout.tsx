@@ -1,15 +1,18 @@
 import React from 'react'
+import clsx from 'clsx'
 import type { Metadata } from 'next'
 import { Source_Sans_3 } from 'next/font/google'
 import { Header } from '@/app/Header'
-import clsx from 'clsx'
 
 import styles from './layout.module.css'
 
 import './globals.css'
 import '@navikt/ds-css'
 
-const sourceSans = Source_Sans_3({ subsets: ['latin'] })
+const sourceSans = Source_Sans_3({
+    subsets: ['latin'],
+    display: 'swap',
+})
 
 export const metadata: Metadata = {
     title: 'Utsjekk-prosessering',
