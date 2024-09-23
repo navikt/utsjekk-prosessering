@@ -22,20 +22,40 @@ type Props = {
 export default async function TaskOverview({ searchParams }: Props) {
     await checkToken()
 
-    const { tasks, page, pageSize, totalTasks } = await fetchTasks(
-        toURLSearchParams(searchParams)
-    )
+    const { data, error } = await fetchTasks(toURLSearchParams(searchParams))
+
+    if (error) {
+        return (
+            <section className={styles.page}>
+                <Alert className={styles.alert} variant="error">
+                    Klarte ikke hente tasks:
+                    <br />
+                    {error.statusCode} - {error.message}
+                </Alert>
+            </section>
+        )
+    }
+
+    if (data.tasks.length === 0) {
+        return (
+            <section className={styles.page}>
+                <Filtere />
+                <Alert className={styles.alert} variant="info">
+                    Fant ingen tasks med gjeldende filtere
+                </Alert>
+            </section>
+        )
+    }
 
     return (
         <section className={styles.page}>
             <Filtere />
-            {tasks.length > 0 && <TaskTable tasks={tasks} />}
-            {tasks.length === 0 && (
-                <Alert className={styles.alert} variant="info">
-                    Fant ingen tasks med gjeldende filtere
-                </Alert>
-            )}
-            <Footer page={page} pageSize={pageSize} totalTasks={totalTasks} />
+            <TaskTable tasks={data.tasks} />
+            <Footer
+                page={data.page}
+                pageSize={data.pageSize}
+                totalTasks={data.totalTasks}
+            />
         </section>
     )
 }
