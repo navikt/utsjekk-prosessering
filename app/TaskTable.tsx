@@ -10,6 +10,7 @@ import { format } from 'date-fns/format'
 import { StatusBadge } from '@/components/StatusBadge'
 
 import styles from './TaskTable.module.css'
+import { Metadata } from '@/components/Metadata'
 
 type Props = {
     tasks: Task[]
@@ -25,6 +26,7 @@ export const TaskTable: React.FC<Props> = ({ tasks }) => {
                         <TableHeaderCell>Type</TableHeaderCell>
                         <TableHeaderCell>Kjøretid</TableHeaderCell>
                         <TableHeaderCell>Forsøk</TableHeaderCell>
+                        <TableHeaderCell>Metadata</TableHeaderCell>
                         <TableHeaderCell>Melding</TableHeaderCell>
                     </TableRow>
                 </TableHeader>
@@ -36,22 +38,31 @@ export const TaskTable: React.FC<Props> = ({ tasks }) => {
                                 new Date(b.updatedAt).getTime() -
                                 new Date(a.updatedAt).getTime()
                         )
-                        .map((task) => (
-                            <TableRow key={task.id}>
-                                <TableDataCell>
-                                    <StatusBadge status={task.status} />
-                                </TableDataCell>
-                                <TableDataCell>{task.kind}</TableDataCell>
-                                <TableDataCell>
-                                    {format(
-                                        new Date(task.scheduledFor),
-                                        'yyyy-MM-dd - HH:mm:ss'
-                                    )}
-                                </TableDataCell>
-                                <TableDataCell>{task.attempt}</TableDataCell>
-                                <TableDataCell>{task.message}</TableDataCell>
-                            </TableRow>
-                        ))}
+                        .map((task) => {
+                            return (
+                                <TableRow key={task.id}>
+                                    <TableDataCell>
+                                        <StatusBadge status={task.status} />
+                                    </TableDataCell>
+                                    <TableDataCell>{task.kind}</TableDataCell>
+                                    <TableDataCell>
+                                        {format(
+                                            new Date(task.scheduledFor),
+                                            'yyyy-MM-dd - HH:mm:ss'
+                                        )}
+                                    </TableDataCell>
+                                    <TableDataCell>
+                                        {task.attempt}
+                                    </TableDataCell>
+                                    <TableDataCell>
+                                        <Metadata metadata={task.metadata} />
+                                    </TableDataCell>
+                                    <TableDataCell>
+                                        {task.message}
+                                    </TableDataCell>
+                                </TableRow>
+                            )
+                        })}
                 </TableBody>
             </Table>
         </div>
