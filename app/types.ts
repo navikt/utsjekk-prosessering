@@ -14,6 +14,7 @@ declare type Task = {
     scheduledFor: datetime
     message?: string
     kind: TaskKind
+    metadata: Record<string, string>
 }
 
 declare type TaskHistory = {
