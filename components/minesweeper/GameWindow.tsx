@@ -5,7 +5,6 @@ import { Window } from '@/components/minesweeper/components/window/Window'
 import { GridView } from './components/GridView'
 import { Counter } from './components/Counter'
 import { SmileyButton } from './components/smileyButton/SmileyButton'
-import { ProgramNames } from '@/components/programs/names'
 import { gameReducer, newGame } from './lib/gameReducer'
 
 import styles from './GameWindow.module.css'
@@ -29,7 +28,7 @@ export const GameWindow: React.FC<Props> = (props) => {
 
     return (
         <Window
-            id={ProgramNames.Minesweeper}
+            id="minesweeper"
             title="Minesweeper"
             name="minesweeper"
             {...props}
