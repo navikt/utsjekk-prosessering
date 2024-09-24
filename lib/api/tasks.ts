@@ -29,11 +29,12 @@ export async function fetchTasks(
         searchParams.set('page', '1')
     }
 
-    const url = new URL(
-        `${process.env.NEXT_PUBLIC_HOSTNAME}/api/tasks?${searchParams.toString()}`
+    const response = await fetch(
+        `${process.env.NEXT_PUBLIC_HOSTNAME}/api/tasks?${searchParams.toString()}`,
+        {
+            cache: 'no-cache',
+        }
     )
-
-    const response = await fetch(url)
 
     if (response.ok) {
         const body = await response.json()
