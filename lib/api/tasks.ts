@@ -25,6 +25,10 @@ type FetchTasksResponse = FetchTasksResponseSuccess | FetchTasksResponseFailure
 export async function fetchTasks(
     searchParams: URLSearchParams
 ): Promise<FetchTasksResponse> {
+    if (!searchParams.get('page')) {
+        searchParams.set('page', '1')
+    }
+
     const url = new URL(
         `${process.env.NEXT_PUBLIC_HOSTNAME}/api/tasks?${searchParams.toString()}`
     )
