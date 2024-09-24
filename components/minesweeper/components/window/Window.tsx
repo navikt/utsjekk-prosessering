@@ -2,7 +2,7 @@
 
 import clsx from 'clsx'
 import { RefObject, useEffect, useLayoutEffect, useRef } from 'react'
-import { Button } from '@/components/Button'
+import { Button } from '@/components/minesweeper/components/Button'
 import { CloseIcon } from '@/components/minesweeper/components/window/CloseIcon'
 import {
     clamp,

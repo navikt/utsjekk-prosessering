@@ -8,11 +8,6 @@ export async function GET(
     const authHeader = requireAuthHeader()
     const taskId = params.id
 
-    console.log(
-        'URL',
-        `${process.env.TASK_API_BASE_URL}/api/tasks/${taskId}/history`
-    )
-
     return fetch(
         `${process.env.TASK_API_BASE_URL}/api/tasks/${taskId}/history`,
         {

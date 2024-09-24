@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import Image from 'next/image'
 
-import { Button } from '@/components/Button'
+import { Button } from '@/components/minesweeper/components/Button'
 
 import playing from './face_unpressed.svg'
 import won from './face_win.svg'

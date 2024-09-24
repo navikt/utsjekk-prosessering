@@ -1,4 +1,4 @@
-import { Table } from '@navikt/ds-react'
+import { HStack, Spacer, Table } from '@navikt/ds-react'
 import {
     TableBody,
     TableDataCell,
@@ -7,9 +7,9 @@ import {
     TableRow,
 } from '@navikt/ds-react/Table'
 import { formatDate } from '@/lib/date'
-import { Metadata } from '@/components/Metadata'
 import { StatusBadge } from '@/components/StatusBadge'
 import { TaskTableRow } from '@/components/TaskTableRow'
+import { RetryTaskButton } from '@/components/RetryTaskButton'
 
 import styles from './TaskTable.module.css'
 
@@ -29,6 +29,7 @@ export const TaskTable: React.FC<Props> = ({ tasks }) => {
                         <TableHeaderCell>Kjøretid</TableHeaderCell>
                         <TableHeaderCell>Forsøk</TableHeaderCell>
                         <TableHeaderCell>Melding</TableHeaderCell>
+                        <TableHeaderCell />
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -50,6 +51,12 @@ export const TaskTable: React.FC<Props> = ({ tasks }) => {
                                 </TableDataCell>
                                 <TableDataCell>{task.attempt}</TableDataCell>
                                 <TableDataCell>{task.message}</TableDataCell>
+                                <TableDataCell>
+                                    <HStack>
+                                        <Spacer />
+                                        <RetryTaskButton task={task} />
+                                    </HStack>
+                                </TableDataCell>
                             </TaskTableRow>
                         ))}
                 </TableBody>
