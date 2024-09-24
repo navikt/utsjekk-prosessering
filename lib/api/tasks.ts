@@ -5,22 +5,7 @@ type FetchTasksResponseData = {
     totalTasks: number
 }
 
-type FetchTasksResponseError = {
-    message: string
-    statusCode: number
-}
-
-type FetchTasksResponseSuccess = {
-    data: FetchTasksResponseData
-    error: null
-}
-
-type FetchTasksResponseFailure = {
-    data: null
-    error: FetchTasksResponseError
-}
-
-type FetchTasksResponse = FetchTasksResponseSuccess | FetchTasksResponseFailure
+type FetchTasksResponse = ApiResponse<FetchTasksResponseData>
 
 export async function fetchTasks(
     searchParams: URLSearchParams

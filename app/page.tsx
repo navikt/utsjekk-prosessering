@@ -1,9 +1,9 @@
 import { Alert } from '@navikt/ds-react'
 import { checkToken } from '@/lib/auth/token'
 import { fetchTasks } from '@/lib/api/tasks'
-import { TaskTable } from '@/app/TaskTable'
-import { Filtere } from '@/app/Filtere'
-import { Footer } from '@/app/Footer'
+import { TaskTable } from '@/components/TaskTable'
+import { Filtere } from '@/components/Filtere'
+import { Footer } from '@/components/Footer'
 
 import styles from './page.module.css'
 
