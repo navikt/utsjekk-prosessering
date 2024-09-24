@@ -1,7 +1,7 @@
 FROM node:lts-alpine
 WORKDIR /app
 ENV PORT=3000 \
-    NODE_ENV=production \
+    NODE_ENV=production
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
