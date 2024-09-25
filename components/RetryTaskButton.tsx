@@ -29,7 +29,7 @@ export const RetryTaskButton: React.FC<Props> = ({ task, ...rest }) => {
     }
 
     return (
-        <Button variant="secondary" onClick={onClick} {...rest}>
+        <Button variant="secondary" size="small" onClick={onClick} {...rest}>
             Rekjør
         </Button>
     )

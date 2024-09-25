@@ -1,11 +1,11 @@
 'use client'
 
-import { StatusBadge } from '@/components/StatusBadge'
-import { formatDate } from '@/lib/date'
 import { Alert } from '@navikt/ds-react'
+import { StatusBadge } from '@/components/StatusBadge'
+import { Metadata } from '@/components/Metadata'
+import { formatDate } from '@/lib/date'
 
 import styles from './TaskTableRowContents.module.css'
-import { Metadata } from '@/components/Metadata'
 
 type TaskHistoryViewProps = {
     history: ApiResponse<TaskHistory[]>
@@ -45,11 +45,9 @@ type Props = {
     history: ApiResponse<TaskHistory[]>
 }
 
-export const TaskTableRowContents: React.FC<Props> = ({ task, history }) => {
-    return (
-        <div className={styles.content}>
-            <Metadata metadata={task.metadata} />
-            <TaskHistoryView history={history} />
-        </div>
-    )
-}
+export const TaskTableRowContents: React.FC<Props> = ({ task, history }) => (
+    <div className={styles.content}>
+        <Metadata metadata={task.metadata} />
+        <TaskHistoryView history={history} />
+    </div>
+)

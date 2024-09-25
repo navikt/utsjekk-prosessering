@@ -46,10 +46,8 @@ export const TaskTableRow: React.FC<Props> = ({ task, className, ...rest }) => {
     const [open, setOpen] = useState(false)
 
     const onOpenChange = async (open: boolean) => {
-        if (!history) {
-            const response = await fetchHistory(task)
-            setHistory(response)
-        }
+        const response = await fetchHistory(task)
+        setHistory(response)
         setOpen(open)
     }
 
