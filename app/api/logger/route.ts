@@ -1,3 +1,4 @@
-import { pinoLoggingRoute } from '@navikt/next-logger'
+import { POSTLoggingRouteHandler } from '@navikt/next-logger'
+import { NextRequest } from 'next/server'
 
-export const POST = pinoLoggingRoute
+export const POST = (req: NextRequest) => POSTLoggingRouteHandler(req)
