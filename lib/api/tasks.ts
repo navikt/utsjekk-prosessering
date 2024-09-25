@@ -16,7 +16,10 @@ export async function fetchTasks(
         searchParams.set('page', '1')
     }
 
-    logger.info('Prøver å hente tasks')
+    logger.info(
+        'Prøver å hente tasks',
+        `${process.env.NEXT_PUBLIC_HOSTNAME}/api/tasks?${searchParams.toString()}`
+    )
     const response = await fetch(
         `${process.env.NEXT_PUBLIC_HOSTNAME}/api/tasks?${searchParams.toString()}`,
         {
