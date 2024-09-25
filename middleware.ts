@@ -1,5 +1,6 @@
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
+import { logger } from '@navikt/next-logger'
 
 const isLocal = process.env.NODE_ENV !== 'production'
 
@@ -20,8 +21,12 @@ export async function middleware(
     }
 
     if (!isLocal && !request.headers.has('Authorization')) {
+        logger.info('Mangler auth-header, prøver å redirecte')
         return NextResponse.redirect(
-            new URL(`/oauth2/login?redirect=${url.pathname}`, request.url)
+            new URL(
+                `${process.env.NEXT_PUBLIC_HOSTNAME}/oauth2/login?redirect=${url.pathname}`,
+                request.url
+            )
         )
     }
 }
