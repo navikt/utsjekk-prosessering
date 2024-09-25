@@ -1,3 +1,5 @@
+import { logger } from '@navikt/next-logger'
+
 type FetchTasksResponseData = {
     tasks: Task[]
     page: number
@@ -14,6 +16,7 @@ export async function fetchTasks(
         searchParams.set('page', '1')
     }
 
+    logger.info('Prøver å hente tasks')
     const response = await fetch(
         `${process.env.NEXT_PUBLIC_HOSTNAME}/api/tasks?${searchParams.toString()}`,
         {
@@ -22,13 +25,14 @@ export async function fetchTasks(
     )
 
     if (response.ok) {
+        logger.info('Hentet tasks')
         const body = await response.json()
         return {
             data: body,
             error: null,
         }
     } else {
-        console.error(
+        logger.error(
             'Klarte ikke hente tasks:',
             response.status,
             response.statusText

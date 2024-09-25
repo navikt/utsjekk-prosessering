@@ -2,6 +2,7 @@
 
 import { Button } from '@navikt/ds-react'
 import { useRouter } from 'next/navigation'
+import { logger } from '@navikt/next-logger'
 
 const retryTask = async (task: Task) => {
     const response = await fetch(
@@ -12,7 +13,7 @@ const retryTask = async (task: Task) => {
     )
 
     if (!response.ok) {
-        console.error(`Klarte ikke rekjøre task:`, response)
+        logger.error(`Klarte ikke rekjøre task:`, response)
     }
 }
 

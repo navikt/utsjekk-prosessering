@@ -1,6 +1,7 @@
 'use server'
 
 import { getApiToken } from '@/lib/auth/token'
+import { logger } from '@navikt/next-logger'
 
 export async function getHistory(taskId: string): Promise<Array<TaskHistory>> {
     const apiToken = await getApiToken()
@@ -17,7 +18,7 @@ export async function getHistory(taskId: string): Promise<Array<TaskHistory>> {
     if (response.ok) {
         return response.json()
     } else {
-        console.error(
+        logger.error(
             'Klarte ikke hente logger:',
             response.status,
             response.statusText,

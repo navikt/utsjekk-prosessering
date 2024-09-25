@@ -3,6 +3,7 @@ import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { getLocalToken } from '@/lib/auth/localToken'
 import { isLocal, requireEnv } from '@/lib/env'
+import { logger } from '@navikt/next-logger'
 
 export async function checkToken() {
     if (process.env.NODE_ENV === 'development') return
@@ -14,7 +15,7 @@ export async function checkToken() {
 
     const result = await validateToken(token)
     if (!result.ok) {
-        console.log(`Tokenvalidering gikk galt: ${result.error.message}`)
+        logger.warn(`Tokenvalidering gikk galt: ${result.error.message}`)
         redirect('/oauth2/login')
     }
 }
@@ -32,7 +33,7 @@ export async function getApiToken(): Promise<string | null> {
     const scope = requireEnv('UTSJEKK_SCOPE')
     const result = await requestOboToken(token, scope)
     if (!result.ok) {
-        console.log(`Henting av obo-token feilet: ${result.error.message}`)
+        logger.warn(`Henting av obo-token feilet: ${result.error.message}`)
         return null
     }
 
