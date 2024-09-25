@@ -30,7 +30,7 @@ spec:
         - application: utsjekk
   env:
     - name: NEXT_PUBLIC_HOSTNAME
-      value: https://utsjekk-prosessering-test.dev.nav.no
+      value: https://utsjekk-prosessering-test.intern.dev.nav.no
     - name: NEXT_PUBLIC_ENVIRONMENT
       value: dev-gcp
     - name: UTSJEKK_SCOPE
