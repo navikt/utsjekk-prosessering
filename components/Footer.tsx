@@ -24,7 +24,7 @@ export const Footer: React.FC<Props> = ({
                 pages={Math.ceil(totalTasks / pageSize)}
             />
             <BodyShort>
-                Viser {pageSize} av {totalTasks} tasks
+                Viser {Math.min(pageSize, totalTasks)} av {totalTasks} tasks
             </BodyShort>
         </footer>
     )
