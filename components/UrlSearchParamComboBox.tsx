@@ -2,27 +2,8 @@
 
 import React from 'react'
 import { ComboboxProps, UNSAFE_Combobox } from '@navikt/ds-react'
-import { usePathname, useSearchParams } from 'next/navigation'
-import { useRouter } from 'next/navigation'
-
-function formatForRendering(value: string): string {
-    if (value.length === 0) {
-        return value
-    }
-
-    return (
-        value[0].toUpperCase() +
-        value.slice(1).toLowerCase().replaceAll('_', ' ')
-    )
-}
-
-function formatForSearchParam(value: string): string {
-    if (value.length === 0) {
-        return value
-    }
-
-    return value.toUpperCase().replaceAll(' ', '_')
-}
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { deslugify, slugifyUpperCase } from '@/lib/string'
 
 type Props<T extends string> = Omit<ComboboxProps, 'options'> & {
     searchParamName: string
@@ -58,13 +39,13 @@ export function UrlSearchParamComboBox<T extends string>({
     const onToggleSelected = (option: string, isSelected: boolean) => {
         if (isSelected) {
             const query = [...selectedOptions, option as T]
-                .map(formatForSearchParam)
+                .map(slugifyUpperCase)
                 .join(',')
             updateSearchParams(query)
         } else {
             const query = selectedOptions
-                .map(formatForSearchParam)
-                .filter((o) => o !== formatForSearchParam(option))
+                .map(slugifyUpperCase)
+                .filter((o) => o !== slugifyUpperCase(option))
                 .join(',')
             updateSearchParams(query)
         }
@@ -74,9 +55,9 @@ export function UrlSearchParamComboBox<T extends string>({
         <UNSAFE_Combobox
             className={className}
             isMultiSelect
-            options={initialOptions.map(formatForRendering)}
+            options={initialOptions.map(deslugify)}
             onToggleSelected={onToggleSelected}
-            selectedOptions={selectedOptions?.map(formatForRendering)}
+            selectedOptions={selectedOptions.map(deslugify)}
             {...rest}
         />
     )
