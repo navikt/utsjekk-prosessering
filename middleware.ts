@@ -20,6 +20,10 @@ export async function middleware(
         })
     }
 
+    logger.info(
+        `MIDDLEWARE ${request.headers.get('authorization')} ${request.headers.get('Authorization')}`
+    )
+
     if (!isLocal && !request.headers.has('Authorization')) {
         logger.info('Mangler auth-header, prøver å redirecte')
         return NextResponse.redirect(
