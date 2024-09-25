@@ -1,1 +1,3 @@
-export { pinoLoggingRoute as default } from '@navikt/next-logger'
+import { pinoLoggingRoute } from '@navikt/next-logger'
+
+export const POST = pinoLoggingRoute
