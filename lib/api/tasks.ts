@@ -17,24 +17,18 @@ export async function fetchTasks(
         searchParams.set('page', '1')
     }
 
-    const authHeader = requireAuthHeader()
-
-    logger.info(
-        `Prøver å hente tasks: ${process.env.NEXT_PUBLIC_HOSTNAME}/api/tasks?${searchParams.toString()}`
-    )
     const response = await fetch(
         // `${process.env.NEXT_PUBLIC_HOSTNAME}/api/tasks?${searchParams.toString()}`,
         `http://localhost:3000/api/tasks?${searchParams.toString()}`,
         {
             cache: 'no-cache',
             headers: {
-                ...authHeader,
+                ...requireAuthHeader(),
             },
         }
     )
 
     if (response.ok) {
-        logger.info('Hentet tasks')
         const body = await response.json()
         return {
             data: body,
