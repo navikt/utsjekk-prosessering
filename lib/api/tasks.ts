@@ -14,11 +14,12 @@ type FetchTasksResponse = ApiResponse<FetchTasksResponseData>
 const fetchTasks = async (
     searchParams: URLSearchParams
 ): Promise<FetchTasksResponse> => {
-    if (!searchParams.get('page')) {
-        searchParams.set('page', '1')
+    const params = new URLSearchParams(searchParams)
+    if (!params.get('page')) {
+        params.set('page', '1')
     }
 
-    const response = await fetch(`api/tasks?${searchParams.toString()}`)
+    const response = await fetch(`api/tasks?${params.toString()}`)
 
     if (response.ok) {
         const body = await response.json()
