@@ -30,7 +30,12 @@ export async function fetchTasks(
                 Authorization: `Bearer ${apiToken}`,
             },
         }
-    )
+    ).catch((error) => ({
+        ok: false,
+        json: () => null,
+        status: error.status ?? 500,
+        statusText: error.message ?? error.toString(),
+    }))
 
     if (response.ok) {
         const body = await response.json()
