@@ -38,8 +38,8 @@ export async function fetchTasks(
     }))
 
     if (response.ok) {
-        logger.info('Hentet tasks')
         const body = await response.json()
+        logger.info(`Hentet tasks: ${body}`)
         return {
             data: body,
             error: null,
