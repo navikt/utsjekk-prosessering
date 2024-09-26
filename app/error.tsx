@@ -1,9 +1,10 @@
-'use client' // Error boundaries must be Client Components
+'use client'
 
 import { useEffect } from 'react'
-import styles from '@/app/page.module.css'
 import { Alert } from '@navikt/ds-react'
 import { logger } from '@navikt/next-logger'
+
+import styles from '@/app/page.module.css'
 
 type Props = {
     error: Error & { digest?: string }

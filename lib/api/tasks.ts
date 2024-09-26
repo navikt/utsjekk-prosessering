@@ -38,6 +38,7 @@ export async function fetchTasks(
     }))
 
     if (response.ok) {
+        logger.info('Hentet tasks')
         const body = await response.json()
         return {
             data: body,
