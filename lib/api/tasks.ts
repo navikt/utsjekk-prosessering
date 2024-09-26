@@ -20,6 +20,9 @@ export async function fetchTasks(
 
     const apiToken = await getApiToken()
 
+    logger.info(
+        `Prøver å hente tasks fra ${process.env.TASK_API_BASE_URL}/api/tasks?${searchParams.toString()}`
+    )
     const response = await fetch(
         `${process.env.TASK_API_BASE_URL}/api/tasks?${searchParams.toString()}`,
         {
