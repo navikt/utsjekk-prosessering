@@ -17,7 +17,7 @@ export async function fetchTasks(
     }
 
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_HOSTNAME}/api/tasks?${searchParams.toString()}`,
+        `http://localhost:3000/api/tasks?${searchParams.toString()}`,
         {
             cache: 'no-cache',
         }
