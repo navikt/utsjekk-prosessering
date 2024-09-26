@@ -51,7 +51,5 @@ export async function getApiToken(): Promise<string | null> {
         return null
     }
 
-    headers().set('Utsjekk-Token', result.token)
-
     return result.token
 }
