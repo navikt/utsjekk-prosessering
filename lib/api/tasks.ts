@@ -1,5 +1,6 @@
 import { logger } from '@navikt/next-logger'
-import { checkToken, getApiToken } from '@/lib/auth/token'
+import { useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 
 type FetchTasksResponseData = {
     tasks: Task[]
@@ -10,36 +11,17 @@ type FetchTasksResponseData = {
 
 type FetchTasksResponse = ApiResponse<FetchTasksResponseData>
 
-export async function fetchTasks(
+const fetchTasks = async (
     searchParams: URLSearchParams
-): Promise<FetchTasksResponse> {
+): Promise<FetchTasksResponse> => {
     if (!searchParams.get('page')) {
         searchParams.set('page', '1')
     }
-    await checkToken()
 
-    const apiToken = await getApiToken()
-
-    logger.info(
-        `Prøver å hente tasks fra ${process.env.TASK_API_BASE_URL}/api/tasks?${searchParams.toString()}`
-    )
-    const response = await fetch(
-        `${process.env.TASK_API_BASE_URL}/api/tasks?${searchParams.toString()}`,
-        {
-            headers: {
-                Authorization: `Bearer ${apiToken}`,
-            },
-        }
-    ).catch((error) => ({
-        ok: false,
-        json: () => null,
-        status: error.status ?? 500,
-        statusText: error.message ?? error.toString(),
-    }))
+    const response = await fetch(`api/tasks?${searchParams.toString()}`)
 
     if (response.ok) {
         const body = await response.json()
-        logger.info(`Hentet tasks: ${body}`)
         return {
             data: body,
             error: null,
@@ -56,4 +38,27 @@ export async function fetchTasks(
             },
         }
     }
+}
+
+const defaultTasksResponse: FetchTasksResponse = {
+    data: {
+        tasks: [],
+        page: 1,
+        pageSize: 20,
+        totalTasks: 0,
+    },
+    error: null,
+}
+
+export const useTasks = (): FetchTasksResponse => {
+    const searchParams = useSearchParams()
+
+    const [response, setResponse] =
+        useState<FetchTasksResponse>(defaultTasksResponse)
+
+    useEffect(() => {
+        fetchTasks(searchParams).then(setResponse)
+    }, [searchParams])
+
+    return response
 }

@@ -1,28 +1,15 @@
+'use client'
+
 import { Alert } from '@navikt/ds-react'
-import { checkToken } from '@/lib/auth/token'
-import { fetchTasks } from '@/lib/api/tasks'
 import { TaskTable } from '@/components/TaskTable'
+import { useTasks } from '@/lib/api/tasks'
 import { Filtere } from '@/components/Filtere'
 import { Footer } from '@/components/Footer'
 
 import styles from './page.module.css'
 
-const toURLSearchParams = (params: SearchParams): URLSearchParams => {
-    const urlSearchParams = new URLSearchParams()
-    for (const [key, value] of Object.entries(params)) {
-        urlSearchParams.set(key, value as string)
-    }
-    return urlSearchParams
-}
-
-type Props = {
-    searchParams: SearchParams
-}
-
-export default async function TaskOverview({ searchParams }: Props) {
-    await checkToken()
-
-    const { data, error } = await fetchTasks(toURLSearchParams(searchParams))
+export default function TaskOverview() {
+    const { data, error } = useTasks()
 
     if (error) {
         return (
