@@ -1,4 +1,5 @@
 import { logger } from '@navikt/next-logger'
+import { checkToken, getApiToken } from '@/lib/auth/token'
 
 type FetchTasksResponseData = {
     tasks: Task[]
@@ -15,11 +16,16 @@ export async function fetchTasks(
     if (!searchParams.get('page')) {
         searchParams.set('page', '1')
     }
+    await checkToken()
+
+    const apiToken = await getApiToken()
 
     const response = await fetch(
-        `http://localhost:3000/api/tasks?${searchParams.toString()}`,
+        `${process.env.TASK_API_BASE_URL}/api/tasks?${searchParams.toString()}`,
         {
-            cache: 'no-cache',
+            headers: {
+                Authorization: `Bearer ${apiToken}`,
+            },
         }
     )
 
