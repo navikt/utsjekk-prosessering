@@ -1,18 +1,19 @@
 import { NextRequest } from 'next/server'
-import { requireAuthHeader } from '@/lib/headers'
+import { checkToken, getApiToken } from '@/lib/auth/token'
 
 export async function GET(
     _: NextRequest,
     { params }: { params: { id: Task['id'] } }
 ) {
-    const authHeader = requireAuthHeader()
-    const taskId = params.id
+    await checkToken()
+
+    const apiToken = await getApiToken()
 
     return fetch(
-        `${process.env.TASK_API_BASE_URL}/api/tasks/${taskId}/history`,
+        `${process.env.TASK_API_BASE_URL}/api/tasks/${params.id}/history`,
         {
             headers: {
-                ...authHeader,
+                Authorization: `Bearer ${apiToken}`,
             },
         }
     )

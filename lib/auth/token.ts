@@ -1,4 +1,10 @@
-import { getToken, requestOboToken, validateToken } from '@navikt/oasis'
+'use server'
+
+import {
+    getToken,
+    requestAzureClientCredentialsToken,
+    validateToken,
+} from '@navikt/oasis'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { getLocalToken } from '@/lib/auth/localToken'
@@ -25,17 +31,27 @@ export async function getApiToken(): Promise<string | null> {
         return getLocalToken()
     }
 
+    const existing = headers().get('Utsjekk-Token')
+    if (existing) {
+        const validation = await validateToken(existing)
+        if (validation.ok) {
+            return existing
+        }
+    }
+
     const token = getToken(headers())
     if (!token) {
         throw new Error('Mangler access token')
     }
 
     const scope = requireEnv('UTSJEKK_SCOPE')
-    const result = await requestOboToken(token, scope)
+    const result = await requestAzureClientCredentialsToken(scope)
     if (!result.ok) {
-        logger.warn(`Henting av obo-token feilet: ${result.error.message}`)
+        logger.warn(`Henting av api-token feilet: ${result.error.message}`)
         return null
     }
+
+    headers().set('Utsjekk-Token', result.token)
 
     return result.token
 }

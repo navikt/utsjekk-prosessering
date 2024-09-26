@@ -11,16 +11,17 @@ export async function middleware(
 
     if (isLocal) {
         const token = await getLocalToken(request)
-        request.headers.set('Authorization', `Bearer ${token}`)
+        const requestHeaders = new Headers(request.headers)
+        requestHeaders.set('Authorization', `Bearer ${token}`)
 
         return NextResponse.next({
             request: {
-                headers: request.headers,
+                headers: requestHeaders,
             },
         })
     }
 
-    if (!isLocal && !headers().has('Authorization')) {
+    if (!headers().has('Authorization')) {
         return NextResponse.redirect(
             new URL(
                 `${process.env.NEXT_PUBLIC_HOSTNAME}/oauth2/login?redirect=${url.pathname}`,

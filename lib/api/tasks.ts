@@ -1,5 +1,4 @@
 import { logger } from '@navikt/next-logger'
-import { requireAuthHeader } from '@/lib/headers'
 
 type FetchTasksResponseData = {
     tasks: Task[]
@@ -18,13 +17,9 @@ export async function fetchTasks(
     }
 
     const response = await fetch(
-        // `${process.env.NEXT_PUBLIC_HOSTNAME}/api/tasks?${searchParams.toString()}`,
-        `http://localhost:3000/api/tasks?${searchParams.toString()}`,
+        `${process.env.NEXT_PUBLIC_HOSTNAME}/api/tasks?${searchParams.toString()}`,
         {
             cache: 'no-cache',
-            headers: {
-                ...requireAuthHeader(),
-            },
         }
     )
 
@@ -36,9 +31,7 @@ export async function fetchTasks(
         }
     } else {
         logger.error(
-            'Klarte ikke hente tasks:',
-            response.status,
-            response.statusText
+            `Klarte ikke hente tasks: ${response.status} - ${response.statusText}`
         )
         return {
             data: null,
