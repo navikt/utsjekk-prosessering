@@ -1,3 +1,5 @@
+type ZodError = import('zod').ZodError
+
 type datetime = string
 
 declare type TaskStatus = 'IN_PROGRESS' | 'COMPLETE' | 'FAIL' | 'MANUAL'
@@ -27,3 +29,15 @@ declare type TaskHistory = {
 }
 
 declare type SearchParams = Record<string, string>
+
+declare type ParseSuccess<T> = {
+    success: true
+    data: T
+}
+
+declare type ParseError = {
+    success: false
+    error: ZodError
+}
+
+declare type ParseResult<T> = ParseSuccess<T> | ParseError

@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import { logger } from '@navikt/next-logger'
 import { ExpandableRowProps } from '@navikt/ds-react'
 import { TableExpandableRow } from '@navikt/ds-react/Table'
-import { TaskTableRowContents } from '@/components/TaskTableRowContents'
+import { TaskTableRowContents } from '@/components/taskTable/TaskTableRowContents'
 
 import styles from './TaskTableRow.module.css'
 

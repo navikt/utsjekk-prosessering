@@ -1,5 +1,5 @@
 import { Alert } from '@navikt/ds-react'
-import { TaskTable } from '@/components/TaskTable'
+import { TaskTable } from '@/components/taskTable/TaskTable'
 import { fetchTasks } from '@/lib/api/tasks'
 import { Filtere } from '@/components/Filtere'
 import { Footer } from '@/components/Footer'

@@ -8,16 +8,20 @@ import {
 } from '@navikt/ds-react/Table'
 import { formatDate } from '@/lib/date'
 import { StatusBadge } from '@/components/StatusBadge'
-import { TaskTableRow } from '@/components/TaskTableRow'
+import { TaskTableRow } from '@/components/taskTable/TaskTableRow'
 import { RetryTaskButton } from '@/components/RetryTaskButton'
+import { ErrorTableRow } from '@/components/taskTable/ErrorTableRow'
 
 import styles from './TaskTable.module.css'
 
 type Props = {
-    tasks: Task[]
+    tasks: ParseResult<Task>[]
 }
 
 export const TaskTable: React.FC<Props> = ({ tasks }) => {
+    const parsedTasks = tasks.filter((task) => task.success)
+    const parsedErrors = tasks.filter((task) => !task.success)
+
     return (
         <div className={styles.tableContainer}>
             <Table className={styles.table}>
@@ -33,28 +37,31 @@ export const TaskTable: React.FC<Props> = ({ tasks }) => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {tasks
+                    {parsedErrors.map((error, i) => (
+                        <ErrorTableRow key={i} error={error} />
+                    ))}
+                    {parsedTasks
                         .slice(0)
                         .sort(
                             (a, b) =>
-                                new Date(b.updatedAt).getTime() -
-                                new Date(a.updatedAt).getTime()
+                                new Date(b.data.updatedAt).getTime() -
+                                new Date(a.data.updatedAt).getTime()
                         )
-                        .map((task) => (
-                            <TaskTableRow key={task.id} task={task}>
+                        .map(({ data }) => (
+                            <TaskTableRow key={data.id} task={data}>
                                 <TableDataCell>
-                                    <StatusBadge status={task.status} />
+                                    <StatusBadge status={data.status} />
                                 </TableDataCell>
-                                <TableDataCell>{task.kind}</TableDataCell>
+                                <TableDataCell>{data.kind}</TableDataCell>
                                 <TableDataCell>
-                                    {formatDate(task.scheduledFor)}
+                                    {formatDate(data.scheduledFor)}
                                 </TableDataCell>
-                                <TableDataCell>{task.attempt}</TableDataCell>
-                                <TableDataCell>{task.message}</TableDataCell>
+                                <TableDataCell>{data.attempt}</TableDataCell>
+                                <TableDataCell>{data.message}</TableDataCell>
                                 <TableDataCell>
                                     <HStack>
                                         <Spacer />
-                                        <RetryTaskButton task={task} />
+                                        <RetryTaskButton task={data} />
                                     </HStack>
                                 </TableDataCell>
                             </TaskTableRow>

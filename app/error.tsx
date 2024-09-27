@@ -19,7 +19,7 @@ export default function Error({ error }: Props) {
     return (
         <section className={styles.page}>
             <Alert className={styles.alert} variant="error">
-                Klare ikke hente tasks. Prøv igjen senere
+                Klarte ikke hente tasks. Prøv igjen senere
             </Alert>
         </section>
     )

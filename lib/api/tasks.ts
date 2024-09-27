@@ -2,9 +2,10 @@
 
 import { logger } from '@navikt/next-logger'
 import { headers } from 'next/headers'
+import { taskSchema } from '@/lib/schema'
 
 type FetchTasksResponseData = {
-    tasks: Task[]
+    tasks: ParseResult<Task>[]
     page: number
     pageSize: number
     totalTasks: number
@@ -30,8 +31,14 @@ export const fetchTasks = async (
 
     if (response.ok) {
         const body = await response.json()
+
         return {
-            data: body,
+            data: {
+                ...body,
+                tasks: body.tasks.map((task: Task) =>
+                    taskSchema.safeParse(task)
+                ),
+            },
             error: null,
         }
     } else {
