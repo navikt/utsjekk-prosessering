@@ -26,4 +26,4 @@ declare type TaskHistory = {
     status: TaskStatus
 }
 
-declare type SearchParams = { [key: string]: string | undefined }
+declare type SearchParams = Record<string, string>

@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server'
-import { checkToken, getApiToken } from '@/lib/auth/token'
+import { checkToken, fetchApiToken } from '@/lib/auth/token'
 
 export async function GET(
     _: NextRequest,
@@ -7,7 +7,7 @@ export async function GET(
 ) {
     await checkToken()
 
-    const apiToken = await getApiToken()
+    const apiToken = await fetchApiToken()
 
     return fetch(
         `${process.env.TASK_API_BASE_URL}/api/tasks/${params.id}/history`,

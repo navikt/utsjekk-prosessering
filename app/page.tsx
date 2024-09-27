@@ -1,15 +1,21 @@
-'use client'
-
 import { Alert } from '@navikt/ds-react'
 import { TaskTable } from '@/components/TaskTable'
-import { useTasks } from '@/lib/api/tasks'
+import { fetchTasks } from '@/lib/api/tasks'
 import { Filtere } from '@/components/Filtere'
 import { Footer } from '@/components/Footer'
+import { checkApiToken, checkToken } from '@/lib/auth/token'
 
 import styles from './page.module.css'
 
-export default function TaskOverview() {
-    const { data, error } = useTasks()
+type Props = {
+    searchParams: SearchParams
+}
+
+export default async function TaskOverview({ searchParams }: Props) {
+    await checkToken()
+    await checkApiToken()
+
+    const { data, error } = await fetchTasks(searchParams)
 
     if (error) {
         return (

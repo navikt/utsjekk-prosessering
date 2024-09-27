@@ -1,6 +1,7 @@
+'use server'
+
 import { logger } from '@navikt/next-logger'
-import { useEffect, useState } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { headers } from 'next/headers'
 
 type FetchTasksResponseData = {
     tasks: Task[]
@@ -11,15 +12,21 @@ type FetchTasksResponseData = {
 
 type FetchTasksResponse = ApiResponse<FetchTasksResponseData>
 
-const fetchTasks = async (
-    searchParams: URLSearchParams
+export const fetchTasks = async (
+    searchParams: SearchParams
 ): Promise<FetchTasksResponse> => {
     const params = new URLSearchParams(searchParams)
     if (!params.get('page')) {
         params.set('page', '1')
     }
 
-    const response = await fetch(`api/tasks?${params.toString()}`)
+    const response = await fetch(
+        `${process.env.NEXT_PUBLIC_HOSTNAME}/api/tasks?${params.toString()}`,
+        {
+            cache: 'no-cache',
+            headers: headers(),
+        }
+    )
 
     if (response.ok) {
         const body = await response.json()
@@ -39,27 +46,4 @@ const fetchTasks = async (
             },
         }
     }
-}
-
-const defaultTasksResponse: FetchTasksResponse = {
-    data: {
-        tasks: [],
-        page: 1,
-        pageSize: 20,
-        totalTasks: 0,
-    },
-    error: null,
-}
-
-export const useTasks = (): FetchTasksResponse => {
-    const searchParams = useSearchParams()
-
-    const [response, setResponse] =
-        useState<FetchTasksResponse>(defaultTasksResponse)
-
-    useEffect(() => {
-        fetchTasks(searchParams).then(setResponse)
-    }, [searchParams])
-
-    return response
 }
