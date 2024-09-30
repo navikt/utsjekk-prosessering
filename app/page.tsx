@@ -17,6 +17,8 @@ export default async function TaskOverview({ searchParams }: Props) {
 
     const { data, error } = await fetchTasks(searchParams)
 
+    console.log('DATA', data)
+
     if (error) {
         return (
             <section className={styles.page}>

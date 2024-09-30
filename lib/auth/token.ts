@@ -92,6 +92,5 @@ export const fetchApiToken = async (): Promise<string> => {
         throw Error(`Henting av api-token feilet: ${result.error.message}`)
     }
 
-    await updateCookieToken(result.token)
     return result.token
 }

@@ -1,8 +1,8 @@
 'use server'
 
 import { logger } from '@navikt/next-logger'
-import { headers } from 'next/headers'
 import { taskSchema } from '@/lib/schema'
+import { fetchApiToken } from '@/lib/auth/token'
 
 type FetchTasksResponseData = {
     tasks: ParseResult<Task>[]
@@ -21,11 +21,14 @@ export const fetchTasks = async (
         params.set('page', '1')
     }
 
+    const token = await fetchApiToken()
+
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_HOSTNAME}/api/tasks?${params.toString()}`,
+        `${process.env.TASK_API_BASE_URL}/api/tasks?${params.toString()}`,
         {
-            cache: 'no-cache',
-            headers: headers(),
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
         }
     )
 
