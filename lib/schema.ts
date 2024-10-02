@@ -12,7 +12,7 @@ export const taskSchema = z.object({
     createdAt: z.coerce.date(),
     updatedAt: z.coerce.date(),
     scheduledFor: z.coerce.date(),
-    message: z.string().optional(),
+    message: z.string().nullish(),
     kind: taskKindSchema,
     metadata: z.record(z.string(), z.string()),
 })
