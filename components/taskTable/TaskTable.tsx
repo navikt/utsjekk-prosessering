@@ -44,8 +44,8 @@ export const TaskTable: React.FC<Props> = ({ tasks }) => {
                         .slice(0)
                         .sort(
                             (a, b) =>
-                                new Date(b.data.updatedAt).getTime() -
-                                new Date(a.data.updatedAt).getTime()
+                                new Date(b.data.scheduledFor).getTime() -
+                                new Date(a.data.scheduledFor).getTime()
                         )
                         .map(({ data }) => (
                             <TaskTableRow key={data.id} task={data}>
