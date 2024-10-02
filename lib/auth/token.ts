@@ -7,7 +7,7 @@ import {
 } from '@navikt/oasis'
 import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { isLocal, requireEnv } from '@/lib/env'
+import { isFaking, isLocal, requireEnv } from '@/lib/env'
 import { logger } from '@navikt/next-logger'
 
 const UTSJEKK_TOKEN_NAME = 'utsjekk-token'
@@ -57,7 +57,6 @@ export const updateCookieToken = async (token: string) => {
 }
 
 const getLocalToken = async (): Promise<string> => {
-    'use server'
     const existing = cookies().get(UTSJEKK_TOKEN_NAME)
     if (existing) {
         return existing.value
@@ -71,6 +70,10 @@ const getLocalToken = async (): Promise<string> => {
 }
 
 export const fetchApiToken = async (): Promise<string> => {
+    if (isFaking) {
+        return Promise.resolve('')
+    }
+
     if (isLocal) {
         return getLocalToken()
     }

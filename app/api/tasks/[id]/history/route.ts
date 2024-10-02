@@ -1,5 +1,6 @@
 import { NextRequest } from 'next/server'
 import { checkToken, fetchApiToken } from '@/lib/auth/token'
+import { Routes } from '@/lib/api/routes'
 
 export async function GET(
     _: NextRequest,
@@ -9,12 +10,9 @@ export async function GET(
 
     const apiToken = await fetchApiToken()
 
-    return fetch(
-        `${process.env.TASK_API_BASE_URL}/api/tasks/${params.id}/history`,
-        {
-            headers: {
-                Authorization: `Bearer ${apiToken}`,
-            },
-        }
-    )
+    return fetch(Routes.external.history(params.id), {
+        headers: {
+            Authorization: `Bearer ${apiToken}`,
+        },
+    })
 }

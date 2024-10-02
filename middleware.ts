@@ -1,6 +1,7 @@
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 import { headers } from 'next/headers'
+import { isFaking } from '@/lib/env'
 
 const isLocal = process.env.NODE_ENV !== 'production'
 
@@ -8,6 +9,10 @@ export async function middleware(
     request: NextRequest
 ): Promise<NextResponse | void> {
     const url = new URL(request.url)
+
+    if (isFaking) {
+        return
+    }
 
     if (isLocal) {
         const token = await getLocalToken(request)

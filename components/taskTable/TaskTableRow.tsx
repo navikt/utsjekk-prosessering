@@ -6,15 +6,14 @@ import { logger } from '@navikt/next-logger'
 import { ExpandableRowProps } from '@navikt/ds-react'
 import { TableExpandableRow } from '@navikt/ds-react/Table'
 import { TaskTableRowContents } from '@/components/taskTable/TaskTableRowContents'
+import { Routes } from '@/lib/api/routes'
 
 import styles from './TaskTableRow.module.css'
 
 type FetchHistoryResponse = ApiResponse<TaskHistory[]>
 
 const fetchHistory = async (task: Task): Promise<FetchHistoryResponse> => {
-    const response = await fetch(
-        `${process.env.NEXT_PUBLIC_HOSTNAME}/api/tasks/${task.id}/history`
-    )
+    const response = await fetch(Routes.internal.history(task.id))
 
     if (response.ok) {
         const body = await response.json()
