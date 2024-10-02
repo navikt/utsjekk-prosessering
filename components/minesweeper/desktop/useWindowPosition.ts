@@ -1,6 +1,6 @@
 import { useSearchParams } from 'next/navigation'
 
-export const useWindowPosition = (name: string): Position => {
+export const useWindowPosition = (name: string): GridPosition => {
     const searchParams = useSearchParams()
     const raw = searchParams.get(name)
 

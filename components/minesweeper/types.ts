@@ -1,4 +1,4 @@
-declare type Position = {
+declare type GridPosition = {
     x: number
     y: number
 }

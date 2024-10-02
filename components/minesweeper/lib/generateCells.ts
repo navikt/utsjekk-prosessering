@@ -18,7 +18,7 @@ const cell = ({
     pressed: false,
 })
 
-const randomCellPosition = (width: number, height: number): Position => ({
+const randomCellPosition = (width: number, height: number): GridPosition => ({
     x: Math.floor(Math.random() * width),
     y: Math.floor(Math.random() * height),
 })
@@ -38,7 +38,7 @@ const markMines = (mines: number, cells: Cell[][]): Cell[][] => {
     return cells
 }
 
-const countAdjacent = (position: Position, cells: Cell[][]): number =>
+const countAdjacent = (position: GridPosition, cells: Cell[][]): number =>
     DELTAS.reduce(
         (acc, { x, y }) =>
             acc + (cells[position.y + y]?.[position.x + x]?.mine ? 1 : 0),

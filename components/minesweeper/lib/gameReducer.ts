@@ -9,33 +9,36 @@ import {
 } from './util'
 import { generateCells } from './generateCells'
 
-const numberOfAdjacentFlags = (pos: Position, cells: Cell[][]): number =>
+const numberOfAdjacentFlags = (pos: GridPosition, cells: Cell[][]): number =>
     getAdjacentCells(pos, cells).reduce(
         (acc, cur) => acc + (hasFlag(cur, cells) ? 1 : 0),
         0
     )
 
-const getAdjacentCells = (pos: Position, cells: Cell[][]): Position[] =>
+const getAdjacentCells = (pos: GridPosition, cells: Cell[][]): GridPosition[] =>
     DELTAS.map((delta) => ({
         x: pos.x + delta.x,
         y: pos.y + delta.y,
     })).filter((it) => !isOutOfBounds(it, cells))
 
 const getMultipleCellsToOpen = (
-    origins: Position[],
+    origins: GridPosition[],
     cells: Cell[][]
-): Position[] => origins.map((it) => getCellsToOpen(it, cells)).flat()
+): GridPosition[] => origins.map((it) => getCellsToOpen(it, cells)).flat()
 
-const getCellsToOpen = (origin: Position, cells: Cell[][]): Position[] => {
+const getCellsToOpen = (
+    origin: GridPosition,
+    cells: Cell[][]
+): GridPosition[] => {
     if (isAdjacentToMine(origin, cells) || hasMine(origin, cells)) {
         return [origin]
     }
 
-    const queue: Position[] = [origin]
-    const toOpen: Position[] = []
+    const queue: GridPosition[] = [origin]
+    const toOpen: GridPosition[] = []
 
     while (queue.length > 0) {
-        const current = queue.shift() as Position
+        const current = queue.shift() as GridPosition
 
         if (!isAdjacentToMine(current, cells)) {
             const adjacent = getAdjacentCells(current, cells)
@@ -66,7 +69,7 @@ const countOpenCells = (cells: Cell[][]): number =>
     countCells(cells, (cell) => cell.open)
 
 const transformCells = (
-    pos: Position[],
+    pos: GridPosition[],
     cells: Cell[][],
     transformer: (cell: Cell) => Cell
 ): Cell[][] =>
@@ -76,13 +79,13 @@ const transformCells = (
         )
     )
 
-const toggleFlag = (pos: Position, cells: Cell[][], value: boolean) =>
+const toggleFlag = (pos: GridPosition, cells: Cell[][], value: boolean) =>
     transformCells([pos], cells, (cell) => ({ ...cell, flag: value }))
 
-const togglePressed = (pos: Position[], cells: Cell[][], value: boolean) =>
+const togglePressed = (pos: GridPosition[], cells: Cell[][], value: boolean) =>
     transformCells(pos, cells, (cell) => ({ ...cell, pressed: value }))
 
-const toggleOpen = (pos: Position[], cells: Cell[][]): Cell[][] =>
+const toggleOpen = (pos: GridPosition[], cells: Cell[][]): Cell[][] =>
     transformCells(pos, cells, (cell) => ({ ...cell, open: true }))
 
 const updateStatus = (state: GameState): GameState => {

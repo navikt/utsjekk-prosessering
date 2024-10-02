@@ -1,4 +1,4 @@
-import React, { Dispatch, ReactNode, useRef } from 'react'
+import React, { Dispatch, ReactNode } from 'react'
 import clsx from 'clsx'
 import localFont from 'next/font/local'
 import { Flag } from './Flag'
@@ -44,7 +44,7 @@ const renderContent = (mine: boolean, adjacent: number): ReactNode => {
 }
 
 type Props = Cell & {
-    position: Position
+    position: GridPosition
     dispatch: Dispatch<GameAction>
     pressed: boolean
 }

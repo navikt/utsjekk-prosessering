@@ -7,7 +7,7 @@ export const useUpdateWindowPosition = (name: string) => {
     const searchParams = useSearchParams()
 
     return useCallback(
-        (position: Position) => {
+        (position: GridPosition) => {
             const params = new URLSearchParams(searchParams.toString())
             const raw = params.get(name)
 

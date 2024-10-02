@@ -10,24 +10,24 @@ declare type GameState = {
 
 declare type ClickCellAction = {
     name: 'clickCell'
-    position: Position
+    position: GridPosition
     isOpen: boolean
 }
 
 declare type ToggleFlagAction = {
     name: 'toggleFlag'
-    position: Position
+    position: GridPosition
     value: boolean
 }
 
 declare type PressCellAction = {
     name: 'pressCell'
-    position: Position
+    position: GridPosition
 }
 
 declare type DepressCellAction = {
     name: 'depressCell'
-    position: Position
+    position: GridPosition
 }
 
 declare type ResetGameAction = {
