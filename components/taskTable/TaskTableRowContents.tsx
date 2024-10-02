@@ -48,6 +48,6 @@ type Props = {
 export const TaskTableRowContents: React.FC<Props> = ({ task, history }) => (
     <div className={styles.content}>
         <Metadata metadata={task.metadata} />
-        <TaskHistoryView history={history} />
+        {history.data?.length === 0 && <TaskHistoryView history={history} />}
     </div>
 )
