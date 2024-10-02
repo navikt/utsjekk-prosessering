@@ -13,7 +13,11 @@ import { logger } from '@navikt/next-logger'
 const UTSJEKK_TOKEN_NAME = 'utsjekk-token'
 
 export const checkToken = async () => {
-    if (process.env.NODE_ENV === 'development') return
+    if (
+        process.env.NODE_ENV === 'development' ||
+        process.env.NEXT_PUBLIC_API_FAKING === 'enabled'
+    )
+        return
 
     const token = getToken(headers())
     if (!token) {
