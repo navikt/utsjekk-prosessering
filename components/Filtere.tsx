@@ -13,24 +13,24 @@ const initialFilters: TaskStatus[] = [
     'MANUAL',
 ] as const
 
-export function Filtere() {
-    return (
-        <div className={styles.container}>
-            <div className={clsx(styles.filters, styles.visible)}>
-                <UrlSearchParamComboBox
-                    className={styles.filter}
-                    label="Status"
-                    searchParamName="status"
-                    initialOptions={initialFilters}
-                />
-                <UrlSearchParamSearch
-                    className={styles.filter}
-                    searchParamName="kind"
-                    label="Type"
-                    variant="secondary"
-                    hideLabel={false}
-                />
-            </div>
+type Props = React.HTMLAttributes<HTMLDivElement>
+
+export const Filtere: React.FC<Props> = ({ className, ...rest }) => (
+    <div className={clsx(styles.container, className)} {...rest}>
+        <div className={clsx(styles.filters, styles.visible)}>
+            <UrlSearchParamComboBox
+                className={styles.filter}
+                label="Status"
+                searchParamName="status"
+                initialOptions={initialFilters}
+            />
+            <UrlSearchParamSearch
+                className={styles.filter}
+                searchParamName="kind"
+                label="Type"
+                variant="secondary"
+                hideLabel={false}
+            />
         </div>
-    )
-}
+    </div>
+)

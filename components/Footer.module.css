@@ -1,5 +1,4 @@
 .footer {
-  grid-area: footer;
   padding: var(--a-spacing-6) 0;
   display: flex;
   justify-content: space-between;

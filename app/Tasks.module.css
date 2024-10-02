@@ -1,0 +1,25 @@
+.filtere {
+  grid-area: filters;
+}
+
+.refetch {
+  grid-area: refetch;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--a-spacing-4);
+  margin-bottom: var(--a-spacing-4);
+}
+
+.refetch > * {
+  display: flex;
+  align-items: center;
+  gap: var(--a-spacing-3);
+}
+
+.tasks {
+  grid-area: table;
+}
+
+.footer {
+  grid-area: footer;
+}

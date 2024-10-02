@@ -4,7 +4,7 @@ import { logger } from '@navikt/next-logger'
 import { taskSchema } from '@/lib/schema'
 import { fetchApiToken } from '@/lib/auth/token'
 
-type FetchTasksResponseData = {
+export type FetchTasksResponseData = {
     tasks: ParseResult<Task>[]
     page: number
     pageSize: number

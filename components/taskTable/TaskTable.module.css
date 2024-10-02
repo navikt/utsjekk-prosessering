@@ -1,5 +1,4 @@
 .tableContainer {
-  grid-area: table;
   max-height: 100%;
   overflow-y: auto;
   scrollbar-gutter: stable;

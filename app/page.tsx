@@ -1,9 +1,8 @@
 import { Alert } from '@navikt/ds-react'
-import { TaskTable } from '@/components/taskTable/TaskTable'
 import { fetchTasks } from '@/lib/api/tasks'
-import { Filtere } from '@/components/Filtere'
-import { Footer } from '@/components/Footer'
 import { checkApiToken, checkToken } from '@/lib/auth/token'
+import { Filtere } from '@/components/Filtere'
+import { Tasks } from '@/app/Tasks.tsx'
 
 import styles from './page.module.css'
 
@@ -42,13 +41,7 @@ export default async function TaskOverview({ searchParams }: Props) {
 
     return (
         <section className={styles.page}>
-            <Filtere />
-            <TaskTable tasks={data.tasks} />
-            <Footer
-                page={data.page}
-                pageSize={data.pageSize}
-                totalTasks={data.totalTasks}
-            />
+            <Tasks initialData={data} searchParams={searchParams} />
         </section>
     )
 }

@@ -1,4 +1,5 @@
 import { HStack, Spacer, Table } from '@navikt/ds-react'
+import clsx from 'clsx'
 import {
     TableBody,
     TableDataCell,
@@ -14,16 +15,16 @@ import { ErrorTableRow } from '@/components/taskTable/ErrorTableRow'
 
 import styles from './TaskTable.module.css'
 
-type Props = {
+type Props = React.HTMLAttributes<HTMLDivElement> & {
     tasks: ParseResult<Task>[]
 }
 
-export const TaskTable: React.FC<Props> = ({ tasks }) => {
+export const TaskTable: React.FC<Props> = ({ tasks, className, ...rest }) => {
     const parsedTasks = tasks.filter((task) => task.success)
     const parsedErrors = tasks.filter((task) => !task.success)
 
     return (
-        <div className={styles.tableContainer}>
+        <div className={clsx(className, styles.tableContainer)} {...rest}>
             <Table className={styles.table}>
                 <TableHeader>
                     <TableRow>
