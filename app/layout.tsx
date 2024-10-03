@@ -2,7 +2,7 @@ import React from 'react'
 import clsx from 'clsx'
 import type { Metadata } from 'next'
 import { Source_Sans_3 } from 'next/font/google'
-import { Header } from '@/components/Header'
+import { Header } from '@/components/header/Header.tsx'
 
 import styles from './layout.module.css'
 
