@@ -3,7 +3,6 @@
 import { logger } from '@navikt/next-logger'
 import { taskSchema } from '@/lib/schema'
 import { fetchApiToken } from '@/lib/auth/token'
-import { headers } from 'next/headers'
 
 export type FetchTasksResponseData = {
     tasks: ParseResult<Task>[]
@@ -21,9 +20,6 @@ export const fetchTasks = async (
     if (!params.get('page')) {
         params.set('page', '1')
     }
-
-    const authHeader = headers().get('Authorization')
-    logger.info(authHeader)
 
     const token = await fetchApiToken()
 
