@@ -41,21 +41,33 @@ type Props = Omit<ExpandableRowProps, 'content'> & {
     task: Task
 }
 
-export const TaskTableRow: React.FC<Props> = ({ task, className, ...rest }) => {
+export const TaskTableRow: React.FC<Props> = ({
+    task,
+    children,
+    className,
+    ...rest
+}) => {
+    const [isFetching, setIsFetching] = useState(false)
     const [history, setHistory] = useState<FetchHistoryResponse | null>(null)
     const [open, setOpen] = useState(false)
 
     const onOpenChange = async (open: boolean) => {
         if (open) {
+            setIsFetching(true)
             const response = await fetchHistory(task)
             setHistory(response)
+            setIsFetching(false)
         }
         setOpen(open)
     }
 
     return (
         <TableExpandableRow
-            className={clsx(className, styles.row)}
+            className={clsx(
+                className,
+                styles.row,
+                isFetching && styles.fetching
+            )}
             open={!!history && open}
             onOpenChange={onOpenChange}
             {...rest}
@@ -64,6 +76,8 @@ export const TaskTableRow: React.FC<Props> = ({ task, className, ...rest }) => {
                     <TaskTableRowContents task={task} history={history} />
                 )
             }
-        />
+        >
+            {children}
+        </TableExpandableRow>
     )
 }

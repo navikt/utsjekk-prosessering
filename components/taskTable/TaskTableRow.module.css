@@ -1,4 +1,19 @@
 .row + tr :global(.navds-table__expanded-row-collapse) {
-  background: var(--a-orange-50);
-  margin-top: -1px; /*Fikser visuell bug hvor rader får dobbel border før de ekspanderes*/
+    background: var(--a-orange-50);
+    margin-top: -1px; /*Fikser visuell bug hvor rader får dobbel border før de ekspanderes*/
+}
+
+.row.fetching {
+    background: var(--a-surface-neutral-moderate);
+    animation: pulse 1s ease-in-out infinite alternate;
+    animation-delay: 200ms;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.45;
+    }
 }

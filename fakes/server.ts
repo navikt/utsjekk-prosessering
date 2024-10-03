@@ -1,6 +1,7 @@
 import express from 'express'
 import { TestData } from './testData.ts'
-import QueryString from 'qs'
+import { getTaskQueryParameters } from './queryParameters.ts'
+import { sleep } from './util.ts'
 
 const app = express()
 const port = 8080
@@ -15,26 +16,8 @@ for (const task of TestData.tasks(100)) {
     taskHistory[task.id] = TestData.taskHistory(task.id)
 }
 
-const parseStringQueryParam = (
-    value?: string | string[] | QueryString.ParsedQs | QueryString.ParsedQs[]
-): undefined | string[] => {
-    if (typeof value === 'string') {
-        return value.split(',')
-    } else if (
-        Array.isArray(value) &&
-        value.every((it) => typeof it === 'string')
-    ) {
-        return value
-    }
-
-    return undefined
-}
-
-app.get('/api/tasks', (req, res) => {
-    const page = req.query.page ? +req.query.page : 1
-    const pageSize = req.query.pageSize ? +req.query.pageSize : 20
-    const status = parseStringQueryParam(req.query.status) ?? []
-    const kind = typeof req.query.kind === 'string' ? req.query.kind : undefined
+app.get('/api/tasks', async (req, res) => {
+    const { page, pageSize, status, kind } = getTaskQueryParameters(req)
 
     const allTasks = Object.values(tasks)
         .filter((it) => status.length === 0 || status.includes(it.status))
@@ -49,15 +32,17 @@ app.get('/api/tasks', (req, res) => {
         pageSize: pageSize,
         totalTasks: allTasks.length,
     }
+    await sleep(100)
     res.send(JSON.stringify(body)).status(200)
 })
 
-app.get('/api/tasks/:taskId/history', (req, res) => {
+app.get('/api/tasks/:taskId/history', async (req, res) => {
     const body = taskHistory[req.params.taskId]
+    await sleep(50)
     res.send(JSON.stringify(body)).status(200)
 })
 
-app.patch('/api/tasks/:taskId', (req, res) => {
+app.patch('/api/tasks/:taskId', async (req, res) => {
     const requestBody = req.body as {
         message: string
         status: TaskStatus
@@ -68,6 +53,7 @@ app.patch('/api/tasks/:taskId', (req, res) => {
         ...requestBody,
     }
 
+    await sleep(500)
     res.sendStatus(200)
 })
 
