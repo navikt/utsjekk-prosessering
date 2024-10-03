@@ -63,6 +63,10 @@ export const Tasks: React.FC<Props> = ({ initialData, searchParams }) => {
         }
     }, [searchParams, fetchRateMS, shouldRefetch])
 
+    useEffect(() => {
+        setData(initialData)
+    }, [initialData])
+
     return (
         <>
             <Filtere className={styles.filtere} />
