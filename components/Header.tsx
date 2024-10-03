@@ -27,14 +27,10 @@ function getUser(): {
     }
 
     const token = authHeader.replace('Bearer ', '')
-    logger.info('jwt', token)
+    logger.info(`jwt ${token}`)
 
     const jwtPayload = token.split('.')[1]
-
     const payload = JSON.parse(Buffer.from(jwtPayload, 'base64').toString())
-
-    logger.info('payload', payload)
-
     const [lastName, firstName] = payload.name.split(', ')
     const email = payload.preferred_username.toLowerCase()
 
