@@ -89,7 +89,7 @@ export const Tasks: React.FC<Props> = ({ initialData, searchParams }) => {
                     />
                     <span>sekund(er)</span>
                 </span>
-                <span>
+                <span suppressHydrationWarning>
                     Sist oppdatert: {formatDate(lastUpdated.toISOString())}
                 </span>
             </div>
