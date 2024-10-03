@@ -6,6 +6,7 @@ import {
     InternalHeaderTitle,
     InternalHeaderUser,
 } from '@navikt/ds-react/InternalHeader'
+import { logger } from '@navikt/next-logger'
 
 function getUser(): {
     firstName: string
@@ -26,8 +27,13 @@ function getUser(): {
     }
 
     const token = authHeader.replace('Bearer ', '')
+    logger.info('jwt', token)
+
     const jwtPayload = token.split('.')[1]
+
     const payload = JSON.parse(Buffer.from(jwtPayload, 'base64').toString())
+
+    logger.info('payload', payload)
 
     const [lastName, firstName] = payload.name.split(', ')
     const email = payload.preferred_username.toLowerCase()
