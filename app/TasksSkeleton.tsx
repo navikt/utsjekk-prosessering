@@ -1,5 +1,3 @@
-'use client'
-
 import { Filtere } from '@/components/Filtere.tsx'
 import { TaskTableSkeleton } from '@/components/taskTable/TaskTableSkeleton.tsx'
 import { Footer } from '@/components/Footer.tsx'
