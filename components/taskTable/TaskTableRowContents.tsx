@@ -1,7 +1,9 @@
+'use client'
+
 import { Alert } from '@navikt/ds-react'
 import { StatusBadge } from '@/components/StatusBadge'
 import { Metadata } from '@/components/Metadata'
-import { formatCESTDate } from '@/lib/date'
+import { formatDate } from '@/lib/date'
 
 import styles from './TaskTableRowContents.module.css'
 
@@ -31,9 +33,7 @@ const TaskHistoryView: React.FC<TaskHistoryViewProps> = ({ history }) => {
                 .map((history) => (
                     <li key={history.id} className={styles.listItem}>
                         <StatusBadge status={history.status} />
-                        <span>
-                            Utført: {formatCESTDate(history.triggeredAt)}
-                        </span>
+                        <span>Utført: {formatDate(history.triggeredAt)}</span>
                     </li>
                 ))}
         </ul>
