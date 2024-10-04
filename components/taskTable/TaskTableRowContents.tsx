@@ -1,5 +1,3 @@
-'use client'
-
 import { Alert } from '@navikt/ds-react'
 import { StatusBadge } from '@/components/StatusBadge'
 import { Metadata } from '@/components/Metadata'
