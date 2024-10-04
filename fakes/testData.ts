@@ -1,5 +1,11 @@
 import { randomUUID } from 'node:crypto'
 
+const now = (): Date => {
+    const date = new Date()
+    date.setMinutes(date.getMinutes() - date.getTimezoneOffset())
+    return date
+}
+
 export const TestData = {
     taskStatus(): TaskStatus {
         const random = Math.random()
@@ -20,9 +26,9 @@ export const TestData = {
             payload: '',
             status: status,
             attempt: 1,
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
-            scheduledFor: new Date().toISOString(),
+            updatedAt: now().toISOString(),
+            createdAt: now().toISOString(),
+            scheduledFor: now().toISOString(),
             kind: 'Iverksetting',
             metadata: {
                 sakId: randomUUID(),
@@ -39,17 +45,17 @@ export const TestData = {
             {
                 id: randomUUID(),
                 taskId: taskId,
-                createdAt: new Date().toISOString(),
-                triggeredAt: new Date().toISOString(),
-                triggeredBy: new Date().toISOString(),
+                createdAt: now().toISOString(),
+                triggeredAt: now().toISOString(),
+                triggeredBy: now().toISOString(),
                 status: 'COMPLETE',
             },
             {
                 id: randomUUID(),
                 taskId: taskId,
-                createdAt: new Date().toISOString(),
-                triggeredAt: new Date().toISOString(),
-                triggeredBy: new Date().toISOString(),
+                createdAt: now().toISOString(),
+                triggeredAt: now().toISOString(),
+                triggeredBy: now().toISOString(),
                 status: 'IN_PROGRESS',
             },
         ]

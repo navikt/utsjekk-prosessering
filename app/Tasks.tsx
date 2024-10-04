@@ -6,7 +6,7 @@ import { fetchTasks, FetchTasksResponseData } from '@/lib/api/tasks.ts'
 import { TaskTable } from '@/components/taskTable/TaskTable.tsx'
 import { Filtere } from '@/components/Filtere.tsx'
 import { Footer } from '@/components/Footer.tsx'
-import { formatDate } from '@/lib/date.ts'
+import { formatUTCDate } from '@/lib/date.ts'
 
 import styles from './Tasks.module.css'
 
@@ -90,7 +90,7 @@ export const Tasks: React.FC<Props> = ({ initialData, searchParams }) => {
                     <span>sekund(er)</span>
                 </span>
                 <span suppressHydrationWarning>
-                    Sist oppdatert: {formatDate(lastUpdated.toISOString())}
+                    Sist oppdatert: {formatUTCDate(lastUpdated.toISOString())}
                 </span>
             </div>
             <TaskTable className={styles.tasks} tasks={data.tasks} />

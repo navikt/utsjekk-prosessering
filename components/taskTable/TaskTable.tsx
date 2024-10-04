@@ -7,11 +7,11 @@ import {
     TableHeaderCell,
     TableRow,
 } from '@navikt/ds-react/Table'
-import { formatDate } from '@/lib/date'
 import { StatusBadge } from '@/components/StatusBadge'
 import { TaskTableRow } from '@/components/taskTable/TaskTableRow'
 import { RetryTaskButton } from '@/components/RetryTaskButton'
 import { ErrorTableRow } from '@/components/taskTable/ErrorTableRow'
+import { formatCESTDate } from '@/lib/date.ts'
 
 import styles from './TaskTable.module.css'
 
@@ -55,7 +55,7 @@ export const TaskTable: React.FC<Props> = ({ tasks, className, ...rest }) => {
                                 </TableDataCell>
                                 <TableDataCell>{data.kind}</TableDataCell>
                                 <TableDataCell>
-                                    {formatDate(data.scheduledFor)}
+                                    {formatCESTDate(data.scheduledFor)}
                                 </TableDataCell>
                                 <TableDataCell>{data.attempt}</TableDataCell>
                                 <TableDataCell>{data.message}</TableDataCell>

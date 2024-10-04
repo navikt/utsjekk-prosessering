@@ -2,6 +2,9 @@ import express from 'express'
 import { TestData } from './testData.ts'
 import { getTaskQueryParameters } from './queryParameters.ts'
 import { sleep } from './util.ts'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const app = express()
 const port = 8080
