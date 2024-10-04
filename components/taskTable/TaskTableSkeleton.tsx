@@ -17,8 +17,7 @@ export const TaskTableSkeleton: React.FC<Props> = ({ className, ...rest }) => {
         <div className={clsx(className, styles.tableContainer)} {...rest}>
             <Table className={styles.table}>
                 <TableHeader>
-                    {/* Denne havner bak radene i tabellen. Temp fiks ved å sette z-indeks */}
-                    <TableRow style={{ zIndex: 1000 }}>
+                    <TableRow>
                         <TableHeaderCell />
                         <TableHeaderCell>Status</TableHeaderCell>
                         <TableHeaderCell>Type</TableHeaderCell>
@@ -34,10 +33,7 @@ export const TaskTableSkeleton: React.FC<Props> = ({ className, ...rest }) => {
                         .map((_, i) => (
                             <TableRow key={i}>
                                 <TableDataCell colSpan={7}>
-                                    <Skeleton
-                                        style={{ transform: 'none' }}
-                                        height={33}
-                                    />
+                                    <Skeleton height={33} />
                                 </TableDataCell>
                             </TableRow>
                         ))}
