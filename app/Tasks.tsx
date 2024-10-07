@@ -3,7 +3,10 @@
 import { useEffect, useState } from 'react'
 import { Checkbox, TextField } from '@navikt/ds-react'
 import { logger } from '@navikt/next-logger'
-import { TaskTable } from '@/components/taskTable/TaskTable.tsx'
+import {
+    TaskTable,
+    TaskTableSkeleton,
+} from '@/components/taskTable/TaskTable.tsx'
 import { Filtere } from '@/components/Filtere.tsx'
 import { Footer } from '@/components/Footer.tsx'
 import { Routes } from '@/lib/api/routes.ts'
@@ -148,6 +151,39 @@ export const Tasks: React.FC<Props> = ({ initialData, searchParams }) => {
                 page={data.page}
                 pageSize={data.pageSize}
                 totalTasks={data.totalTasks}
+            />
+        </>
+    )
+}
+
+export const TasksSkeleton = () => {
+    return (
+        <>
+            <Filtere className={styles.filtere} />
+            <div className={styles.refetch}>
+                <span>
+                    <Checkbox disabled>Refresh hvert</Checkbox>
+                    <TextField
+                        size="small"
+                        label="Sekunder"
+                        hideLabel
+                        type="number"
+                        inputMode="numeric"
+                        min={MIN_FETCH_RATE_MS / 1000}
+                        max={MAX_FETCH_RATE_MS / 1000}
+                        disabled
+                        value={5}
+                    />
+                    <span>sekund(er)</span>
+                </span>
+                <span>Henter tasks</span>
+            </div>
+            <TaskTableSkeleton />
+            <Footer
+                className={styles.footer}
+                page={1}
+                pageSize={0}
+                totalTasks={0}
             />
         </>
     )
