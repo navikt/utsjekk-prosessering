@@ -2,16 +2,65 @@
 
 import { useEffect, useState } from 'react'
 import { Checkbox, TextField } from '@navikt/ds-react'
-import { fetchTasks, FetchTasksResponseData } from '@/lib/api/tasks.ts'
+import { logger } from '@navikt/next-logger'
 import { TaskTable } from '@/components/taskTable/TaskTable.tsx'
 import { Filtere } from '@/components/Filtere.tsx'
 import { Footer } from '@/components/Footer.tsx'
+import { Routes } from '@/lib/api/routes.ts'
 import { formatDate } from '@/lib/date.ts'
+import { taskSchema } from '@/lib/schema.ts'
 
 import styles from './Tasks.module.css'
 
 const MIN_FETCH_RATE_MS = 1000
 const MAX_FETCH_RATE_MS = 60_000
+
+export type FetchTasksResponseData = {
+    tasks: ParseResult<Task>[]
+    page: number
+    pageSize: number
+    totalTasks: number
+}
+
+type FetchTasksResponse = ApiResponse<FetchTasksResponseData>
+
+export const fetchTasks = async (
+    searchParams: SearchParams
+): Promise<FetchTasksResponse> => {
+    const params = new URLSearchParams(searchParams)
+    if (!params.get('page')) {
+        params.set('page', '1')
+    }
+
+    const response = await fetch(
+        `${Routes.internal.tasks}?${params.toString()}`
+    )
+
+    if (response.ok) {
+        const body = await response.json()
+
+        return {
+            data: {
+                ...body,
+                tasks: body.tasks.map((task: Task) =>
+                    taskSchema.safeParse(task)
+                ),
+            },
+            error: null,
+        }
+    } else {
+        logger.error(
+            `Klarte ikke hente tasks: ${response.status} - ${response.statusText}`
+        )
+        return {
+            data: null,
+            error: {
+                message: response.statusText,
+                statusCode: response.status,
+            },
+        }
+    }
+}
 
 type Props = {
     initialData: FetchTasksResponseData

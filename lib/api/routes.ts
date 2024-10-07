@@ -3,6 +3,7 @@ const apiRoutesBaseUrl = process.env.NEXT_PUBLIC_HOSTNAME
 
 export const Routes = {
     internal: {
+        tasks: `/api/tasks`,
         history(id: string): string {
             return `/api/tasks/${id}/history`
         },
