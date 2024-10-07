@@ -5,6 +5,7 @@ import { Filtere } from '@/components/Filtere'
 import { Tasks } from '@/app/Tasks.tsx'
 
 import styles from './page.module.css'
+import { logger } from '@navikt/next-logger'
 
 type Props = {
     searchParams: SearchParams
@@ -15,6 +16,10 @@ export default async function TaskOverview({ searchParams }: Props) {
     await checkApiToken()
 
     const { data, error } = await fetchTasks(searchParams)
+
+    logger.info('Hentet tasks')
+    logger.info('Tasks:', data)
+    logger.info('Error:', error)
 
     if (error) {
         return (
@@ -41,7 +46,10 @@ export default async function TaskOverview({ searchParams }: Props) {
 
     return (
         <section className={styles.page}>
-            <Tasks initialData={data} searchParams={searchParams} />
+            <Tasks
+                initialData={JSON.parse(JSON.stringify(data))}
+                searchParams={searchParams}
+            />
         </section>
     )
 }
