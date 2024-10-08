@@ -26,6 +26,7 @@ declare type TaskHistory = {
     triggeredAt: datetime
     triggeredBy: string
     status: TaskStatus
+    message?: string | null
 }
 
 declare type SearchParams = Record<string, string>

@@ -1,5 +1,6 @@
 'use client'
 
+import { Fragment } from 'react'
 import { Alert } from '@navikt/ds-react'
 import { StatusBadge } from '@/components/StatusBadge'
 import { Metadata } from '@/components/Metadata'
@@ -21,8 +22,12 @@ const TaskHistoryView: React.FC<TaskHistoryViewProps> = ({ history }) => {
         )
     }
 
+    if (!history.data || history.data.length === 0) {
+        return null
+    }
+
     return (
-        <ul className={styles.list}>
+        <div className={styles.grid}>
             {history.data
                 ?.slice(0)
                 .sort(
@@ -31,12 +36,13 @@ const TaskHistoryView: React.FC<TaskHistoryViewProps> = ({ history }) => {
                         new Date(a.triggeredAt).getTime()
                 )
                 .map((history) => (
-                    <li key={history.id} className={styles.listItem}>
+                    <Fragment key={history.id}>
                         <StatusBadge status={history.status} />
                         <span>Utført: {formatDate(history.triggeredAt)}</span>
-                    </li>
+                        <span>{history.message}</span>
+                    </Fragment>
                 ))}
-        </ul>
+        </div>
     )
 }
 
@@ -48,8 +54,6 @@ type Props = {
 export const TaskTableRowContents: React.FC<Props> = ({ task, history }) => (
     <div className={styles.content}>
         <Metadata metadata={task.metadata} />
-        {history.data && history.data.length > 0 && (
-            <TaskHistoryView history={history} />
-        )}
+        <TaskHistoryView history={history} />
     </div>
 )

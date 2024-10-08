@@ -4,16 +4,9 @@
   gap: var(--a-spacing-6);
 }
 
-.list {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
+.grid {
+  display: grid;
+  grid-template-columns: max-content max-content max-content;
   gap: var(--a-spacing-4);
-}
-
-.listItem {
-  display: flex;
   align-items: center;
-  gap: var(--a-spacing-4);
 }
