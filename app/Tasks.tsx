@@ -148,6 +148,7 @@ export const Tasks: React.FC<Props> = ({ initialData, searchParams }) => {
             <TaskTable className={styles.tasks} tasks={data.tasks} />
             <Footer
                 className={styles.footer}
+                numberOfTasks={data.tasks.length}
                 page={data.page}
                 pageSize={data.pageSize}
                 totalTasks={data.totalTasks}
@@ -181,6 +182,7 @@ export const TasksSkeleton = () => {
             <TaskTableSkeleton />
             <Footer
                 className={styles.footer}
+                numberOfTasks={0}
                 page={1}
                 pageSize={0}
                 totalTasks={0}
