@@ -20,6 +20,6 @@
 }
 
 .StatusBadge.MANUAL {
-  --background: var(--a-surface-warning-subtle);
-  --border-color: var(--a-border-warning);
+  --background: var(--a-surface-info-subtle);
+  --border-color: var(--a-border-info);
 }
