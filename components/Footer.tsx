@@ -31,3 +31,21 @@ export const Footer: React.FC<Props> = ({
         </footer>
     )
 }
+
+type SkeletonProps = Omit<React.HTMLAttributes<HTMLElement>, 'children'>
+
+export const FooterSkeleton: React.FC<SkeletonProps> = ({
+    className,
+    ...rest
+}) => {
+    return (
+        <Footer
+            className={className}
+            numberOfTasks={0}
+            page={1}
+            pageSize={0}
+            totalTasks={0}
+            {...rest}
+        />
+    )
+}

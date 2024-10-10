@@ -2,12 +2,8 @@
   grid-area: filters;
 }
 
-.refetch {
-  grid-area: refetch;
-  display: flex;
-  justify-content: space-between;
-  gap: var(--a-spacing-4);
-  margin-bottom: var(--a-spacing-4);
+.refresher {
+  grid-area: refresher;
 }
 
 .refetch > * {
