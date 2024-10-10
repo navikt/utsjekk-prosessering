@@ -2,16 +2,9 @@
 
 import clsx from 'clsx'
 import { UrlSearchParamComboBox } from '@/components/UrlSearchParamComboBox'
-import { UrlSearchParamSearch } from '@/components/UrlSearchParamSearch'
+import { deslugify, slugifyUpperCase } from '@/lib/string.ts'
 
 import styles from './Filtere.module.css'
-
-const initialFilters: TaskStatus[] = [
-    'COMPLETE',
-    'IN_PROGRESS',
-    'FAIL',
-    'MANUAL',
-] as const
 
 type Props = React.HTMLAttributes<HTMLDivElement>
 
@@ -22,14 +15,21 @@ export const Filtere: React.FC<Props> = ({ className, ...rest }) => (
                 className={styles.filter}
                 label="Status"
                 searchParamName="status"
-                initialOptions={initialFilters}
+                initialOptions={
+                    ['COMPLETE', 'IN_PROGRESS', 'FAIL', 'MANUAL'] as const
+                }
+                isMultiSelect
+                renderForSearchParam={slugifyUpperCase}
+                renderForCombobox={deslugify}
             />
-            <UrlSearchParamSearch
+            <UrlSearchParamComboBox
                 className={styles.filter}
-                searchParamName="kind"
                 label="Type"
-                variant="secondary"
-                hideLabel={false}
+                searchParamName="kind"
+                shouldAutocomplete
+                initialOptions={
+                    ['Avstemming', 'Iverksetting', 'SjekkStatus'] as const
+                }
             />
         </div>
     </div>

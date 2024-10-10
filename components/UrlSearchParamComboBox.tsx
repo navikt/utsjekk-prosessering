@@ -1,21 +1,23 @@
-'use client'
-
 import React from 'react'
 import { ComboboxProps, UNSAFE_Combobox } from '@navikt/ds-react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { deslugify, slugifyUpperCase } from '@/lib/string'
 
 type Props<T extends string> = Omit<ComboboxProps, 'options'> & {
     searchParamName: string
     initialOptions: T[]
+    renderForSearchParam?: (value: string) => string
+    renderForCombobox?: (value: string) => string
 }
 
-export function UrlSearchParamComboBox<T extends string>({
+export const UrlSearchParamComboBox = <T extends string>({
     searchParamName,
     initialOptions,
+    renderForSearchParam = (value) => value,
+    renderForCombobox = (value) => value,
     className,
+    isMultiSelect,
     ...rest
-}: Props<T>) {
+}: Props<T>) => {
     const router = useRouter()
     const pathname = usePathname()
     const searchParams = useSearchParams()
@@ -37,27 +39,35 @@ export function UrlSearchParamComboBox<T extends string>({
     }
 
     const onToggleSelected = (option: string, isSelected: boolean) => {
-        if (isSelected) {
-            const query = [...selectedOptions, option as T]
-                .map(slugifyUpperCase)
-                .join(',')
-            updateSearchParams(query)
+        if (isMultiSelect) {
+            if (isSelected) {
+                const query = [...selectedOptions, option as T]
+                    .map(renderForSearchParam)
+                    .join(',')
+                updateSearchParams(query)
+            } else {
+                const query = selectedOptions
+                    .map(renderForSearchParam)
+                    .filter((o) => o !== renderForSearchParam(option))
+                    .join(',')
+                updateSearchParams(query)
+            }
         } else {
-            const query = selectedOptions
-                .map(slugifyUpperCase)
-                .filter((o) => o !== slugifyUpperCase(option))
-                .join(',')
-            updateSearchParams(query)
+            if (isSelected) {
+                updateSearchParams(renderForSearchParam(option))
+            } else {
+                updateSearchParams('')
+            }
         }
     }
 
     return (
         <UNSAFE_Combobox
             className={className}
-            isMultiSelect
-            options={initialOptions.map(deslugify)}
+            isMultiSelect={isMultiSelect}
+            options={initialOptions.map(renderForCombobox)}
             onToggleSelected={onToggleSelected}
-            selectedOptions={selectedOptions.map(deslugify)}
+            selectedOptions={selectedOptions.map(renderForCombobox)}
             {...rest}
         />
     )
