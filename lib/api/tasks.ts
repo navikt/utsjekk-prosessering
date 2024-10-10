@@ -1,8 +1,6 @@
-'use server'
-
+import { Routes } from '@/lib/api/routes.ts'
+import { taskSchema } from '@/lib/schema.ts'
 import { logger } from '@navikt/next-logger'
-import { taskSchema } from '@/lib/schema'
-import { fetchApiToken } from '@/lib/auth/token'
 
 export type FetchTasksResponseData = {
     tasks: ParseResult<Task>[]
@@ -11,7 +9,7 @@ export type FetchTasksResponseData = {
     totalTasks: number
 }
 
-type FetchTasksResponse = ApiResponse<FetchTasksResponseData>
+export type FetchTasksResponse = ApiResponse<FetchTasksResponseData>
 
 export const fetchTasks = async (
     searchParams: SearchParams
@@ -21,15 +19,8 @@ export const fetchTasks = async (
         params.set('page', '1')
     }
 
-    const token = await fetchApiToken()
-
     const response = await fetch(
-        `${process.env.TASK_API_BASE_URL}/api/tasks?${params.toString()}`,
-        {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        }
+        `${Routes.internal.tasks}?${params.toString()}`
     )
 
     if (response.ok) {

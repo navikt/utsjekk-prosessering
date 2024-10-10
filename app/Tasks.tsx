@@ -1,77 +1,29 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Checkbox, TextField } from '@navikt/ds-react'
-import { logger } from '@navikt/next-logger'
+import { Alert, Checkbox, TextField } from '@navikt/ds-react'
 import {
     TaskTable,
     TaskTableSkeleton,
 } from '@/components/taskTable/TaskTable.tsx'
 import { Filtere } from '@/components/Filtere.tsx'
 import { Footer } from '@/components/Footer.tsx'
-import { Routes } from '@/lib/api/routes.ts'
 import { formatDate } from '@/lib/date.ts'
-import { taskSchema } from '@/lib/schema.ts'
+
+import { fetchTasks, FetchTasksResponse } from '@/lib/api/tasks.ts'
 
 import styles from './Tasks.module.css'
 
 const MIN_FETCH_RATE_MS = 1000
 const MAX_FETCH_RATE_MS = 60_000
 
-export type FetchTasksResponseData = {
-    tasks: ParseResult<Task>[]
-    page: number
-    pageSize: number
-    totalTasks: number
-}
-
-type FetchTasksResponse = ApiResponse<FetchTasksResponseData>
-
-export const fetchTasks = async (
-    searchParams: SearchParams
-): Promise<FetchTasksResponse> => {
-    const params = new URLSearchParams(searchParams)
-    if (!params.get('page')) {
-        params.set('page', '1')
-    }
-
-    const response = await fetch(
-        `${Routes.internal.tasks}?${params.toString()}`
-    )
-
-    if (response.ok) {
-        const body = await response.json()
-
-        return {
-            data: {
-                ...body,
-                tasks: body.tasks.map((task: Task) =>
-                    taskSchema.safeParse(task)
-                ),
-            },
-            error: null,
-        }
-    } else {
-        logger.error(
-            `Klarte ikke hente tasks: ${response.status} - ${response.statusText}`
-        )
-        return {
-            data: null,
-            error: {
-                message: response.statusText,
-                statusCode: response.status,
-            },
-        }
-    }
-}
-
 type Props = {
-    initialData: FetchTasksResponseData
     searchParams: SearchParams
 }
 
-export const Tasks: React.FC<Props> = ({ initialData, searchParams }) => {
-    const [data, setData] = useState(initialData)
+export const Tasks: React.FC<Props> = ({ searchParams }) => {
+    const [response, setResponse] =
+        useState<Awaited<FetchTasksResponse> | null>(null)
     const [shouldRefetch, setShouldRefetch] = useState(false)
     const [fetchRateMS, setFetchRateMS] = useState(5000)
     const [lastUpdated, setLastUpdated] = useState(new Date())
@@ -100,13 +52,15 @@ export const Tasks: React.FC<Props> = ({ initialData, searchParams }) => {
     }
 
     useEffect(() => {
+        fetchTasks(searchParams).then(setResponse)
+    }, [searchParams])
+
+    useEffect(() => {
         if (shouldRefetch) {
             const timer = setInterval(async () => {
-                const { data } = await fetchTasks(searchParams)
-                if (data) {
-                    setData(data)
-                    setLastUpdated(new Date())
-                }
+                const response = await fetchTasks(searchParams)
+                setResponse(response)
+                setLastUpdated(new Date())
             }, fetchRateMS)
 
             return () => {
@@ -115,9 +69,30 @@ export const Tasks: React.FC<Props> = ({ initialData, searchParams }) => {
         }
     }, [searchParams, fetchRateMS, shouldRefetch])
 
-    useEffect(() => {
-        setData(initialData)
-    }, [initialData])
+    if (!response) {
+        return <TasksSkeleton />
+    }
+
+    if (response.error) {
+        return (
+            <Alert className={styles.alert} variant="error">
+                Klarte ikke hente tasks:
+                <br />
+                {response.error.statusCode} - {response.error.message}
+            </Alert>
+        )
+    }
+
+    if (response.data.tasks.length === 0) {
+        return (
+            <>
+                <Filtere />
+                <Alert className={styles.alert} variant="info">
+                    Fant ingen tasks med gjeldende filtere
+                </Alert>
+            </>
+        )
+    }
 
     return (
         <>
@@ -145,13 +120,13 @@ export const Tasks: React.FC<Props> = ({ initialData, searchParams }) => {
                     Sist oppdatert: {formatDate(lastUpdated.toISOString())}
                 </span>
             </div>
-            <TaskTable className={styles.tasks} tasks={data.tasks} />
+            <TaskTable className={styles.tasks} tasks={response.data.tasks} />
             <Footer
                 className={styles.footer}
-                numberOfTasks={data.tasks.length}
-                page={data.page}
-                pageSize={data.pageSize}
-                totalTasks={data.totalTasks}
+                numberOfTasks={response.data.tasks.length}
+                page={response.data.page}
+                pageSize={response.data.pageSize}
+                totalTasks={response.data.totalTasks}
             />
         </>
     )
