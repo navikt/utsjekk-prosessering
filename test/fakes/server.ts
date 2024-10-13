@@ -11,7 +11,7 @@ app.use(express.json())
 const tasks: Record<string, Task> = {}
 const taskHistory: Record<string, TaskHistory[]> = {}
 
-for (const task of TestData.tasks(100)) {
+for (const task of TestData.tasks(85)) {
     tasks[task.id] = task
     taskHistory[task.id] = TestData.taskHistory(task.id)
 }
