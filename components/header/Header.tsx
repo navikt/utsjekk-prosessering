@@ -47,7 +47,7 @@ export async function Header() {
     return (
         <InternalHeader>
             <InternalHeaderTitle as="h1">
-                Utsjekk-prosessering
+                🤖 Utsjekk-prosessering
             </InternalHeaderTitle>
             <Spacer />
             <UserMenu name={user.name} ident={user.ident} />
