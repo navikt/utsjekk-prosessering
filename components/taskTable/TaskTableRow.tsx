@@ -2,40 +2,12 @@
 
 import { useState } from 'react'
 import clsx from 'clsx'
-import { logger } from '@navikt/next-logger'
 import { ExpandableRowProps } from '@navikt/ds-react'
 import { TableExpandableRow } from '@navikt/ds-react/Table'
 import { TaskTableRowContents } from '@/components/taskTable/TaskTableRowContents'
-import { Routes } from '@/lib/api/routes'
+import { fetchHistory, FetchHistoryResponse } from '@/lib/api/history.ts'
 
 import styles from './TaskTableRow.module.css'
-
-type FetchHistoryResponse = ApiResponse<TaskHistory[]>
-
-const fetchHistory = async (task: Task): Promise<FetchHistoryResponse> => {
-    const response = await fetch(Routes.internal.history(task.id))
-
-    if (response.ok) {
-        const body = await response.json()
-        return {
-            data: body,
-            error: null,
-        }
-    } else {
-        logger.error(
-            'Klarte ikke hente task-history:',
-            response.status,
-            response.statusText
-        )
-        return {
-            data: null,
-            error: {
-                message: response.statusText,
-                statusCode: response.status,
-            },
-        }
-    }
-}
 
 type Props = Omit<ExpandableRowProps, 'content'> & {
     task: Task
@@ -54,7 +26,7 @@ export const TaskTableRow: React.FC<Props> = ({
     const onOpenChange = async (open: boolean) => {
         if (open) {
             setIsFetching(true)
-            const response = await fetchHistory(task)
+            const response = await fetchHistory(task.id)
             setHistory(response)
             setIsFetching(false)
         }

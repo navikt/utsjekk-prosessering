@@ -1,5 +1,4 @@
 const taskApiBaseUrl = process.env.TASK_API_BASE_URL
-const apiRoutesBaseUrl = process.env.NEXT_PUBLIC_HOSTNAME
 
 export const Routes = {
     internal: {
