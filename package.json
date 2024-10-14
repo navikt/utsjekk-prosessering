@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "vitest",
+    "test": "vitest run",
     "fake": "node --watch --experimental-strip-types fakes/server.ts"
   },
   "dependencies": {
