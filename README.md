@@ -10,7 +10,7 @@ TASK_API_BASE_URL=http://localhost:8080
 
 Deretter kjører du appen med `npm run dev`. Da kjører appen på [http://localhost:3000](http://localhost:3000)  og henter data fra `utsjekk` som du må ha kjørende lokalt. 
 
-Om du ikke ønsker å kjøre `utsjekk` lokalt kan du kjøre en fake-server med `npm run fake`. Da må du samtidig ha milljøvariabelen `NEXT_PUBLIC_API_FAKING` satt til `enabled`, f.eks. ved å legge den til i `.env.local`-fila før du starter appen.
+Om du ikke ønsker å kjøre `utsjekk` lokalt kan du kjøre en fake-server med `npm run fake`. Da må du samtidig ha milljøvariabelen `NEXT_PUBLIC_API_FAKING` satt til `enabled`, f.eks. ved å legge den til i `.env.local`-fila.
 
 ## Testing
 
