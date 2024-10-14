@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "vitest",
-    "fake": "node --watch --experimental-strip-types test/fakes/server.ts"
+    "fake": "node --watch --experimental-strip-types fakes/server.ts"
   },
   "dependencies": {
     "@navikt/aksel-icons": "^7.0.1",
@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
+    "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
     "@types/express": "^5.0.0",
@@ -38,6 +39,7 @@
     "eslint-config-next": "14.2.3",
     "express": "^4.21.0",
     "jsdom": "^25.0.1",
+    "msw": "^2.4.11",
     "next-router-mock": "^0.9.13",
     "pino-pretty": "^11.2.2",
     "prettier": "^3.2.5",

@@ -30,7 +30,9 @@ export const Tasks: React.FC<Props> = ({ searchParams }) => {
     }, [searchParams])
 
     useEffect(() => {
-        fetchTasks(searchParams).then(setResponse)
+        fetchTasks(searchParams).then((response) => {
+            setResponse(response)
+        })
     }, [searchParams])
 
     if (!response) {
@@ -39,7 +41,7 @@ export const Tasks: React.FC<Props> = ({ searchParams }) => {
 
     if (response.error) {
         return (
-            <Alert className={styles.alert} variant="error">
+            <Alert className={styles.alert} variant="error" role="alert">
                 Klarte ikke hente tasks:
                 <br />
                 {response.error.statusCode} - {response.error.message}
@@ -51,7 +53,7 @@ export const Tasks: React.FC<Props> = ({ searchParams }) => {
         return (
             <>
                 <Filtere />
-                <Alert className={styles.alert} variant="info">
+                <Alert className={styles.alert} variant="info" role="alert">
                     Fant ingen tasks med gjeldende filtere
                 </Alert>
             </>
