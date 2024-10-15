@@ -1,5 +1,6 @@
 import { checkApiToken, checkToken } from '@/lib/auth/token'
 import { Tasks } from '@/components/Tasks.tsx'
+import { MinesweeperProgram } from '@/components/minesweeper'
 
 import styles from './page.module.css'
 
@@ -14,6 +15,7 @@ export default async function TaskOverview({ searchParams }: Props) {
     return (
         <section className={styles.page}>
             <Tasks searchParams={searchParams} />
+            {searchParams['minesweeper'] && <MinesweeperProgram />}
         </section>
     )
 }

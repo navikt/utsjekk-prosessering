@@ -10,6 +10,8 @@ import {
     DropdownToggle,
 } from '@navikt/ds-react/Dropdown'
 import { LeaveIcon } from '@navikt/aksel-icons'
+import { MinesweeperIcon } from '@/components/minesweeper'
+import { useToggleProgram } from '@/components/minesweeper/desktop/useToggleProgram.ts'
 
 type Props = {
     name: string
@@ -17,6 +19,8 @@ type Props = {
 }
 
 export const UserMenu: React.FC<Props> = ({ name, ident }) => {
+    const toggleMinesweeper = useToggleProgram('minesweeper')
+
     return (
         <Dropdown>
             <InternalHeaderUserButton as={DropdownToggle} name={name} />
@@ -27,6 +31,13 @@ export const UserMenu: React.FC<Props> = ({ name, ident }) => {
                     </BodyShort>
                     <Detail as="dd">{ident}</Detail>
                 </dl>
+                <DropdownMenuDivider />
+                <DropdownMenuList>
+                    <DropdownMenuListItem onClick={toggleMinesweeper}>
+                        <MinesweeperIcon />
+                        Minesveiper
+                    </DropdownMenuListItem>
+                </DropdownMenuList>
                 <DropdownMenuDivider />
                 <DropdownMenuList>
                     <DropdownMenuListItem as={Link} href="/oauth2/logout">
