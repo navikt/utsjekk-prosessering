@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "vitest run",
+    "e2e-test": "npx playwright test",
     "fake": "node --watch --experimental-strip-types fakes/server.ts"
   },
   "dependencies": {
@@ -20,6 +21,7 @@
     "@navikt/oasis": "^3.4.0",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
+    "dotenv": "^16.4.5",
     "next": "^14.2.12",
     "react": "^18",
     "react-dom": "^18",
@@ -27,6 +29,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
+    "@playwright/test": "^1.48.0",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",

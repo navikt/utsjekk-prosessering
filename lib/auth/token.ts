@@ -32,6 +32,9 @@ export const checkToken = async () => {
 }
 
 export const checkApiToken = async () => {
+    if (process.env.NEXT_PUBLIC_API_FAKING === 'enabled') {
+        return
+    }
     const existingApiToken = cookies().get(UTSJEKK_TOKEN_NAME)
     if (!existingApiToken) {
         redirect('/api/auth/token')
