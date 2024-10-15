@@ -119,7 +119,7 @@ export const Window: React.FC<Props> = ({
     usePutInFrontOnMount(windowRef)
 
     const closeWindow = () => {
-        toggleOpen(false)
+        toggleOpen()
     }
 
     return (
