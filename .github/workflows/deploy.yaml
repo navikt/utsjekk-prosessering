@@ -34,9 +34,6 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
-      - name: Build app
-        run: npm run build
-
       - name: Run unit tests
         run: npm run test
 
@@ -63,6 +60,9 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+
+      - name: Build app
+        run: npm run build
 
       - name: Push image
         uses: nais/docker-build-push@v0
