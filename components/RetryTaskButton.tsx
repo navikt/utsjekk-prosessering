@@ -1,16 +1,14 @@
 'use client'
 
-import { Button } from '@navikt/ds-react'
 import { useRouter } from 'next/navigation'
+import { Button } from '@navikt/ds-react'
 import { logger } from '@navikt/next-logger'
+import { Routes } from '@/lib/api/routes.ts'
 
 const retryTask = async (task: Task) => {
-    const response = await fetch(
-        `${process.env.NEXT_PUBLIC_HOSTNAME}/api/tasks/${task.id}`,
-        {
-            method: 'PATCH',
-        }
-    )
+    const response = await fetch(Routes.internal.task(task.id), {
+        method: 'PATCH',
+    })
 
     if (!response.ok) {
         logger.error(`Klarte ikke rekjøre task:`, response)

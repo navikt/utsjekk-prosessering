@@ -6,6 +6,9 @@ export const Routes = {
         history(id: string): string {
             return `/api/tasks/${id}/history`
         },
+        task(id: string): string {
+            return `/api/tasks/${id}`
+        },
     },
     external: {
         tasks: `${taskApiBaseUrl}/api/tasks`,
