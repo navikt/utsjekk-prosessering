@@ -31,7 +31,8 @@ export const TaskTable: React.FC<Props> = ({ tasks, className, ...rest }) => {
                         <TableHeaderCell />
                         <TableHeaderCell>Status</TableHeaderCell>
                         <TableHeaderCell>Type</TableHeaderCell>
-                        <TableHeaderCell>Kjøretid</TableHeaderCell>
+                        <TableHeaderCell>Sist kjørt</TableHeaderCell>
+                        <TableHeaderCell>Neste forsøk</TableHeaderCell>
                         <TableHeaderCell>Forsøk</TableHeaderCell>
                         <TableHeaderCell>Melding</TableHeaderCell>
                         <TableHeaderCell />
@@ -45,8 +46,8 @@ export const TaskTable: React.FC<Props> = ({ tasks, className, ...rest }) => {
                         .slice(0)
                         .sort(
                             (a, b) =>
-                                new Date(b.data.scheduledFor).getTime() -
-                                new Date(a.data.scheduledFor).getTime()
+                                new Date(b.data.updatedAt).getTime() -
+                                new Date(a.data.updatedAt).getTime()
                         )
                         .map(({ data }) => (
                             <TaskTableRow key={data.id} task={data}>
@@ -55,7 +56,12 @@ export const TaskTable: React.FC<Props> = ({ tasks, className, ...rest }) => {
                                 </TableDataCell>
                                 <TableDataCell>{data.kind}</TableDataCell>
                                 <TableDataCell>
-                                    {formatDate(data.scheduledFor)}
+                                    {formatDate(data.updatedAt)}
+                                </TableDataCell>
+                                <TableDataCell>
+                                    {data.status === 'IN_PROGRESS'
+                                        ? formatDate(data.scheduledFor)
+                                        : '-'}
                                 </TableDataCell>
                                 <TableDataCell>{data.attempt}</TableDataCell>
                                 <TableDataCell>{data.message}</TableDataCell>
