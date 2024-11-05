@@ -6,8 +6,8 @@ import { logger } from '@navikt/next-logger'
 import { Routes } from '@/lib/api/routes.ts'
 
 const retryTask = async (task: Task) => {
-    const response = await fetch(Routes.internal.task(task.id), {
-        method: 'PATCH',
+    const response = await fetch(Routes.internal.retry(task.id), {
+        method: 'PUT',
     })
 
     if (!response.ok) {

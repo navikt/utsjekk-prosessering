@@ -9,6 +9,12 @@ export const Routes = {
         task(id: string): string {
             return `/api/tasks/${id}`
         },
+        retry(id: string): string {
+            return `/api/tasks/${id}/rekjør`
+        },
+        retryAll(): string {
+            return '/api/tasks/rekjør'
+        },
     },
     external: {
         tasks: `${taskApiBaseUrl}/api/tasks`,
