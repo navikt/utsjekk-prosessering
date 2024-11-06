@@ -1,0 +1,48 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: utsjekk-prosessering-test
+  namespace: helved
+  labels:
+    team: helved
+spec:
+  image: {{ image }}
+  port: 3000
+  replicas:
+    min: 1
+    max: 1
+  resources:
+    limits:
+      cpu: 100m
+    requests:
+      cpu: 100m
+  ingresses:
+    - 'https://utsjekk-prosessering-test.intern.nav.no'
+  azure:
+    application:
+      enabled: true
+      allowAllUsers: true
+    sidecar:
+      enabled: true
+  accessPolicy:
+    outbound:
+      rules:
+        - application: utsjekk
+  env:
+    - name: NEXT_PUBLIC_HOSTNAME
+      value: https://utsjekk-prosessering-test.intern.nav.no
+    - name: UTSJEKK_SCOPE
+      value: api://prod-gcp.helved.utsjekk/.default
+    - name: TASK_API_BASE_URL
+      value: http://utsjekk
+  liveness:
+    path: /internal/is-alive
+    initialDelay: 10
+    timeout: 5
+    periodSeconds: 5
+    failureThreshold: 30
+  readiness:
+    path: /internal/is-ready
+    initialDelay: 10
+    periodSeconds: 5
+    timeout: 5
