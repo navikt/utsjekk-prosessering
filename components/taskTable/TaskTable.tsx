@@ -59,7 +59,8 @@ export const TaskTable: React.FC<Props> = ({ tasks, className, ...rest }) => {
                                     {formatDate(data.updatedAt)}
                                 </TableDataCell>
                                 <TableDataCell>
-                                    {data.status === 'IN_PROGRESS'
+                                    {data.status === 'IN_PROGRESS' ||
+                                    data.status === 'FAIL'
                                         ? formatDate(data.scheduledFor)
                                         : '-'}
                                 </TableDataCell>
