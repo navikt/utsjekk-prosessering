@@ -67,7 +67,11 @@ export const Tasks: React.FC<Props> = ({ searchParams }) => {
                 onRefresh={refreshTasks}
                 className={styles.refresher}
             />
-            <TaskTable className={styles.tasks} tasks={response.data.tasks} />
+            <TaskTable
+                className={styles.tasks}
+                tasks={response.data.tasks}
+                totalTasks={response.data.totalTasks}
+            />
             <Footer
                 className={styles.footer}
                 numberOfTasks={response.data.tasks.length}

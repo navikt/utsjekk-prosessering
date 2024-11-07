@@ -1,4 +1,4 @@
-import { HStack, Skeleton, Spacer, Table } from '@navikt/ds-react'
+import { Button, HStack, Skeleton, Spacer, Table } from '@navikt/ds-react'
 import clsx from 'clsx'
 import {
     TableBody,
@@ -8,6 +8,7 @@ import {
     TableRow,
 } from '@navikt/ds-react/Table'
 import { formatDate } from '@/lib/date'
+import { useStatusFilter } from '@/lib/hooks/useStatusFilter.ts'
 import { StatusBadge } from '@/components/StatusBadge'
 import { TaskTableRow } from '@/components/taskTable/TaskTableRow'
 import { RetryTaskButton } from '@/components/RetryTaskButton'
@@ -15,13 +16,31 @@ import { ErrorTableRow } from '@/components/taskTable/ErrorTableRow'
 
 import styles from './TaskTable.module.css'
 
-type Props = React.HTMLAttributes<HTMLDivElement> & {
-    tasks: ParseResult<Task>[]
+const isRetryable = (status: TaskStatus) => {
+    switch (status) {
+        case 'IN_PROGRESS':
+        case 'FAIL':
+            return true
+        default:
+            return false
+    }
 }
 
-export const TaskTable: React.FC<Props> = ({ tasks, className, ...rest }) => {
+type Props = React.HTMLAttributes<HTMLDivElement> & {
+    tasks: ParseResult<Task>[]
+    totalTasks: number
+}
+
+export const TaskTable: React.FC<Props> = ({
+    tasks,
+    totalTasks,
+    className,
+    ...rest
+}) => {
     const parsedTasks = tasks.filter((task) => task.success)
     const parsedErrors = tasks.filter((task) => !task.success)
+
+    const statusFilter = useStatusFilter()
 
     return (
         <div className={clsx(className, styles.tableContainer)} {...rest}>
@@ -35,7 +54,16 @@ export const TaskTable: React.FC<Props> = ({ tasks, className, ...rest }) => {
                         <TableHeaderCell>Neste forsøk</TableHeaderCell>
                         <TableHeaderCell>Forsøk</TableHeaderCell>
                         <TableHeaderCell>Melding</TableHeaderCell>
-                        <TableHeaderCell />
+                        <TableHeaderCell>
+                            <HStack>
+                                <Spacer />
+                                {statusFilter?.every(isRetryable) && (
+                                    <Button size="small">
+                                        Rekjør alle ({totalTasks})
+                                    </Button>
+                                )}
+                            </HStack>
+                        </TableHeaderCell>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -59,8 +87,7 @@ export const TaskTable: React.FC<Props> = ({ tasks, className, ...rest }) => {
                                     {formatDate(data.updatedAt)}
                                 </TableDataCell>
                                 <TableDataCell>
-                                    {data.status === 'IN_PROGRESS' ||
-                                    data.status === 'FAIL'
+                                    {isRetryable(data.status)
                                         ? formatDate(data.scheduledFor)
                                         : '-'}
                                 </TableDataCell>
@@ -69,7 +96,9 @@ export const TaskTable: React.FC<Props> = ({ tasks, className, ...rest }) => {
                                 <TableDataCell>
                                     <HStack>
                                         <Spacer />
-                                        <RetryTaskButton task={data} />
+                                        {isRetryable(data.status) && (
+                                            <RetryTaskButton task={data} />
+                                        )}
                                     </HStack>
                                 </TableDataCell>
                             </TaskTableRow>
@@ -80,10 +109,9 @@ export const TaskTable: React.FC<Props> = ({ tasks, className, ...rest }) => {
     )
 }
 
-export const TaskTableSkeleton: React.FC<Omit<Props, 'tasks'>> = ({
-    className,
-    ...rest
-}) => {
+export const TaskTableSkeleton: React.FC<
+    Omit<Props, 'tasks' | 'totalTasks'>
+> = ({ className, ...rest }) => {
     return (
         <div className={clsx(className, styles.tableContainer)} {...rest}>
             <Table className={styles.table}>

@@ -14,7 +14,21 @@ export const TestData = {
                 return 'MANUAL'
         }
     },
-    task(status: TaskStatus = TestData.taskStatus()): Task {
+    taskKind(): TaskKind {
+        const random = Math.random()
+        switch (true) {
+            case random < 0.1:
+                return 'Avstemming'
+            case random < 0.55:
+                return 'Iverksetting'
+            default:
+                return 'SjekkStatus'
+        }
+    },
+    task(
+        status: TaskStatus = TestData.taskStatus(),
+        kind: TaskKind = TestData.taskKind()
+    ): Task {
         return {
             id: randomUUID(),
             payload: '',
@@ -23,7 +37,7 @@ export const TestData = {
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString(),
             scheduledFor: new Date().toISOString(),
-            kind: 'Iverksetting',
+            kind: kind,
             metadata: {
                 sakId: randomUUID(),
                 behandlingId: randomUUID(),
