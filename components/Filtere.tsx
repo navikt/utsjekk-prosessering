@@ -12,11 +12,6 @@ type Props = React.HTMLAttributes<HTMLDivElement>
 export const Filtere: React.FC<Props> = ({ className, ...rest }) => (
     <div className={clsx(styles.container, className)} {...rest}>
         <div className={clsx(styles.filters, styles.visible)}>
-            <UrlSearchParamInput
-                className={styles.input}
-                label="ID"
-                searchParamName="id"
-            />
             <UrlSearchParamComboBox
                 label="Status"
                 searchParamName="status"
@@ -35,6 +30,11 @@ export const Filtere: React.FC<Props> = ({ className, ...rest }) => (
                     ['Avstemming', 'Iverksetting', 'SjekkStatus'] as const
                 }
                 isMultiSelect
+            />
+            <UrlSearchParamInput
+                className={styles.input}
+                label="ID"
+                searchParamName="id"
             />
         </div>
     </div>
