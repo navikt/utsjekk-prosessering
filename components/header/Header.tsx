@@ -1,12 +1,18 @@
 'use server'
 
 import React from 'react'
-import { InternalHeader, Spacer } from '@navikt/ds-react'
-import { InternalHeaderTitle } from '@navikt/ds-react/InternalHeader'
+import Image from 'next/image'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
+import { InternalHeader, Spacer } from '@navikt/ds-react'
+import { InternalHeaderTitle } from '@navikt/ds-react/InternalHeader'
 import { faker } from '@faker-js/faker'
+
 import { UserMenu } from '@/components/header/UserMenu.tsx'
+
+import styles from './Header.module.css'
+
+import logo from '@/public/logo.png'
 
 function getUser(): {
     name: string
@@ -47,7 +53,10 @@ export async function Header() {
     return (
         <InternalHeader>
             <InternalHeaderTitle as="h1">
-                🤖 Utsjekk-prosessering
+                <span className={styles.title}>
+                    <Image src={logo.src} alt="" width={24} height={24} />
+                    <span>Peisen</span>
+                </span>
             </InternalHeaderTitle>
             <Spacer />
             <UserMenu name={user.name} ident={user.ident} />

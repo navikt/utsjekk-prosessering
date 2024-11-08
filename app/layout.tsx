@@ -15,7 +15,7 @@ const sourceSans = Source_Sans_3({
 })
 
 export const metadata: Metadata = {
-    title: 'Utsjekk-prosessering',
+    title: 'Peisen',
     description:
         'Oversikt og administrering av automatiske oppgaver for Utsjekk',
 }
