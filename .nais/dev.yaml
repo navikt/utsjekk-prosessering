@@ -1,7 +1,7 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-  name: utsjekk-prosessering-test
+  name: helved-peisen
   namespace: helved
   labels:
     team: helved
@@ -17,7 +17,7 @@ spec:
     requests:
       cpu: 100m
   ingresses:
-    - 'https://utsjekk-prosessering-test.intern.dev.nav.no'
+    - 'https://peisen.intern.dev.nav.no'
   azure:
     application:
       enabled: true
@@ -30,7 +30,7 @@ spec:
         - application: utsjekk
   env:
     - name: NEXT_PUBLIC_HOSTNAME
-      value: https://utsjekk-prosessering-test.intern.dev.nav.no
+      value: https://peisen.intern.dev.nav.no
     - name: UTSJEKK_SCOPE
       value: api://dev-gcp.helved.utsjekk/.default
     - name: TASK_API_BASE_URL
