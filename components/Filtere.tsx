@@ -5,14 +5,19 @@ import { UrlSearchParamComboBox } from '@/components/UrlSearchParamComboBox'
 import { deslugify, slugifyUpperCase } from '@/lib/string.ts'
 
 import styles from './Filtere.module.css'
+import { UrlSearchParamInput } from '@/components/UrlSearchParamInput.tsx'
 
 type Props = React.HTMLAttributes<HTMLDivElement>
 
 export const Filtere: React.FC<Props> = ({ className, ...rest }) => (
     <div className={clsx(styles.container, className)} {...rest}>
         <div className={clsx(styles.filters, styles.visible)}>
+            <UrlSearchParamInput
+                className={styles.input}
+                label="ID"
+                searchParamName="id"
+            />
             <UrlSearchParamComboBox
-                className={styles.filter}
                 label="Status"
                 searchParamName="status"
                 initialOptions={
@@ -23,7 +28,6 @@ export const Filtere: React.FC<Props> = ({ className, ...rest }) => (
                 renderForCombobox={deslugify}
             />
             <UrlSearchParamComboBox
-                className={styles.filter}
                 label="Type"
                 searchParamName="kind"
                 shouldAutocomplete
