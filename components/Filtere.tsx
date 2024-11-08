@@ -30,6 +30,7 @@ export const Filtere: React.FC<Props> = ({ className, ...rest }) => (
                 initialOptions={
                     ['Avstemming', 'Iverksetting', 'SjekkStatus'] as const
                 }
+                isMultiSelect
             />
         </div>
     </div>

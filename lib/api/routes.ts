@@ -10,10 +10,10 @@ export const Routes = {
             return `/api/tasks/${id}`
         },
         retry(id: string): string {
-            return `/api/tasks/${id}/rekjør`
+            return `/api/tasks/${id}/rerun`
         },
         retryAll(): string {
-            return '/api/tasks/rekjør'
+            return '/api/tasks/rerun'
         },
     },
     external: {

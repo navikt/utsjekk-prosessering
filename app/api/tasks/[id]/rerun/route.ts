@@ -10,7 +10,7 @@ export async function PUT(
     const apiToken = await fetchApiToken()
     const taskId = params.id
 
-    return fetch(`${process.env.TASK_API_BASE_URL}/api/tasks/${taskId}`, {
+    return fetch(`${process.env.TASK_API_BASE_URL}/api/tasks/${taskId}/rerun`, {
         method: 'PUT',
         headers: {
             Authorization: `Bearer ${apiToken}`,
