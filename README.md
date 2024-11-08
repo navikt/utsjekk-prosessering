@@ -1,4 +1,4 @@
-# helved-peisen
+![img](peisen.png)
 
 ## Kjøring lokalt
 
