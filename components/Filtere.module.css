@@ -1,6 +1,5 @@
 .container {
   position: relative;
-  min-height: var(--padding-top);
   display: grid;
   gap: var(--a-spacing-3);
   grid-template-rows: min-content 1fr;
