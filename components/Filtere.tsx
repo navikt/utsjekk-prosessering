@@ -33,8 +33,8 @@ export const Filtere: React.FC<Props> = ({ className, ...rest }) => (
             />
             <UrlSearchParamInput
                 className={styles.input}
-                label="ID"
-                searchParamName="id"
+                label="Søk i payload"
+                searchParamName="payload"
             />
         </div>
     </div>
