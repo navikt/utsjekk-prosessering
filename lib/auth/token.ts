@@ -90,6 +90,8 @@ export const fetchApiToken = async (): Promise<string> => {
         return existing
     }
 
+    logger.info("Henter nytt token")
+
     const token = getToken(headers())
     if (!token) {
         throw new Error('Mangler access token')
