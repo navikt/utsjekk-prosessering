@@ -1,4 +1,4 @@
-import { Button, HStack, Skeleton, Spacer, Table } from '@navikt/ds-react'
+import { HStack, Skeleton, Spacer, Table } from '@navikt/ds-react'
 import clsx from 'clsx'
 import {
     TableBody,
@@ -13,6 +13,7 @@ import { StatusBadge } from '@/components/StatusBadge'
 import { TaskTableRow } from '@/components/taskTable/TaskTableRow'
 import { RetryTaskButton } from '@/components/RetryTaskButton'
 import { ErrorTableRow } from '@/components/taskTable/ErrorTableRow'
+import { RetryMultipleTasksButton } from '@/components/RetryMultipleTasksButton.tsx'
 
 import styles from './TaskTable.module.css'
 
@@ -58,9 +59,9 @@ export const TaskTable: React.FC<Props> = ({
                             <HStack>
                                 <Spacer />
                                 {statusFilter?.every(isRetryable) && (
-                                    <Button size="small">
-                                        Rekjør alle ({totalTasks})
-                                    </Button>
+                                    <RetryMultipleTasksButton
+                                        numberOfTasks={totalTasks}
+                                    />
                                 )}
                             </HStack>
                         </TableHeaderCell>
