@@ -27,7 +27,7 @@ export const Filtere: React.FC<Props> = ({ className, ...rest }) => (
                 searchParamName="kind"
                 shouldAutocomplete
                 initialOptions={
-                    ['Avstemming', 'Iverksetting', 'SjekkStatus'] as const
+                    ['Avstemming', 'Iverksetting', 'SjekkStatus', 'StatusUtbetaling', 'Utbetaling'] as const
                 }
                 isMultiSelect
             />

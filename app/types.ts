@@ -4,7 +4,7 @@ type datetime = string
 
 declare type TaskStatus = 'IN_PROGRESS' | 'COMPLETE' | 'FAIL' | 'MANUAL'
 
-declare type TaskKind = 'Avstemming' | 'Iverksetting' | 'SjekkStatus' | 'StatusUtbetaling'
+declare type TaskKind = 'Avstemming' | 'Iverksetting' | 'SjekkStatus' | 'StatusUtbetaling' | 'Utbetaling'
 
 declare type Task = {
     id: string

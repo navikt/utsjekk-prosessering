@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 const taskStatusSchema = z.enum(['IN_PROGRESS', 'COMPLETE', 'FAIL', 'MANUAL'])
 
-const taskKindSchema = z.enum(['Avstemming', 'Iverksetting', 'SjekkStatus', 'StatusUtbetaling'])
+const taskKindSchema = z.enum(['Avstemming', 'Iverksetting', 'SjekkStatus', 'StatusUtbetaling', 'Utbetaling'])
 
 export const taskSchema = z.object({
     id: z.string(),
